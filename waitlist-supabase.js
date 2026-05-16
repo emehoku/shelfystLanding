@@ -10,6 +10,90 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+const COMMON_EMAIL_DOMAINS = [
+  'gmail.com',
+  'googlemail.com',
+  'hotmail.com',
+  'outlook.com',
+  'live.com',
+  'msn.com',
+  'yahoo.com',
+  'ymail.com',
+  'icloud.com',
+  'me.com',
+  'mac.com',
+  'aol.com',
+  'proton.me',
+  'protonmail.com',
+];
+
+const EMAIL_DOMAIN_SUGGESTIONS = {
+  'gamil.com': 'gmail.com',
+  'gmail.co': 'gmail.com',
+  'gmail.con': 'gmail.com',
+  'gmial.com': 'gmail.com',
+  'gnail.com': 'gmail.com',
+  'hotmai.com': 'hotmail.com',
+  'hotmial.com': 'hotmail.com',
+  'hotmasil.co': 'hotmail.com',
+  'hotmal.com': 'hotmail.com',
+  'hotmail.co': 'hotmail.com',
+  'outlok.com': 'outlook.com',
+  'outlook.co': 'outlook.com',
+  'yaho.com': 'yahoo.com',
+  'yahoo.co': 'yahoo.com',
+  'icloud.co': 'icloud.com',
+};
+
+function levenshteinDistance(a, b) {
+  const rows = Array.from({ length: a.length + 1 }, function (_, i) {
+    return [i];
+  });
+  for (let j = 1; j <= b.length; j += 1) rows[0][j] = j;
+
+  for (let i = 1; i <= a.length; i += 1) {
+    for (let j = 1; j <= b.length; j += 1) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      rows[i][j] = Math.min(
+        rows[i - 1][j] + 1,
+        rows[i][j - 1] + 1,
+        rows[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return rows[a.length][b.length];
+}
+
+function emailDomainSuggestion(email) {
+  const parts = String(email || '').toLowerCase().split('@');
+  if (parts.length !== 2) return '';
+
+  const domain = parts[1];
+  if (COMMON_EMAIL_DOMAINS.includes(domain)) return '';
+  if (EMAIL_DOMAIN_SUGGESTIONS[domain]) return EMAIL_DOMAIN_SUGGESTIONS[domain];
+
+  let bestDomain = '';
+  let bestDistance = Infinity;
+  COMMON_EMAIL_DOMAINS.forEach(function (commonDomain) {
+    const distance = levenshteinDistance(domain, commonDomain);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestDomain = commonDomain;
+    }
+  });
+
+  return bestDistance <= 2 ? bestDomain : '';
+}
+
+function emailQualityError(email) {
+  const suggestion = emailDomainSuggestion(email);
+  if (!suggestion) return '';
+
+  const localPart = String(email || '').split('@')[0] || 'you';
+  return 'Please check your email address. Did you mean ' + localPart + '@' + suggestion + '?';
+}
+
 function friendlyError(error) {
   if (!error) return 'Something went wrong. Please try again.';
   const code = error.code || '';
@@ -90,12 +174,10 @@ function initWaitlistSupabase() {
   }
 
   if (copyLinkBtn) {
-    var copyDefault =
-      (copyLinkBtn.textContent || '').trim() || 'Copy link';
-    copyLinkBtn.dataset.defaultLabel = copyDefault;
+    var copyDefaultHtml = copyLinkBtn.innerHTML;
+    var copyDefaultLabel = copyLinkBtn.getAttribute('aria-label') || 'Copy page link';
     copyLinkBtn.addEventListener('click', async function () {
       var url = getSharePageUrl();
-      var label = copyLinkBtn.dataset.defaultLabel || 'Copy link';
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           await navigator.clipboard.writeText(url);
@@ -119,10 +201,12 @@ function initWaitlistSupabase() {
         }
       }
       copyLinkBtn.classList.add('is-copied');
-      copyLinkBtn.textContent = 'Copied!';
+      copyLinkBtn.textContent = '✓';
+      copyLinkBtn.setAttribute('aria-label', 'Copied page link');
       window.setTimeout(function () {
         copyLinkBtn.classList.remove('is-copied');
-        copyLinkBtn.textContent = label;
+        copyLinkBtn.innerHTML = copyDefaultHtml;
+        copyLinkBtn.setAttribute('aria-label', copyDefaultLabel);
       }, 2200);
     });
   }
@@ -200,6 +284,11 @@ function initWaitlistSupabase() {
     }
     if (!isValidEmail(email)) {
       showMessage('Please enter a valid email address.');
+      return;
+    }
+    const emailTypoMessage = emailQualityError(email);
+    if (emailTypoMessage) {
+      showMessage(emailTypoMessage);
       return;
     }
     if (!country) {
