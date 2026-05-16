@@ -239,7 +239,7 @@
     .card-icon.verified { background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.35); overflow: hidden; display: grid; place-items: center; color: #ede9fe; }
     .card-icon.verified svg { width: 26px; height: 26px; display: block; }
     .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 0; }
-    .step { border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.22); background: var(--sf-feature-grad); padding: 28px; min-height: 220px; box-shadow: var(--sf-purple-card-shadow); transition: transform 0.28s ease, box-shadow 0.28s ease; }
+    .step { border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.22); background: var(--sf-feature-grad); padding: 24px; min-height: 190px; box-shadow: var(--sf-purple-card-shadow); transition: transform 0.28s ease, box-shadow 0.28s ease; }
     .step-num { width: 40px; height: 40px; border-radius: 14px; display: grid; place-items: center; font-weight: 900; background: rgba(255, 255, 255, 0.16); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.35); margin-bottom: 18px; }
     .step h3 { font-size: 22px; margin-bottom: 12px; color: var(--sf-on-feature); }
     .step p { color: var(--sf-on-feature-muted); }
@@ -290,7 +290,7 @@
       line-height: 1.55;
       color: var(--sf-text-muted);
     }
-    .card { border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.22); background: var(--sf-feature-grad); padding: 28px; min-height: 220px; box-shadow: var(--sf-purple-card-shadow); transition: transform 0.28s ease, box-shadow 0.28s ease; }
+    .card { border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.22); background: var(--sf-feature-grad); padding: 24px; min-height: 190px; box-shadow: var(--sf-purple-card-shadow); transition: transform 0.28s ease, box-shadow 0.28s ease; }
     .card:hover,
     .step:hover {
       box-shadow: var(--sf-purple-card-shadow-hover);
@@ -303,21 +303,67 @@
       }
     }
     .card-icon { width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center; background: rgba(255, 255, 255, 0.16); color: #ede9fe; margin-bottom: 22px; font-size: 22px; border: 1px solid rgba(255, 255, 255, 0.28); }
+    .problem-grid > .card,
+    .steps-grid > .step {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      align-content: start;
+      column-gap: 14px;
+    }
+    .problem-grid > .card .card-icon,
+    .steps-grid > .step .step-num {
+      grid-column: 1;
+      grid-row: 1;
+      margin-bottom: 0;
+    }
+    .problem-grid > .card h3,
+    .steps-grid > .step h3 {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+      margin-bottom: 0;
+    }
+    .problem-grid > .card p,
+    .steps-grid > .step p {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+    }
+    .feature-grid > .card {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      grid-template-rows: auto auto 1fr auto;
+      align-content: start;
+      column-gap: 14px;
+    }
     .feature-grid > .card .card-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 18px;
+      display: contents;
     }
     .feature-grid > .card .card-top-row .card-icon {
       margin-bottom: 0;
     }
+    .feature-grid > .card .card-icon {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .feature-grid > .card h3 {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+      margin-bottom: 0;
+    }
+    .feature-grid > .card p {
+      grid-column: 1 / -1;
+      grid-row: 2 / 4;
+      margin-top: 14px;
+    }
     .feature-grid > .card .card-phase {
+      grid-column: 1 / -1;
+      grid-row: 4;
+      justify-self: start;
       flex-shrink: 0;
-      align-self: flex-start;
+      align-self: end;
       margin: 0;
-      margin-top: 2px;
+      margin-top: 18px;
       font-size: 10px;
       font-weight: 900;
       letter-spacing: 0.14em;
