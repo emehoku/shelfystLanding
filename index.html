@@ -976,9 +976,37 @@
       border: none;
       background: #1E1B4B;
     }
+    .preview-modal.preview-modal--immersive-mobile .notch,
+    .preview-modal.preview-modal--immersive-mobile .iphone-status-bar {
+      display: none !important;
+    }
+    .preview-modal.preview-modal--immersive-mobile .demo-app-root {
+      flex: 1 1 auto;
+      min-height: 0;
+      height: 100%;
+    }
+    .preview-modal.preview-modal--immersive-mobile .desktop-main-grid,
+    .preview-modal.preview-modal--immersive-mobile .demo-app-center {
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+    .preview-modal.preview-modal--immersive-mobile .app-content {
+      padding-top: 6px;
+      padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px));
+    }
+    .preview-modal.preview-modal--immersive-mobile .app-tabbar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      height: calc(52px + env(safe-area-inset-bottom, 0px));
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      background-clip: border-box;
+    }
     .preview-modal.preview-modal--immersive-mobile .close-preview {
       position: fixed;
-      top: max(52px, calc(env(safe-area-inset-top, 0px) + 52px));
+      top: max(15px, calc(env(safe-area-inset-top, 0px) + 15px));
       left: 50%;
       right: auto;
       width: auto;
@@ -8371,7 +8399,6 @@
       -webkit-backdrop-filter: blur(14px);
       overflow: visible;
       pointer-events: auto;
-      touch-action: none;
     }
     .mobile-section-nav-btn {
       flex: 0 0 auto;
@@ -8389,7 +8416,6 @@
       font-size: 11px;
       font-weight: 900;
       cursor: pointer;
-      touch-action: none;
       transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
     }
     .mobile-section-nav-btn::before {
@@ -14217,9 +14243,6 @@
       var activeSectionId = '';
       var mobileLabelTimer = null;
       var mobileNavIdleTimer = null;
-      var mobileDragItems = [];
-      var mobileDragState = null;
-      var suppressMobileRailClick = false;
 
       if (mobileNav) {
         mobileTrack = document.createElement('div');
@@ -14255,25 +14278,6 @@
         if (history && history.replaceState) {
           try { history.replaceState(null, '', '#' + id); } catch (_) {}
         }
-      }
-
-      function jumpMobileRailAt(clientY, behaviorOverride) {
-        if (!mobileDragItems.length) return;
-        var best = null;
-        var bestDist = Infinity;
-        mobileDragItems.forEach(function (item) {
-          var rect = item.btn.getBoundingClientRect();
-          var center = rect.top + rect.height / 2;
-          var dist = Math.abs(clientY - center);
-          if (dist < bestDist) {
-            bestDist = dist;
-            best = item;
-          }
-        });
-        if (!best || best.id === activeSectionId) return;
-        showMobileSectionNav();
-        flashMobileSectionLabel();
-        jumpTo(best.target, best.id, behaviorOverride || 'auto');
       }
 
       items.forEach(function (it) {
@@ -14324,56 +14328,12 @@
 
           mobileTrack.appendChild(mobileBtn);
           mobileByTarget[it.id] = mobileBtn;
-          mobileDragItems.push({ id: it.id, target: target, btn: mobileBtn });
         }
 
         targets.push(target);
       });
 
       if (targets.length === 0) return;
-
-      if (mobileTrack && window.PointerEvent) {
-        mobileTrack.addEventListener('click', function (e) {
-          if (!suppressMobileRailClick) return;
-          e.preventDefault();
-          e.stopImmediatePropagation();
-        }, true);
-
-        mobileTrack.addEventListener('pointerdown', function (e) {
-          if (e.pointerType === 'mouse' && e.button !== 0) return;
-          mobileDragState = {
-            id: e.pointerId,
-            startY: e.clientY,
-            moved: false
-          };
-          showMobileSectionNav();
-          flashMobileSectionLabel();
-          try { mobileTrack.setPointerCapture(e.pointerId); } catch (_) {}
-        });
-
-        mobileTrack.addEventListener('pointermove', function (e) {
-          if (!mobileDragState || mobileDragState.id !== e.pointerId) return;
-          if (Math.abs(e.clientY - mobileDragState.startY) > 4) mobileDragState.moved = true;
-          if (!mobileDragState.moved) return;
-          e.preventDefault();
-          jumpMobileRailAt(e.clientY, 'auto');
-        });
-
-        function endMobileRailDrag(e) {
-          if (!mobileDragState || mobileDragState.id !== e.pointerId) return;
-          var moved = mobileDragState.moved;
-          mobileDragState = null;
-          try { mobileTrack.releasePointerCapture(e.pointerId); } catch (_) {}
-          if (!moved) return;
-          suppressMobileRailClick = true;
-          window.setTimeout(function () {
-            suppressMobileRailClick = false;
-          }, 250);
-        }
-
-        mobileTrack.addEventListener('pointerup', endMobileRailDrag);
-        mobileTrack.addEventListener('pointercancel', endMobileRailDrag);
-      }
 
       requestAnimationFrame(function () {
         if (rail) rail.classList.add('is-ready');
