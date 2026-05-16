@@ -891,6 +891,50 @@
       margin-top: 0;
       margin-bottom: 0;
     }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-controls {
+      position: fixed;
+      top: max(62px, calc(env(safe-area-inset-top, 0px) + 62px));
+      right: max(14px, env(safe-area-inset-right, 0px));
+      z-index: 120;
+      width: 100px;
+      max-width: 100px;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transform: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-controls .demo-toggle-field--layout,
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-controls .preview-desktop-immersive-field {
+      display: none !important;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-controls .demo-toggle-track-wrap {
+      flex-direction: row;
+      gap: 6px;
+      width: 100%;
+      justify-content: flex-end;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-controls .demo-toggle-cap {
+      min-width: 0;
+      font-size: 10px;
+      line-height: 1;
+      text-align: center;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-controls .demo-toggle-cap:first-of-type,
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-controls .demo-toggle-cap:last-of-type {
+      text-align: center;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .demo-browser-chrome {
+      display: none !important;
+    }
     .preview-modal.preview-modal--immersive-desktop .preview-shell {
       width: 100%;
       max-width: none;
@@ -944,6 +988,9 @@
       align-self: stretch;
       box-sizing: border-box;
       overflow: hidden;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
     }
     .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .iphone-screen {
       flex: 1 1 auto;
@@ -952,6 +999,8 @@
       min-height: 0;
       height: auto;
       overflow: hidden;
+      border-radius: 0;
+      border: none;
     }
     .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .demo-app-root {
       flex: 1 1 auto;
@@ -2159,7 +2208,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       display: block;
     }
     .feed-post-media.glow-warm {
@@ -2216,7 +2265,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       display: block;
     }
     .discover-ig-featured-tag {
@@ -2332,7 +2381,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       display: block;
       -webkit-user-drag: none;
       user-select: none;
@@ -2817,6 +2866,11 @@
       margin-left: 0;
       width: 100%;
       max-width: none;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .preview-demo-controls {
+      justify-content: flex-end;
+      width: 100px;
+      max-width: 100px;
     }
     .preview-demo-host.is-desktop .iphone {
       width: min(920px, 100%);
@@ -5282,7 +5336,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       display: block;
     }
     /* Fixed two-line title slot so member counts line up across cards in each row */
@@ -7415,7 +7469,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       display: block;
     }
     .feed-post-detail-carousel-btn {
@@ -7813,7 +7867,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       display: block;
     }
     .feed-mobile-expand-carousel-btn {
@@ -8346,7 +8400,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: top;
       display: block;
       pointer-events: none;
     }
