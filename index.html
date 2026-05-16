@@ -581,6 +581,9 @@
     .roadmap-phase-ribbon span:last-child::before {
       background: linear-gradient(90deg, rgba(91, 33, 182, 0.15), rgba(92, 58, 194, 0.45));
     }
+    .roadmap-mobile-phase-divider {
+      display: none;
+    }
     .roadmap-canvas {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -739,20 +742,21 @@
       .roadmap-canvas {
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 24px;
         max-width: none;
       }
       .roadmap-ms--b1 { order: 1; }
       .roadmap-ms--t1 { order: 2; }
       .roadmap-ms--b2 { order: 3; }
-      .roadmap-ms--t2 { order: 4; }
-      .roadmap-ms--b3 { order: 5; }
+      .roadmap-mobile-phase-divider { order: 4; }
+      .roadmap-ms--t2 { order: 5; }
+      .roadmap-ms--b3 { order: 6; }
       .roadmap-ms {
         display: grid;
         grid-template-columns: 52px 1fr;
         gap: 0 14px;
         align-items: start;
-        padding: 18px 16px 20px 18px;
+        padding: 24px 20px 26px;
         border-radius: 20px;
         margin-bottom: 0;
         border-left: none;
@@ -760,8 +764,14 @@
       }
       .roadmap-ms-num {
         grid-row: 1 / span 3;
-        font-size: 36px;
+        font-size: 40px;
         margin-bottom: 0;
+      }
+      .roadmap-ms-title {
+        margin-bottom: 10px;
+      }
+      .roadmap-ms-desc {
+        font-size: 14px;
       }
       .roadmap-ms-kicker { grid-column: 2; }
       .roadmap-ms-title { grid-column: 2; }
@@ -773,9 +783,10 @@
         left: 25px;
         top: 100%;
         width: 2px;
-        height: 20px;
+        height: 28px;
         background: linear-gradient(180deg, rgba(92, 58, 194, 0.65), rgba(92, 58, 194, 0.08));
       }
+      .roadmap-ms--b2::before,
       .roadmap-ms--b3::before {
         display: none;
       }
@@ -783,7 +794,34 @@
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(92, 58, 194, 0.12));
       }
       .roadmap-svg-wrap { display: none; }
-      .roadmap-phase-ribbon { margin-bottom: 22px; }
+      .roadmap-phase-ribbon {
+        justify-content: flex-start;
+        margin-bottom: 22px;
+      }
+      .roadmap-phase-ribbon span:last-child {
+        display: none;
+      }
+      .roadmap-mobile-phase-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 8px 0 -2px;
+        padding: 0 10px;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        line-height: 1.2;
+        text-transform: uppercase;
+        color: rgba(91, 33, 182, 0.68);
+      }
+      .roadmap-mobile-phase-divider::before {
+        content: "";
+        width: 46px;
+        height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, rgba(91, 33, 182, 0.12), rgba(92, 58, 194, 0.52));
+        flex-shrink: 0;
+      }
     }
 
     /* Interactive App Preview Modal — reset marketing light tokens for modal chrome + copy */
@@ -8855,6 +8893,7 @@
                 <h3 class="roadmap-ms-title">First public release</h3>
                 <p class="roadmap-ms-desc">Target <span class="roadmap-ms-highlight">August 2026</span> — verification path, messaging, and marketplace open by wave.</p>
               </article>
+              <div class="roadmap-mobile-phase-divider" aria-hidden="true">Phase 2 — post-launch</div>
               <article class="roadmap-ms roadmap-ms--bottom roadmap-ms--b3 roadmap-ms--p2">
                 <span class="roadmap-ms-anchor" aria-hidden="true"></span>
                 <div class="roadmap-ms-num">05</div>
