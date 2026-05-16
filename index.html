@@ -905,16 +905,18 @@
       align-items: stretch;
       justify-content: stretch;
       overflow: hidden;
+      height: 100dvh;
+      min-height: 100dvh;
       max-height: 100dvh;
-      background: #000;
+      background: #1E1B4B;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
     .preview-modal.preview-modal--immersive-mobile .preview-shell {
       width: 100%;
       max-width: none;
-      height: 100%;
-      max-height: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
       min-height: 0;
       margin: 0;
       align-self: stretch;
@@ -926,7 +928,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      background: #000;
+      background: #1E1B4B;
     }
     .preview-modal.preview-modal--immersive-mobile .preview-copy,
     .preview-modal.preview-modal--immersive-mobile .preview-demo-controls {
@@ -954,11 +956,11 @@
     .preview-modal.preview-modal--immersive-mobile .iphone {
       width: 100%;
       max-width: none;
-      height: 100%;
+      height: 100dvh;
       border-radius: 0;
       border: none;
       padding: 0;
-      background: #000;
+      background: #1E1B4B;
       box-shadow: none;
       flex: 1 1 auto;
       display: flex;
@@ -968,10 +970,11 @@
     }
     .preview-modal.preview-modal--immersive-mobile .iphone-screen {
       flex: 1 1 auto;
-      height: auto;
+      height: 100%;
       min-height: 0;
       border-radius: 0;
       border: none;
+      background: #1E1B4B;
     }
     .preview-modal.preview-modal--immersive-mobile .close-preview {
       position: fixed;
@@ -8368,6 +8371,7 @@
       -webkit-backdrop-filter: blur(14px);
       overflow: visible;
       pointer-events: auto;
+      touch-action: none;
     }
     .mobile-section-nav-btn {
       flex: 0 0 auto;
@@ -8385,6 +8389,7 @@
       font-size: 11px;
       font-weight: 900;
       cursor: pointer;
+      touch-action: none;
       transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
     }
     .mobile-section-nav-btn::before {
@@ -8556,8 +8561,7 @@
       }
       .preview-shell .preview-copy .preview-pills {
         order: 3;
-        margin-top: 0;
-        justify-content: center;
+        display: none;
       }
       .preview-shell .preview-copy .hero-actions {
         order: 4;
@@ -8577,8 +8581,8 @@
       }
       .iphone { width: min(360px, 100%); justify-self: center; }
       .preview-modal:not(.preview-modal--immersive-mobile) .preview-demo-host:not(.is-desktop) .iphone {
-        height: min(720px, calc(100svh - 178px));
-        max-height: min(720px, calc(100svh - 178px));
+        height: min(700px, calc(100svh - 216px));
+        max-height: min(700px, calc(100svh - 216px));
       }
       .preview-demo-host.is-desktop .iphone { height: 720px; }
 
@@ -14213,6 +14217,9 @@
       var activeSectionId = '';
       var mobileLabelTimer = null;
       var mobileNavIdleTimer = null;
+      var mobileDragItems = [];
+      var mobileDragState = null;
+      var suppressMobileRailClick = false;
 
       if (mobileNav) {
         mobileTrack = document.createElement('div');
@@ -14241,12 +14248,32 @@
         }, 1500);
       }
 
-      function jumpTo(target, id) {
+      function jumpTo(target, id, behaviorOverride) {
         var top = target.getBoundingClientRect().top + window.pageYOffset - navOffset();
-        window.scrollTo({ top: Math.max(0, top), behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        var behavior = behaviorOverride || (prefersReducedMotion ? 'auto' : 'smooth');
+        window.scrollTo({ top: Math.max(0, top), behavior: behavior });
         if (history && history.replaceState) {
           try { history.replaceState(null, '', '#' + id); } catch (_) {}
         }
+      }
+
+      function jumpMobileRailAt(clientY, behaviorOverride) {
+        if (!mobileDragItems.length) return;
+        var best = null;
+        var bestDist = Infinity;
+        mobileDragItems.forEach(function (item) {
+          var rect = item.btn.getBoundingClientRect();
+          var center = rect.top + rect.height / 2;
+          var dist = Math.abs(clientY - center);
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = item;
+          }
+        });
+        if (!best || best.id === activeSectionId) return;
+        showMobileSectionNav();
+        flashMobileSectionLabel();
+        jumpTo(best.target, best.id, behaviorOverride || 'auto');
       }
 
       items.forEach(function (it) {
@@ -14297,12 +14324,56 @@
 
           mobileTrack.appendChild(mobileBtn);
           mobileByTarget[it.id] = mobileBtn;
+          mobileDragItems.push({ id: it.id, target: target, btn: mobileBtn });
         }
 
         targets.push(target);
       });
 
       if (targets.length === 0) return;
+
+      if (mobileTrack && window.PointerEvent) {
+        mobileTrack.addEventListener('click', function (e) {
+          if (!suppressMobileRailClick) return;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }, true);
+
+        mobileTrack.addEventListener('pointerdown', function (e) {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          mobileDragState = {
+            id: e.pointerId,
+            startY: e.clientY,
+            moved: false
+          };
+          showMobileSectionNav();
+          flashMobileSectionLabel();
+          try { mobileTrack.setPointerCapture(e.pointerId); } catch (_) {}
+        });
+
+        mobileTrack.addEventListener('pointermove', function (e) {
+          if (!mobileDragState || mobileDragState.id !== e.pointerId) return;
+          if (Math.abs(e.clientY - mobileDragState.startY) > 4) mobileDragState.moved = true;
+          if (!mobileDragState.moved) return;
+          e.preventDefault();
+          jumpMobileRailAt(e.clientY, 'auto');
+        });
+
+        function endMobileRailDrag(e) {
+          if (!mobileDragState || mobileDragState.id !== e.pointerId) return;
+          var moved = mobileDragState.moved;
+          mobileDragState = null;
+          try { mobileTrack.releasePointerCapture(e.pointerId); } catch (_) {}
+          if (!moved) return;
+          suppressMobileRailClick = true;
+          window.setTimeout(function () {
+            suppressMobileRailClick = false;
+          }, 250);
+        }
+
+        mobileTrack.addEventListener('pointerup', endMobileRailDrag);
+        mobileTrack.addEventListener('pointercancel', endMobileRailDrag);
+      }
 
       requestAnimationFrame(function () {
         if (rail) rail.classList.add('is-ready');
