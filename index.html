@@ -1104,7 +1104,7 @@
     }
     .preview-modal.preview-modal--immersive-mobile .app-content {
       padding-top: 6px;
-      padding-bottom: 58px;
+      padding-bottom: calc(58px + max(16px, env(safe-area-inset-bottom, 0px)));
     }
     .preview-modal.preview-modal--immersive-mobile .app-tabbar {
       position: absolute;
@@ -1112,8 +1112,8 @@
       right: 0;
       bottom: 0;
       z-index: 30;
-      height: 52px;
-      padding-bottom: 0;
+      height: calc(52px + max(16px, env(safe-area-inset-bottom, 0px)));
+      padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
       background-clip: border-box;
     }
     .preview-modal.preview-modal--immersive-mobile .close-preview {
