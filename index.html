@@ -860,6 +860,8 @@
       --sf-bg: #1e1b4b;
       --sf-border: rgba(199, 210, 254, 0.22);
       --sf-border-soft: rgba(199, 210, 254, 0.14);
+      --preview-modal-pad-top: max(20px, env(safe-area-inset-top, 0px));
+      --preview-modal-pad-bottom: 16px;
       position: fixed;
       inset: 0;
       z-index: 100;
@@ -867,7 +869,8 @@
       align-items: flex-start;
       justify-content: center;
       padding: 24px;
-      padding-top: max(80px, env(safe-area-inset-top, 0px));
+      padding-top: var(--preview-modal-pad-top);
+      padding-bottom: var(--preview-modal-pad-bottom);
       overflow-x: hidden;
       overflow-y: auto;
       background: rgba(15, 12, 48, 0.88);
@@ -1197,10 +1200,10 @@
       visibility: hidden;
       pointer-events: none;
     }
-    .preview-shell { position: relative; width: min(1500px, 100%); min-height: min(680px, calc(100vh - 48px)); max-height: calc(100vh - 48px); border-radius: 28px; border: 1px solid rgba(199, 210, 254, 0.18); background: radial-gradient(circle at 70% 18%, rgba(92,58,194,0.14), transparent 32%), #1E1B4B; box-shadow: 0 40px 100px rgba(0,0,0,0.45); display: grid; grid-template-columns: minmax(280px, 1fr) minmax(360px, 960px); gap: 38px; padding: 42px; overflow-x: hidden; overflow-y: auto; transition: gap 0.4s ease; }
+    .preview-shell { position: relative; width: min(1500px, 100%); min-height: min(680px, calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom))); max-height: calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom)); border-radius: 28px; border: 1px solid rgba(199, 210, 254, 0.18); background: radial-gradient(circle at 70% 18%, rgba(92,58,194,0.14), transparent 32%), #1E1B4B; box-shadow: 0 40px 100px rgba(0,0,0,0.45); display: grid; grid-template-columns: minmax(280px, 1fr) minmax(360px, 600px); grid-template-rows: minmax(0, 1fr); align-items: stretch; gap: 38px; padding: 42px; overflow: hidden; transition: gap 0.4s ease; }
     .preview-modal.active .preview-shell {
       align-self: flex-start;
-      margin-bottom: 28px;
+      margin-bottom: 0;
     }
     .close-preview { position: absolute; right: 22px; top: 20px; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: #fff; border-radius: 50%; font-size: 22px; cursor: pointer; z-index: 2; }
     .preview-copy {
@@ -1254,15 +1257,19 @@
     .preview-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
     .preview-pill { border: 1px solid var(--sf-border-soft); background: rgba(49, 46, 129, 0.45); color: var(--sf-text-muted); border-radius: 999px; padding: 10px 14px; font-size: 13px; }
 
-    .preview-demo-host { margin-top: 50px; display: flex; flex-direction: column; align-items: stretch; gap: 12px; width: 100%; max-width: 960px; justify-self: end; }
+    .preview-demo-host { margin-top: 0; display: flex; flex-direction: column; align-items: stretch; gap: 12px; width: 100%; max-width: 960px; min-height: 0; height: 100%; max-height: 100%; overflow: hidden; justify-self: end; align-self: stretch; }
     /* Stack mock URL bar + device with no gap (parent `gap` would otherwise sit between them). */
     .preview-browser-device-stack {
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       align-items: stretch;
       gap: 0;
       width: 100%;
       min-width: 0;
+      min-height: 0;
+      max-height: 100%;
+      overflow: hidden;
     }
 
     /* Interactive demo — Shelfyst dark (indigo) */
@@ -1630,8 +1637,9 @@
     .iphone { width: 370px; height: 760px; border-radius: 48px; padding: 12px; background: linear-gradient(145deg, #2e2e30 0%, #141414 42%, #050505 100%); border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.05), 0 30px 80px rgba(0, 0, 0, 0.55); align-self: center; transition: width 0.25s ease, height 0.25s ease, border-radius 0.25s ease, padding 0.25s ease; }
     /* Fit the mock device inside short viewports (dev tools, split screen) so chrome + tab bar stay visible without scrolling the marketing page past the bezel. Not applied in fullscreen immersive — there the frame intentionally fills the modal. */
     .preview-modal:not(.preview-modal--immersive-mobile) .preview-demo-host:not(.is-desktop) .iphone {
-      height: min(760px, calc(100svh - 140px));
-      max-height: min(760px, calc(100svh - 140px));
+      width: min(100%, clamp(220px, calc(48.7dvh - 64px), 370px));
+      height: min(760px, calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom) - 132px));
+      max-height: 100%;
     }
     /* Freeze layout/size tweens during FLIP; inline `transition` animates transform (must not use `!important` or it kills that inline animation). */
     .preview-demo-host.is-flipping-preview-layout .iphone {
@@ -2874,7 +2882,9 @@
     }
     .preview-demo-host.is-desktop .iphone {
       width: min(920px, 100%);
-      height: 760px;
+      height: min(760px, calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom) - 140px));
+      max-height: 100%;
+      min-height: 0;
       border-radius: 0 0 16px 16px;
       padding: 0;
       border-top: none;
@@ -8777,8 +8787,9 @@
       }
       .iphone { width: min(360px, 100%); justify-self: center; }
       .preview-modal:not(.preview-modal--immersive-mobile) .preview-demo-host:not(.is-desktop) .iphone {
-        height: min(700px, calc(100svh - 216px));
-        max-height: min(700px, calc(100svh - 216px));
+        width: min(100%, clamp(220px, calc(48.7svh - 88px), 360px));
+        height: min(700px, calc(100svh - 196px));
+        max-height: min(700px, calc(100svh - 196px));
       }
       .preview-demo-host.is-desktop .iphone { height: 720px; }
 
