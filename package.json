@@ -1,0 +1,14 @@
+{
+  "name": "shelfyst-mockup",
+  "private": true,
+  "description": "Marketing landing mockup — Supabase client loaded via CDN in waitlist-supabase.js",
+  "scripts": {
+    "serve": "serve . -l 3000"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.49.4"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
