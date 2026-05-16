@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Shelfyst — The social home for collectors</title>
   <meta name="description" content="Shelfyst is the social-first home for collectors — show your shelves, discover rare finds, and connect with collectors who get it." />
   <meta name="theme-color" content="#f4f0ff" />
@@ -905,9 +905,9 @@
       align-items: stretch;
       justify-content: stretch;
       overflow: hidden;
-      height: 100dvh;
-      min-height: 100dvh;
-      max-height: 100dvh;
+      height: var(--preview-mobile-vh, 100svh);
+      min-height: var(--preview-mobile-vh, 100svh);
+      max-height: var(--preview-mobile-vh, 100svh);
       background: #1E1B4B;
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
@@ -915,8 +915,8 @@
     .preview-modal.preview-modal--immersive-mobile .preview-shell {
       width: 100%;
       max-width: none;
-      height: 100dvh;
-      max-height: 100dvh;
+      height: var(--preview-mobile-vh, 100svh);
+      max-height: var(--preview-mobile-vh, 100svh);
       min-height: 0;
       margin: 0;
       align-self: stretch;
@@ -956,7 +956,7 @@
     .preview-modal.preview-modal--immersive-mobile .iphone {
       width: 100%;
       max-width: none;
-      height: 100dvh;
+      height: var(--preview-mobile-vh, 100svh);
       border-radius: 0;
       border: none;
       padding: 0;
@@ -992,7 +992,7 @@
     }
     .preview-modal.preview-modal--immersive-mobile .app-content {
       padding-top: 6px;
-      padding-bottom: calc(58px + max(34px, env(safe-area-inset-bottom, 0px)));
+      padding-bottom: 58px;
     }
     .preview-modal.preview-modal--immersive-mobile .app-tabbar {
       position: absolute;
@@ -1000,8 +1000,8 @@
       right: 0;
       bottom: 0;
       z-index: 30;
-      height: calc(52px + max(34px, env(safe-area-inset-bottom, 0px)));
-      padding-bottom: max(34px, env(safe-area-inset-bottom, 0px));
+      height: 52px;
+      padding-bottom: 0;
       background-clip: border-box;
     }
     .preview-modal.preview-modal--immersive-mobile .close-preview {
@@ -10858,6 +10858,14 @@
         : 'Expand phone preview to fill the screen';
     }
 
+    function syncPreviewMobileViewportHeight() {
+      var viewportHeight = window.visualViewport && window.visualViewport.height
+        ? window.visualViewport.height
+        : window.innerHeight;
+      if (!viewportHeight) return;
+      document.documentElement.style.setProperty('--preview-mobile-vh', Math.round(viewportHeight) + 'px');
+    }
+
     function exitDesktopImmersive() {
       if (!previewModal) return;
       previewModal.classList.remove('preview-modal--immersive-desktop');
@@ -10878,6 +10886,7 @@
       var on = !previewModal.classList.contains(modeClass);
       previewModal.classList.remove('preview-modal--immersive-desktop');
       previewModal.classList.remove('preview-modal--immersive-mobile');
+      if (on && !isDesktopHost) syncPreviewMobileViewportHeight();
       if (on) previewModal.classList.add(modeClass);
       var immersiveBtn = document.getElementById('previewDesktopImmersiveBtn');
       if (immersiveBtn) {
@@ -10887,6 +10896,7 @@
       }
       if (on && previewShell) previewShell.scrollTop = 0;
       updateDemoMarketFocus();
+      if (on && !isDesktopHost) requestAnimationFrame(syncPreviewMobileViewportHeight);
       requestAnimationFrame(syncCompactDesktopPreview);
       requestAnimationFrame(function () {
         var ov = document.getElementById('discoverPostOverlay');
@@ -13538,6 +13548,23 @@
     }
 
     window.addEventListener('resize', clampDemoDeviceToViewport);
+    window.addEventListener('resize', function () {
+      if (previewModal && previewModal.classList.contains('preview-modal--immersive-mobile')) {
+        syncPreviewMobileViewportHeight();
+      }
+    });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function () {
+        if (previewModal && previewModal.classList.contains('preview-modal--immersive-mobile')) {
+          syncPreviewMobileViewportHeight();
+        }
+      });
+      window.visualViewport.addEventListener('scroll', function () {
+        if (previewModal && previewModal.classList.contains('preview-modal--immersive-mobile')) {
+          syncPreviewMobileViewportHeight();
+        }
+      });
+    }
     window.addEventListener('resize', function () {
       var ov = document.getElementById('discoverPostOverlay');
       if (!ov || !ov.classList.contains('is-active')) return;
