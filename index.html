@@ -8058,6 +8058,10 @@
     .feed-mobile-comments-compose-input::placeholder {
       color: #7a7a7a;
     }
+    .feed-mobile-comments-compose-input:disabled {
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
     .preview-demo-host.demo-theme-light:not(.is-desktop) .feed-mobile-comments-compose-input {
       background: #fff;
       border-color: rgba(0, 0, 0, 0.12);
@@ -8075,6 +8079,11 @@
       background: linear-gradient(135deg, #5c3ac2, #7c5ce0);
       color: #fff;
       -webkit-tap-highlight-color: transparent;
+    }
+    .feed-mobile-comments-compose-submit:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      filter: grayscale(0.2);
     }
 
     /* Phone preview: listing message sheet (bottom slide, like feed comments). */
@@ -10187,10 +10196,11 @@
                   class="feed-mobile-comments-compose-input"
                   rows="2"
                   maxlength="2000"
-                  placeholder="Write a comment…"
-                  aria-label="Write a new comment"
+                  placeholder="Comments are view-only in phone preview"
+                  aria-label="Comments are view-only in phone preview"
+                  disabled
                 ></textarea>
-                <button type="button" class="feed-mobile-comments-compose-submit" id="feedMobileComposeSubmit">Post</button>
+                <button type="button" class="feed-mobile-comments-compose-submit" id="feedMobileComposeSubmit" disabled>Post</button>
               </div>
             </div>
           </div>
@@ -13174,6 +13184,10 @@
 
     function submitFeedMobileComment() {
       if (!feedMobileComposeInputEl) return;
+      if (feedMobileComposeInputEl.disabled) {
+        showToast('Comments are view-only in phone preview');
+        return;
+      }
       var text = String(feedMobileComposeInputEl.value || '').trim();
       if (!text) {
         showToast('Write a comment first');
