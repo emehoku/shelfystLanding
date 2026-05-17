@@ -47,19 +47,22 @@ async function trackWebsiteVisit() {
   const supabase = getSupabaseClient();
   if (!supabase) return;
 
-  const sessionKey = 'shelfyst_visit_session_id';
-  const trackedKey = 'shelfyst_visit_tracked';
+  const visitorKey = 'shelfyst_visitor_id';
+  const trackedDateKey = 'shelfyst_visit_tracked_date';
+  const todayKey = new Date().toISOString().slice(0, 10);
   let sessionId = '';
+  let canRetryInStorage = false;
 
   try {
-    sessionId = window.sessionStorage.getItem(sessionKey) || '';
+    sessionId = window.localStorage.getItem(visitorKey) || '';
     if (!sessionId) {
       sessionId = createSessionId();
-      window.sessionStorage.setItem(sessionKey, sessionId);
+      window.localStorage.setItem(visitorKey, sessionId);
     }
 
-    if (window.sessionStorage.getItem(trackedKey) === '1') return;
-    window.sessionStorage.setItem(trackedKey, '1');
+    if (window.localStorage.getItem(trackedDateKey) === todayKey) return;
+    window.localStorage.setItem(trackedDateKey, todayKey);
+    canRetryInStorage = true;
   } catch (_) {
     sessionId = createSessionId();
   }
@@ -74,15 +77,19 @@ async function trackWebsiteVisit() {
     });
 
     if (result && result.error) {
-      try {
-        window.sessionStorage.removeItem(trackedKey);
-      } catch (_) {}
+      if (canRetryInStorage) {
+        try {
+          window.localStorage.removeItem(trackedDateKey);
+        } catch (_) {}
+      }
       console.warn('Shelfyst visit tracking failed:', result.error.message);
     }
   } catch (err) {
-    try {
-      window.sessionStorage.removeItem(trackedKey);
-    } catch (_) {}
+    if (canRetryInStorage) {
+      try {
+        window.localStorage.removeItem(trackedDateKey);
+      } catch (_) {}
+    }
     console.warn('Shelfyst visit tracking failed:', err);
   }
 }
