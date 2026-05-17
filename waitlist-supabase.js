@@ -2,8 +2,90 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from './supabase-config.js';
 
 const TABLE = 'early_access_users';
+const VISITS_TABLE = 'website_visits';
 const SOURCE_LANDING = 'landing_page';
 const MIN_SUBMIT_MS = 750;
+let supabaseClient = null;
+
+function getSupabaseClient() {
+  if (
+    !SUPABASE_URL ||
+    !SUPABASE_ANON_KEY ||
+    SUPABASE_ANON_KEY.includes('YOUR_ANON')
+  ) {
+    return null;
+  }
+
+  if (!supabaseClient) {
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+        detectSessionInUrl: false,
+      },
+    });
+  }
+
+  return supabaseClient;
+}
+
+function createSessionId() {
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+    return window.crypto.randomUUID();
+  }
+
+  return (
+    Date.now().toString(36) +
+    '-' +
+    Math.random().toString(36).slice(2, 12)
+  );
+}
+
+async function trackWebsiteVisit() {
+  if (window.location.protocol === 'file:') return;
+
+  const supabase = getSupabaseClient();
+  if (!supabase) return;
+
+  const sessionKey = 'shelfyst_visit_session_id';
+  const trackedKey = 'shelfyst_visit_tracked';
+  let sessionId = '';
+
+  try {
+    sessionId = window.sessionStorage.getItem(sessionKey) || '';
+    if (!sessionId) {
+      sessionId = createSessionId();
+      window.sessionStorage.setItem(sessionKey, sessionId);
+    }
+
+    if (window.sessionStorage.getItem(trackedKey) === '1') return;
+    window.sessionStorage.setItem(trackedKey, '1');
+  } catch (_) {
+    sessionId = createSessionId();
+  }
+
+  try {
+    const result = await supabase.from(VISITS_TABLE).insert({
+      session_id: sessionId,
+      path: window.location.pathname + window.location.search,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent || null,
+      source: SOURCE_LANDING,
+    });
+
+    if (result && result.error) {
+      try {
+        window.sessionStorage.removeItem(trackedKey);
+      } catch (_) {}
+      console.warn('Shelfyst visit tracking failed:', result.error.message);
+    }
+  } catch (err) {
+    try {
+      window.sessionStorage.removeItem(trackedKey);
+    } catch (_) {}
+    console.warn('Shelfyst visit tracking failed:', err);
+  }
+}
 
 function isValidEmail(value) {
   if (!value) return false;
@@ -227,13 +309,8 @@ function initWaitlistSupabase() {
     return;
   }
 
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-      detectSessionInUrl: false,
-    },
-  });
+  const supabase = getSupabaseClient();
+  if (!supabase) return;
 
   const submitBtn = waitlistForm.querySelector('button[type="submit"]');
   const submitLabelEl = waitlistForm.querySelector('.waitlist-submit-label');
@@ -350,7 +427,11 @@ function initWaitlistSupabase() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initWaitlistSupabase);
+  document.addEventListener('DOMContentLoaded', function () {
+    initWaitlistSupabase();
+    trackWebsiteVisit();
+  });
 } else {
   initWaitlistSupabase();
+  trackWebsiteVisit();
 }
