@@ -8565,25 +8565,45 @@
       flex-shrink: 0;
       width: 36px;
       height: 36px;
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.06);
-      color: #ececec;
+      border-radius: 10px;
+      border: 1px solid rgba(167, 139, 250, 0.65);
+      background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
       cursor: pointer;
       display: grid;
       place-items: center;
       padding: 0;
       margin-left: auto;
-      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.12) inset,
+        0 1px 2px rgba(0, 0, 0, 0.2),
+        0 4px 12px rgba(109, 40, 217, 0.35);
+      transition:
+        transform 0.14s ease,
+        box-shadow 0.14s ease,
+        background 0.14s ease,
+        border-color 0.14s ease,
+        color 0.14s ease;
       -webkit-tap-highlight-color: transparent;
     }
     .listing-seller-txn-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-      color: var(--gold, #e8b415);
+      background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+      border-color: rgba(196, 181, 253, 0.85);
+      color: #fff;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.16) inset,
+        0 2px 6px rgba(0, 0, 0, 0.22),
+        0 6px 16px rgba(109, 40, 217, 0.42);
+      transform: translateY(-1px);
+    }
+    .listing-seller-txn-btn:active {
+      transform: translateY(0);
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.25) inset,
+        0 1px 3px rgba(109, 40, 217, 0.3);
     }
     .listing-seller-txn-btn:focus-visible {
-      outline: 2px solid var(--gold);
+      outline: 2px solid #c4b5fd;
       outline-offset: 2px;
     }
     .listing-seller-txn-btn svg {
@@ -8669,14 +8689,19 @@
     .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-list::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, 0.14);
     }
-    .preview-demo-host.is-desktop.demo-theme-light .listing-seller-txn-btn {
-      border-color: rgba(0, 0, 0, 0.12);
-      background: #fff;
-      color: #444;
+    .preview-demo-host.demo-theme-light .listing-seller-txn-btn {
+      border-color: #5b21b6;
+      background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.14) inset,
+        0 2px 4px rgba(109, 40, 217, 0.2),
+        0 4px 12px rgba(109, 40, 217, 0.28);
     }
-    .preview-demo-host.is-desktop.demo-theme-light .listing-seller-txn-btn:hover {
-      background: #f8f8fa;
-      color: var(--gold, #b18a14);
+    .preview-demo-host.demo-theme-light .listing-seller-txn-btn:hover {
+      background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+      border-color: #6d28d9;
+      color: #fff;
     }
     .listing-detail-modal-layout {
       flex: 1;
@@ -8844,47 +8869,80 @@
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(139, 92, 246, 0.45);
-      background: rgba(139, 92, 246, 0.14);
-      color: #ddd6fe;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      justify-content: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 7px 12px 7px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(167, 139, 250, 0.65);
+      background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: none;
       cursor: pointer;
       font-family: inherit;
-      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.12) inset,
+        0 1px 2px rgba(0, 0, 0, 0.2),
+        0 4px 14px rgba(109, 40, 217, 0.38);
+      transition:
+        transform 0.14s ease,
+        box-shadow 0.14s ease,
+        background 0.14s ease,
+        border-color 0.14s ease;
       -webkit-tap-highlight-color: transparent;
     }
     .listing-insights-intel-pill:hover {
-      background: rgba(139, 92, 246, 0.22);
-      border-color: rgba(167, 139, 250, 0.55);
-      color: #ede9fe;
+      background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+      border-color: rgba(196, 181, 253, 0.85);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.16) inset,
+        0 2px 6px rgba(0, 0, 0, 0.22),
+        0 6px 18px rgba(109, 40, 217, 0.45);
+      transform: translateY(-1px);
+    }
+    .listing-insights-intel-pill:active {
+      transform: translateY(0);
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.25) inset,
+        0 1px 3px rgba(109, 40, 217, 0.3);
     }
     .listing-insights-intel-pill:focus-visible {
-      outline: 2px solid #a78bfa;
+      outline: 2px solid #c4b5fd;
       outline-offset: 2px;
     }
     .listing-insights-intel-pill svg {
-      width: 12px;
-      height: 12px;
+      width: 13px;
+      height: 13px;
       stroke: currentColor;
       stroke-width: 2;
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .listing-insights-intel-pill-chevron {
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0.92;
+      margin-left: -2px;
     }
     .preview-demo-host.is-desktop.demo-theme-light .listing-detail-rail--right .listing-insights-intel-pill {
-      border-color: rgba(109, 40, 217, 0.35);
-      background: rgba(109, 40, 217, 0.1);
-      color: #5b21b6;
+      border-color: #5b21b6;
+      background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.14) inset,
+        0 2px 4px rgba(109, 40, 217, 0.2),
+        0 4px 12px rgba(109, 40, 217, 0.28);
     }
     .preview-demo-host.is-desktop.demo-theme-light .listing-detail-rail--right .listing-insights-intel-pill:hover {
-      background: rgba(109, 40, 217, 0.16);
-      color: #4c1d95;
+      background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+      border-color: #6d28d9;
+      color: #fff;
     }
     .listing-mobile-insights {
       padding: 4px 16px 14px;
@@ -8905,14 +8963,19 @@
     }
     .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-intel-pill,
     .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-intel-pill {
-      border-color: rgba(109, 40, 217, 0.38);
-      background: rgba(109, 40, 217, 0.12);
-      color: #5b21b6;
+      border-color: #5b21b6;
+      background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+      color: #fff;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.14) inset,
+        0 2px 4px rgba(109, 40, 217, 0.2),
+        0 4px 12px rgba(109, 40, 217, 0.28);
     }
     .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-intel-pill:hover,
     .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-intel-pill:hover {
-      background: rgba(109, 40, 217, 0.18);
-      color: #4c1d95;
+      background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+      border-color: #6d28d9;
+      color: #fff;
     }
     .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-verdict--fair,
     .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-verdict--fair {
@@ -18154,7 +18217,7 @@
       intelPill.className = 'listing-insights-intel-pill';
       intelPill.setAttribute('aria-label', 'Open market intelligence');
       intelPill.innerHTML =
-        '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 L6 7 L9 10 L14 3"/><circle cx="14" cy="3" r="1.5" fill="currentColor" stroke="none"/></svg> Intel';
+        '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 L6 7 L9 10 L14 3"/><circle cx="14" cy="3" r="1.5" fill="currentColor" stroke="none"/></svg><span>View intel</span><span class="listing-insights-intel-pill-chevron" aria-hidden="true">›</span>';
       head.appendChild(intelPill);
       wrap.appendChild(head);
 
