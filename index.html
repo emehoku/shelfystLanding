@@ -3128,6 +3128,34 @@
       font-size: 13px;
       color: #080808;
     }
+    button.feed-post-avatar.feed-post-avatar-btn {
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    button.feed-post-avatar.feed-post-avatar-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+    }
+    button.feed-post-avatar.feed-post-avatar-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    .preview-demo-host:not(.is-desktop) .profile-mobile-nav {
+      display: block;
+      padding: 4px 14px 0;
+      flex-shrink: 0;
+    }
+    .preview-demo-host.is-desktop .profile-mobile-nav {
+      display: none !important;
+    }
+    .profile-mobile-nav[hidden] {
+      display: none !important;
+    }
     .feed-post-avatar.gc { background: linear-gradient(135deg, #cfd6ff, #5c6bc0); }
     .feed-post-avatar.ms { background: linear-gradient(135deg, #ffe8c8, #c77800); }
     .feed-post-avatar.sw { background: linear-gradient(135deg, #ffc9d8, #b23a5a); }
@@ -3898,9 +3926,13 @@
     .preview-demo-host.is-desktop .notch { display: none; }
 
     .preview-demo-host.is-desktop .desktop-top-bar {
-      display: block !important;
+      display: flex !important;
+      align-items: center;
       flex-shrink: 0;
-      padding: 6px 0;
+      box-sizing: border-box;
+      height: 55px;
+      min-height: 55px;
+      padding: 0;
       background: var(--desk-card);
       border-bottom: 1px solid var(--desk-border);
       box-shadow: 0 1px 0 rgba(0,0,0,0.04);
@@ -3915,6 +3947,7 @@
         minmax(var(--desk-sidebar-right-min), 1fr);
       align-items: center;
       width: 100%;
+      min-height: 55px;
       column-gap: 0;
     }
     .preview-demo-host.is-desktop .desktop-top-bar-cell--brand {
@@ -3978,7 +4011,7 @@
     }
     .desktop-top-brand-logo {
       display: block;
-      height: clamp(20px, 2.5vw, 32px);
+      height: clamp(24px, 2.5vw, 38px);
       width: auto;
       max-width: min(188px, 38vw);
       object-fit: contain;
@@ -4034,31 +4067,42 @@
       gap: 8px;
       flex-shrink: 0;
     }
-    /* Messages + bell: same box model in-flow (base bell uses absolute/40px and fights flex). */
+    /* Messages + bell: match sidebar nav icon size (22px) inside a 40px hit target. */
     .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn,
     .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header {
       position: relative;
       inset: auto;
       float: none;
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
-      min-height: 32px;
-      flex: 0 0 32px;
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      min-height: 40px;
+      flex: 0 0 40px;
       align-self: center;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       display: grid;
       place-items: center;
-      border-radius: 11px;
+      border-radius: 12px;
       line-height: 1;
+      font-size: 22px;
     }
+    .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn svg,
     .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header svg {
-      width: 17px;
-      height: 17px;
+      width: 22px;
+      height: 22px;
       display: block;
       flex-shrink: 0;
+      stroke: currentColor;
+      stroke-width: 1.85;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header .demo-notifications-badge {
+      top: 4px;
+      right: 4px;
     }
     .desktop-top-search {
       display: none;
@@ -4079,6 +4123,8 @@
     }
     .preview-demo-host.is-desktop .desktop-top-search {
       display: block;
+      padding: 8px 14px;
+      font-size: 11px;
     }
     .preview-demo-host.is-desktop .demo-notifications-btn--header {
       border: 1px solid var(--desk-border);
@@ -4195,8 +4241,8 @@
         grid-template-rows: auto;
         align-items: center;
         justify-content: center;
-        min-height: 46px;
-        padding: 6px 10px;
+        min-height: 55px;
+        padding: 0 10px;
       }
       .preview-demo-host.is-desktop .desktop-top-bar-cell--brand,
       .preview-demo-host.is-desktop .desktop-top-bar-cell--actions {
@@ -4229,11 +4275,20 @@
         width: 100%;
         margin-inline: auto;
       }
-      .preview-demo-host.is-desktop .desktop-icon-btn {
-        width: 30px;
-        height: 30px;
-        border-radius: 10px;
-        font-size: 13px;
+      .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn,
+      .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        flex: 0 0 40px;
+        border-radius: 12px;
+        font-size: 22px;
+      }
+      .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn svg,
+      .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header svg {
+        width: 22px;
+        height: 22px;
       }
       .preview-demo-host.is-desktop .desktop-main-grid {
         grid-template-columns: minmax(0, min(100%, 680px));
@@ -5851,11 +5906,20 @@
         width: 100%;
         margin-inline: auto;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-icon-btn {
-        width: 30px;
-        height: 30px;
-        border-radius: 10px;
-        font-size: 13px;
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        flex: 0 0 40px;
+        border-radius: 12px;
+        font-size: 22px;
+      }
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn svg,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header svg {
+        width: 22px;
+        height: 22px;
       }
       .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-main-grid {
         grid-template-columns: minmax(0, min(100%, 720px));
@@ -5899,8 +5963,8 @@
       grid-template-rows: auto;
       align-items: center;
       justify-content: center;
-      min-height: 46px;
-      padding: 6px 10px;
+      min-height: 55px;
+      padding: 0 10px;
     }
     .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-top-bar-cell--brand,
     .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-top-bar-cell--actions {
@@ -5933,11 +5997,20 @@
       width: 100%;
       margin-inline: auto;
     }
-    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-icon-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
-      font-size: 13px;
+    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-top-actions > .desktop-icon-btn,
+    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-top-actions > .demo-notifications-btn--header {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      min-height: 40px;
+      flex: 0 0 40px;
+      border-radius: 12px;
+      font-size: 22px;
+    }
+    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-top-actions > .desktop-icon-btn svg,
+    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-top-actions > .demo-notifications-btn--header svg {
+      width: 22px;
+      height: 22px;
     }
     .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-main-grid {
       grid-template-columns: minmax(0, min(100%, 680px));
@@ -6075,11 +6148,11 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .preview-demo-host.is-desktop .app-img { height: 140px; }
-    /* Vault grid: desktop `.app-img` rule beats `.market-item .app-img` specificity — keep listing art at 180px. */
+    /* Vault grid: desktop `.app-img` rule beats `.market-item .app-img` — image fills card, not card height. */
     .preview-demo-host.is-desktop .market-item .app-img {
-      height: 180px;
-      min-height: 180px;
-      max-height: 180px;
+      height: 228px;
+      min-height: 228px;
+      max-height: 228px;
     }
     .preview-demo-host.is-desktop.demo-market-focus .app-screen.active[data-screen="market"] .market-grid {
       grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
@@ -6495,13 +6568,43 @@
       transform: translateY(-2px);
       border-color: var(--gold-28);
     }
-    /* translateY on .market-item breaks 3D flip (flattening); vault flip cards lift via border only. */
-    .market-item.clickable:hover:not(.market-item--vault-flip) {
-      transform: translateY(-2px);
-      border-color: var(--gold-28);
+    /* Vault pop: on flip-off (default), lift the whole card; with flip on, lift front face only (keeps 3D). */
+    @media (hover: hover) and (pointer: fine) {
+      .market-item.clickable:hover:not(.market-item--vault-flip) {
+        transform: translateY(-4px) scale(1.025);
+        border-color: var(--gold-28);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.38), 0 4px 14px rgba(92, 58, 194, 0.12);
+      }
+      .preview-demo-host.demo-vault-flip-off .market-item.market-item--vault-flip.clickable:hover {
+        transform: translateY(-5px) scale(1.03);
+      }
+      .preview-demo-host.demo-vault-flip-off .market-item.market-item--vault-flip.clickable:hover .market-item-face--front {
+        border-color: rgba(92, 58, 194, 0.38);
+        box-shadow:
+          0 16px 40px rgba(0, 0, 0, 0.45),
+          0 8px 22px rgba(92, 58, 194, 0.14);
+      }
+      .preview-demo-host:not(.demo-vault-flip-off) .market-item.market-item--vault-flip.clickable:hover .market-item-face--front {
+        transform: translateY(-3px);
+        border-color: rgba(92, 58, 194, 0.35);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+      }
+      .preview-demo-host.demo-theme-light.demo-vault-flip-off .market-item.market-item--vault-flip.clickable:hover .market-item-face--front {
+        border-color: rgba(92, 58, 194, 0.28);
+        box-shadow:
+          0 16px 38px rgba(49, 46, 129, 0.14),
+          0 6px 18px rgba(76, 29, 149, 0.1);
+      }
+      .preview-demo-host.demo-theme-light .market-item.clickable:hover:not(.market-item--vault-flip) {
+        box-shadow: 0 14px 34px rgba(49, 46, 129, 0.12), 0 4px 12px rgba(76, 29, 149, 0.08);
+      }
     }
-    .market-item.market-item--vault-flip.clickable:hover {
-      border-color: var(--gold-28);
+    @media (prefers-reduced-motion: reduce) {
+      .market-item.clickable:hover:not(.market-item--vault-flip),
+      .preview-demo-host.demo-vault-flip-off .market-item.market-item--vault-flip.clickable:hover,
+      .preview-demo-host:not(.demo-vault-flip-off) .market-item.market-item--vault-flip.clickable:hover .market-item-face--front {
+        transform: none;
+      }
     }
     .app-img { height: 190px; background: radial-gradient(circle at 50% 35%, #686868, #191919 62%, #050505); display: grid; place-items: center; color: rgba(255,255,255,0.26); font-weight: 900; font-size: 12px; letter-spacing: 0.12em; position: relative; overflow: hidden; }
     .demo-listing-photo,
@@ -7116,7 +7219,10 @@
       overflow: hidden;
       background: #151515;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+      transition:
+        transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.16s ease,
+        box-shadow 0.22s ease;
       display: flex;
       flex-direction: column;
       min-height: 0;
@@ -7135,11 +7241,14 @@
       box-shadow: none;
       transition: none;
     }
+    .preview-demo-host.demo-vault-flip-off .market-item.market-item--vault-flip {
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
     .market-item.market-item--vault-flip:hover {
       z-index: 5;
     }
     .preview-demo-host.demo-vault-flip-off .market-item.market-item--vault-flip:hover {
-      z-index: 0;
+      z-index: 4;
     }
     .market-item-flip {
       flex: 1;
@@ -7170,6 +7279,10 @@
       background: #151515;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-sizing: border-box;
+      transition:
+        transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.16s ease,
+        box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .market-item-face--back {
       transform: rotateY(180deg);
@@ -7303,21 +7416,23 @@
       display: block;
     }
     .market-item .app-img {
-      height: 180px;
-      min-height: 180px;
-      max-height: 180px;
-      flex-shrink: 0;
+      flex: 0 0 228px;
+      width: 100%;
+      height: 228px;
+      min-height: 228px;
+      max-height: 228px;
     }
     .market-item .app-body {
-      padding: 10px 11px 11px;
-      flex: 1;
+      padding: 7px 10px 8px;
+      flex: 1 1 0;
       min-height: 0;
       display: flex;
       flex-direction: column;
+      justify-content: flex-end;
     }
     .market-item .app-title {
-      font-size: 14px;
-      line-height: 1.2;
+      font-size: 13px;
+      line-height: 1.15;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -7325,9 +7440,9 @@
       min-width: 0;
     }
     .market-item .app-meta {
-      margin-top: 5px;
-      font-size: 11px;
-      line-height: 1.25;
+      margin-top: 3px;
+      font-size: 10px;
+      line-height: 1.2;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -7385,8 +7500,8 @@
     }
     .market-item .app-price {
       margin-top: auto;
-      padding-top: 10px;
-      font-size: 20px;
+      padding-top: 5px;
+      font-size: 18px;
       font-weight: 900;
       letter-spacing: -0.03em;
       line-height: 1;
@@ -7400,6 +7515,7 @@
       position: relative;
       overflow: hidden;
       border-radius: 16px 16px 0 0;
+      flex-shrink: 0;
     }
     .profile-cover {
       position: relative;
@@ -7431,10 +7547,11 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 0 16px 14px;
-      margin-top: -20px;
+      padding: 12px 16px 14px;
+      margin-top: 0;
       position: relative;
       z-index: 1;
+      flex-shrink: 0;
     }
     .profile-avatar {
       width: 52px;
@@ -8016,6 +8133,551 @@
     .listing-detail-chat-send:hover {
       filter: brightness(1.06);
     }
+    .listing-detail-txn-dock {
+      display: none;
+    }
+    .preview-demo-host.is-desktop .listing-detail-txn-dock {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      flex: 0 0 0;
+      min-width: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition:
+        flex-basis 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease;
+      box-sizing: border-box;
+      pointer-events: none;
+      align-self: stretch;
+    }
+    .preview-demo-host.is-desktop .listing-detail-modal-dialog.is-txn-open ~ .listing-detail-txn-dock {
+      flex-basis: min(340px, 38vw);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .listing-detail-intel-dock {
+      display: none;
+    }
+    .preview-demo-host.is-desktop .listing-detail-intel-dock {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      flex: 0 0 0;
+      min-width: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition:
+        flex-basis 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease;
+      box-sizing: border-box;
+      pointer-events: none;
+      align-self: stretch;
+    }
+    .preview-demo-host.is-desktop .listing-detail-modal-dialog.is-intel-open ~ .listing-detail-intel-dock {
+      flex-basis: min(360px, 40vw);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .listing-detail-intel-card {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      border-radius: 0 16px 16px 0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: var(--desk-surface-2, #161616);
+      box-shadow: 6px 0 28px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card {
+      background: #f3f4f6;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 6px 0 28px rgba(0, 0, 0, 0.1);
+      border-radius: 0 22px 22px 0;
+    }
+    .listing-detail-intel-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 0 0 16px;
+      scrollbar-width: thin;
+    }
+    .listing-detail-intel-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .listing-detail-intel-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+    }
+    .listing-intel-section {
+      padding: 14px 14px 12px;
+    }
+    .listing-intel-divider {
+      margin: 0;
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-divider {
+      border-top-color: rgba(0, 0, 0, 0.08);
+    }
+    .listing-intel-section-title {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0 0 6px;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-section-title {
+      color: rgba(0, 0, 0, 0.45);
+    }
+    .listing-intel-section-lead {
+      margin: 0 0 10px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--desk-muted, #9a9a9a);
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-section-lead {
+      color: #6b7280;
+    }
+    .listing-intel-trend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .listing-intel-trend-chip--up {
+      background: rgba(34, 197, 94, 0.14);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #bbf7d0;
+    }
+    .listing-intel-trend-chip--down {
+      background: rgba(248, 113, 113, 0.12);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      color: #fecaca;
+    }
+    .listing-intel-trend-chip--steady {
+      background: rgba(148, 163, 184, 0.12);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #e2e8f0;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-trend-chip--up {
+      color: #166534;
+      background: rgba(34, 197, 94, 0.12);
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-trend-chip--down {
+      color: #991b1b;
+      background: rgba(248, 113, 113, 0.12);
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-trend-chip--steady {
+      color: #475569;
+      background: rgba(148, 163, 184, 0.15);
+    }
+    .listing-intel-spark-wrap {
+      position: relative;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.22);
+      padding: 8px 10px 6px;
+      margin-bottom: 6px;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-spark-wrap {
+      background: #fff;
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+    .listing-intel-sparkline {
+      display: block;
+      width: 100%;
+      height: 88px;
+    }
+    .listing-intel-spark-label {
+      font-size: 9px;
+      font-weight: 800;
+      font-family: inherit;
+      dominant-baseline: auto;
+    }
+    .listing-intel-spark-label--up {
+      fill: #86efac;
+    }
+    .listing-intel-spark-label--down {
+      fill: #fca5a5;
+    }
+    .listing-intel-spark-label--steady {
+      fill: #c4b5fd;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-spark-label--up {
+      fill: #15803d;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-spark-label--down {
+      fill: #b91c1c;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-spark-label--steady {
+      fill: #6d28d9;
+    }
+    .listing-intel-spark-dot {
+      fill: var(--desk-surface-2, #161616);
+      stroke-width: 2;
+    }
+    .listing-intel-spark-dot--up {
+      stroke: #4ade80;
+    }
+    .listing-intel-spark-dot--down {
+      stroke: #f87171;
+    }
+    .listing-intel-spark-dot--steady {
+      stroke: #a78bfa;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-spark-dot {
+      fill: #fff;
+    }
+    .listing-intel-sparkline-line {
+      fill: none;
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .listing-intel-sparkline-line--up {
+      stroke: #4ade80;
+    }
+    .listing-intel-sparkline-line--down {
+      stroke: #f87171;
+    }
+    .listing-intel-sparkline-line--steady {
+      stroke: #a78bfa;
+    }
+    .listing-intel-sparkline-fill {
+      opacity: 0.22;
+    }
+    .listing-intel-sparkline-fill--up {
+      fill: #4ade80;
+    }
+    .listing-intel-sparkline-fill--down {
+      fill: #f87171;
+    }
+    .listing-intel-sparkline-fill--steady {
+      fill: #a78bfa;
+    }
+    .listing-intel-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .listing-intel-stat {
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 10px 10px 8px;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-stat {
+      background: #fff;
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+    .listing-intel-stat-value {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--desk-text, #ececec);
+      line-height: 1.1;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-stat-value {
+      color: #111827;
+    }
+    .listing-intel-stat-label {
+      margin-top: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--desk-muted, #9a9a9a);
+    }
+    .listing-intel-rank-pill {
+      display: inline-flex;
+      margin-top: 10px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      background: rgba(139, 92, 246, 0.14);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      color: #ddd6fe;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-intel-card .listing-intel-rank-pill {
+      color: #5b21b6;
+      background: rgba(109, 40, 217, 0.1);
+      border-color: rgba(109, 40, 217, 0.28);
+    }
+    .listing-intel-footnote {
+      margin: 8px 0 0;
+      font-size: 11px;
+      line-height: 1.45;
+      color: var(--desk-muted, #9a9a9a);
+    }
+    .listing-intel-section .listing-insights-nest {
+      margin-top: 4px;
+    }
+    .listing-intel-section .listing-insights-verdict {
+      margin-bottom: 8px;
+    }
+    .listing-detail-txn-card {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      border-radius: 0 16px 16px 0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: var(--desk-surface-2, #161616);
+      box-shadow: 6px 0 28px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card {
+      background: #f3f4f6;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 6px 0 28px rgba(0, 0, 0, 0.1);
+      border-radius: 0 22px 22px 0;
+    }
+    .listing-detail-txn-list {
+      flex: 1;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 10px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scrollbar-width: thin;
+      position: relative;
+    }
+    .listing-detail-txn-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .listing-detail-txn-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+    }
+    .listing-txn-row {
+      border-radius: 16px;
+      padding: 8px;
+    }
+    .listing-txn-body {
+      display: flex;
+      align-items: stretch;
+      gap: 14px;
+    }
+    .listing-txn-details {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .listing-txn-item {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+    .listing-txn-buyer {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .listing-txn-date {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .listing-txn-stars {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      margin: 6px 0 10px;
+      line-height: 1;
+    }
+    .listing-txn-star {
+      font-size: 15px;
+      letter-spacing: 0.02em;
+    }
+    .listing-txn-visual {
+      flex-shrink: 0;
+      width: 86px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .listing-txn-thumb {
+      position: relative;
+      width: 86px;
+      height: 112px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      isolation: isolate;
+    }
+    .listing-txn-thumb .listing-txn-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      margin: 0;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .listing-txn-price {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .listing-txn-referral-btn {
+      margin-top: auto;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .listing-txn-empty {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--desk-muted, #9a9a9a);
+      text-align: center;
+      padding: 24px 12px;
+      line-height: 1.45;
+    }
+    .listing-seller-txn-btn {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ececec;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      margin-left: auto;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .listing-seller-txn-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--gold, #e8b415);
+    }
+    .listing-seller-txn-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    .listing-seller-txn-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 1.85;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      display: block;
+    }
+    /* Transaction history cards — dark app theme */
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-row {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-item {
+      color: var(--desk-text, #ececec);
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-buyer,
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-date {
+      color: var(--desk-muted, #9a9a9a);
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-star {
+      color: rgba(255, 255, 255, 0.22);
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-star.is-on {
+      color: #b8bcc6;
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-thumb {
+      background: #252528;
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-price {
+      color: #c4b5fd;
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-referral-btn {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ececec;
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-card .listing-txn-referral-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #fff;
+    }
+    .preview-demo-host.is-desktop:not(.demo-theme-light) .listing-detail-txn-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.14);
+    }
+    /* Transaction history cards — light app theme */
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-row {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #fff;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-item {
+      color: #111;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-buyer,
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-date {
+      color: #6b7280;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-star {
+      color: #d1d5db;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-star.is-on {
+      color: #c4c8d0;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-thumb {
+      background: #ececf0;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-price {
+      color: #5c3ac2;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-referral-btn {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: #fff;
+      color: #111;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-card .listing-txn-referral-btn:hover {
+      background: #f8f8fa;
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-txn-list::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.14);
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-seller-txn-btn {
+      border-color: rgba(0, 0, 0, 0.12);
+      background: #fff;
+      color: #444;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-seller-txn-btn:hover {
+      background: #f8f8fa;
+      color: var(--gold, #b18a14);
+    }
     .listing-detail-modal-layout {
       flex: 1;
       min-height: 0;
@@ -8163,13 +8825,168 @@
       width: 0;
       height: 0;
     }
+    .listing-insights-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 0 0 10px;
+    }
     .listing-insights-title {
       font-size: 10px;
       font-weight: 900;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.5);
-      margin: 0 0 10px;
+      margin: 0;
+    }
+    .listing-insights-intel-pill {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(139, 92, 246, 0.45);
+      background: rgba(139, 92, 246, 0.14);
+      color: #ddd6fe;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .listing-insights-intel-pill:hover {
+      background: rgba(139, 92, 246, 0.22);
+      border-color: rgba(167, 139, 250, 0.55);
+      color: #ede9fe;
+    }
+    .listing-insights-intel-pill:focus-visible {
+      outline: 2px solid #a78bfa;
+      outline-offset: 2px;
+    }
+    .listing-insights-intel-pill svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-rail--right .listing-insights-intel-pill {
+      border-color: rgba(109, 40, 217, 0.35);
+      background: rgba(109, 40, 217, 0.1);
+      color: #5b21b6;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-rail--right .listing-insights-intel-pill:hover {
+      background: rgba(109, 40, 217, 0.16);
+      color: #4c1d95;
+    }
+    .listing-mobile-insights {
+      padding: 4px 16px 14px;
+    }
+    .preview-demo-host:not(.is-desktop) .listing-mobile-insights .listing-insights-nest {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-nest {
+      border-color: rgba(0, 0, 0, 0.08);
+      background: #f8f8fa;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-title,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-title {
+      color: #6b7280;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-intel-pill,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-intel-pill {
+      border-color: rgba(109, 40, 217, 0.38);
+      background: rgba(109, 40, 217, 0.12);
+      color: #5b21b6;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-intel-pill:hover,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-intel-pill:hover {
+      background: rgba(109, 40, 217, 0.18);
+      color: #4c1d95;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-verdict--fair,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-verdict--fair {
+      color: #166534;
+      background: rgba(34, 197, 94, 0.16);
+      border-color: rgba(22, 163, 74, 0.4);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-verdict--under,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-verdict--under {
+      color: #1e40af;
+      background: rgba(59, 130, 246, 0.14);
+      border-color: rgba(37, 99, 235, 0.38);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-verdict--over,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-verdict--over {
+      color: #92400e;
+      background: rgba(251, 191, 36, 0.22);
+      border-color: rgba(217, 119, 6, 0.42);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-deal,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-deal {
+      color: #1f2937;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-estimate-title,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-estimate-title {
+      color: #6b7280;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-estimate-fair-row,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-estimate-fair-row {
+      color: #4b5563;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-estimate-legend,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-estimate-legend {
+      color: #6b7280;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-estimate-tooltip,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-estimate-tooltip {
+      background: #fff;
+      color: #111827;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-estimate-tooltip::after,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-estimate-tooltip::after {
+      border-top-color: #fff;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-estimate-dot,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-estimate-dot {
+      background: #14b8a6;
+      border-color: #fff;
+      box-shadow: 0 0 0 5px rgba(20, 184, 166, 0.22), 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-history,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-history {
+      border-color: rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-history > summary,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-history > summary {
+      color: #374151;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-history > summary::after,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-history > summary::after {
+      color: #6b7280;
+      opacity: 1;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-insights .listing-insights-history-body,
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-insights-history-body {
+      color: #4b5563;
+      border-top-color: rgba(0, 0, 0, 0.08);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-scroll .listing-intel-section .listing-insights-nest {
+      border-color: rgba(0, 0, 0, 0.08);
+      background: #f8f8fa;
     }
     .listing-insights-verdict {
       display: inline-flex;
@@ -8589,16 +9406,24 @@
       margin-left: 0;
       margin-right: 0;
     }
-    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open {
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-txn-open,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-intel-open {
       border-radius: 20px 0 0 20px;
     }
-    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open .listing-detail-modal-layout {
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open .listing-detail-modal-layout,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-txn-open .listing-detail-modal-layout,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-intel-open .listing-detail-modal-layout {
       grid-template-columns: minmax(0, 1fr);
     }
-    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open .listing-detail-modal-column {
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open .listing-detail-modal-column,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-txn-open .listing-detail-modal-column,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-intel-open .listing-detail-modal-column {
       grid-column: 1;
     }
-    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open .listing-detail-modal-seller-pane {
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open .listing-detail-modal-seller-pane,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-txn-open .listing-detail-modal-seller-pane,
+    .preview-demo-host.is-desktop .listing-detail-modal.is-open .listing-detail-modal-dialog.is-intel-open .listing-detail-modal-seller-pane {
       display: none !important;
     }
     .preview-demo-host.is-desktop .listing-detail-modal-dialog {
@@ -8617,7 +9442,9 @@
       border-radius: 22px;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
     }
-    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open {
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-modal.is-open .listing-detail-modal-dialog.is-chat-open,
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-modal.is-open .listing-detail-modal-dialog.is-txn-open,
+    .preview-demo-host.is-desktop.demo-theme-light .listing-detail-modal.is-open .listing-detail-modal-dialog.is-intel-open {
       border-radius: 22px 0 0 22px;
     }
     .preview-demo-host.is-desktop.demo-theme-light .listing-detail-modal-dialog .listing-detail-modal-header {
@@ -8806,6 +9633,14 @@
     .listing-modal-seller-info {
       min-width: 0;
       flex: 1;
+    }
+    .listing-modal-seller-txn-btn {
+      flex-shrink: 0;
+      margin-left: auto;
+      align-self: center;
+    }
+    .preview-demo-host.is-desktop .listing-modal-seller-txn-btn {
+      display: none !important;
     }
     .listing-modal-seller-name {
       font-weight: 900;
@@ -9492,7 +10327,9 @@
     /* Phone preview only: fullscreen post expand + bottom comments sheet (desktop keeps feed-post-detail-modal). */
     .preview-demo-host.is-desktop .feed-mobile-expand,
     .preview-demo-host.is-desktop .feed-mobile-comments-root,
-    .preview-demo-host.is-desktop .listing-mobile-message-root {
+    .preview-demo-host.is-desktop .listing-mobile-message-root,
+    .preview-demo-host.is-desktop .listing-mobile-txn-root,
+    .preview-demo-host.is-desktop .listing-mobile-intel-root {
       display: none !important;
     }
     .preview-demo-host:not(.is-desktop) .feed-post-detail-modal {
@@ -9686,7 +10523,9 @@
       text-align: center;
     }
     .preview-demo-host:not(.is-desktop) .iphone-screen.feed-mobile-expand-open,
-    .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-message-open {
+    .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-message-open,
+    .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-txn-open,
+    .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-intel-open {
       overflow: hidden;
     }
     .feed-mobile-comments-root {
@@ -10017,6 +10856,373 @@
       background: rgba(92, 58, 194, 0.18);
       border-color: rgba(92, 58, 194, 0.35);
       color: #1e1b4b;
+    }
+
+    /* Phone preview: listing transaction history sheet (bottom slide). */
+    .listing-mobile-txn-root {
+      position: absolute;
+      inset: 0;
+      z-index: 46;
+      display: none;
+      pointer-events: none;
+    }
+    .listing-mobile-txn-root.is-active {
+      display: block;
+      pointer-events: auto;
+    }
+    .listing-mobile-txn-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.28s ease;
+    }
+    .listing-mobile-txn-root.is-active .listing-mobile-txn-backdrop {
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .listing-mobile-txn-sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 10%;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #121212;
+      color: #ececec;
+      border-radius: 18px 18px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.55);
+      transform: translateY(110%);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .listing-mobile-txn-root.is-open .listing-mobile-txn-sheet {
+      transform: translateY(0);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-txn-sheet {
+      background: #fff;
+      color: #141414;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.18);
+    }
+    .listing-mobile-txn-sheet-handle {
+      flex-shrink: 0;
+      width: 40px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      margin: 8px auto 4px;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-txn-sheet-handle {
+      background: rgba(0, 0, 0, 0.15);
+    }
+    .listing-mobile-txn-toolbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-txn-toolbar {
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+    .listing-mobile-txn-back {
+      flex-shrink: 0;
+    }
+    .listing-mobile-txn-toolbar-meta {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .listing-mobile-txn-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #f0f0f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-txn-title {
+      color: #141414;
+    }
+    .listing-mobile-txn-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9a9a9a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .listing-mobile-txn-list {
+      flex: 1;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 10px 12px calc(14px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-row {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-item {
+      color: #ececec;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-buyer,
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-date {
+      color: #9a9a9a;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-star {
+      color: rgba(255, 255, 255, 0.22);
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-star.is-on {
+      color: #b8bcc6;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-thumb {
+      background: #252528;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-price {
+      color: #c4b5fd;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-referral-btn {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ececec;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-txn-list .listing-txn-referral-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-row {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #fff;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-item {
+      color: #111;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-buyer,
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-date {
+      color: #6b7280;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-star {
+      color: #d1d5db;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-star.is-on {
+      color: #c4c8d0;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-thumb {
+      background: #ececf0;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-price {
+      color: #5c3ac2;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-referral-btn {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: #fff;
+      color: #111;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-txn-list .listing-txn-referral-btn:hover {
+      background: #f8f8fa;
+      border-color: rgba(0, 0, 0, 0.18);
+    }
+    .listing-mobile-txn-list .listing-txn-empty {
+      color: #9a9a9a;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-txn-list .listing-txn-empty {
+      color: #666;
+    }
+
+    /* Phone preview: listing market intelligence sheet (bottom slide). */
+    .listing-mobile-intel-root {
+      position: absolute;
+      inset: 0;
+      z-index: 46;
+      display: none;
+      pointer-events: none;
+    }
+    .listing-mobile-intel-root.is-active {
+      display: block;
+      pointer-events: auto;
+    }
+    .listing-mobile-intel-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.28s ease;
+    }
+    .listing-mobile-intel-root.is-active .listing-mobile-intel-backdrop {
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .listing-mobile-intel-sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 8%;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #121212;
+      color: #ececec;
+      border-radius: 18px 18px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.55);
+      transform: translateY(110%);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .listing-mobile-intel-root.is-open .listing-mobile-intel-sheet {
+      transform: translateY(0);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-sheet {
+      background: #fff;
+      color: #141414;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.18);
+    }
+    .listing-mobile-intel-sheet-handle {
+      flex-shrink: 0;
+      width: 40px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      margin: 8px auto 4px;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-sheet-handle {
+      background: rgba(0, 0, 0, 0.15);
+    }
+    .listing-mobile-intel-toolbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-toolbar {
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+    .listing-mobile-intel-back {
+      flex-shrink: 0;
+    }
+    .listing-mobile-intel-toolbar-meta {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .listing-mobile-intel-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #f0f0f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-intel-title {
+      color: #141414;
+    }
+    .listing-mobile-intel-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9a9a9a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .listing-mobile-intel-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 0 0 calc(14px + env(safe-area-inset-bottom, 0px));
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-divider {
+      border-top-color: rgba(255, 255, 255, 0.1);
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-section-title {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-section-lead,
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-footnote {
+      color: #9a9a9a;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-stat {
+      border-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-stat-value {
+      color: #ececec;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-stat-label {
+      color: #9a9a9a;
+    }
+    .preview-demo-host:not(.is-desktop):not(.demo-theme-light) .listing-mobile-intel-scroll .listing-intel-spark-wrap {
+      background: rgba(0, 0, 0, 0.22);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-divider {
+      border-top-color: rgba(0, 0, 0, 0.08);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-section-title {
+      color: rgba(0, 0, 0, 0.45);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-section-lead,
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-footnote {
+      color: #6b7280;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-stat {
+      border-color: rgba(0, 0, 0, 0.08);
+      background: #fff;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-stat-value {
+      color: #111827;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-spark-wrap {
+      background: #fff;
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-spark-label--up {
+      fill: #15803d;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-spark-label--down {
+      fill: #b91c1c;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-spark-label--steady {
+      fill: #6d28d9;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-spark-dot {
+      fill: #fff;
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-rank-pill {
+      color: #5b21b6;
+      background: rgba(109, 40, 217, 0.1);
+      border-color: rgba(109, 40, 217, 0.28);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-trend-chip--up {
+      color: #166534;
+      background: rgba(34, 197, 94, 0.12);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-trend-chip--down {
+      color: #991b1b;
+      background: rgba(248, 113, 113, 0.12);
+    }
+    .preview-demo-host:not(.is-desktop).demo-theme-light .listing-mobile-intel-scroll .listing-intel-trend-chip--steady {
+      color: #475569;
+      background: rgba(148, 163, 184, 0.15);
     }
 
     /* Listing detail — fullscreen gallery: large hero + bottom thumbnail strip (vault / detail). */
@@ -11229,7 +12435,11 @@
                 </div>
                 <div class="desktop-top-bar-cell desktop-top-bar-cell--actions">
                   <div class="desktop-top-actions">
-                    <button type="button" class="desktop-icon-btn" id="desktopMessagesBtn" aria-label="Messages">✉</button>
+                    <button type="button" class="desktop-icon-btn" id="desktopMessagesBtn" aria-label="Messages">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 6h16a2 2 0 012 2v9a2 2 0 01-2 2H7l-4 3V8a2 2 0 012-2z"/>
+                      </svg>
+                    </button>
                     <button type="button" class="demo-notifications-btn demo-notifications-btn--header desktop-icon-btn" id="demoNotificationsBtn" aria-label="Notifications, 2 unread">
                       <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
@@ -11465,7 +12675,7 @@
               <article class="app-card feed-post feed-post--desk-featured" data-feed-post-id="prime1-batman-post" data-interest-tags="Prime 1,Statues,DC,Batman,1:3">
                 <div class="app-body">
                   <div class="feed-post-head">
-                    <div class="feed-post-avatar p1" aria-hidden="true">P1</div>
+                    <button type="button" class="feed-post-avatar p1 feed-post-avatar-btn" data-open-profile="prime1-fan" aria-label="View Prime1Fan profile">P1</button>
                     <div class="feed-post-meta">
                       <div class="feed-post-author-row">
                         <span class="feed-post-author">@Prime1Fan · Elite Collector</span>
@@ -11643,26 +12853,26 @@
               </div>
               <p class="market-empty-state" id="marketEmptyState" role="status" hidden>No listings match your filters.</p>
               <div class="market-grid" id="marketGrid">
-                <div class="market-item clickable" data-open-detail="prime1-batman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="2400" data-market-verified="true"><div class="app-img gold"><img class="demo-listing-photo" data-listing-id="prime1-batman" alt=""></div><div class="app-body"><div class="app-title">Batman Beyond</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Atlanta</span></div><div class="app-price">$2,400</div></div></div>
-                <div class="market-item clickable" data-open-detail="ironman-markvii" data-market-brand="Queen" data-market-scale="1:4" data-market-location="Austin" data-market-price="1150" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="ironman-markvii" alt=""></div><div class="app-body"><div class="app-title">Iron Man Mark VII</div><div class="app-meta">1:4 • Queen Studios</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Austin</span></div><div class="app-price">$1,150</div></div></div>
-                <div class="market-item clickable" data-open-detail="joker-deluxe" data-market-brand="Exclusive" data-market-scale="1:3" data-market-location="Newark" data-market-price="1850" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker-deluxe" alt=""></div><div class="app-body"><div class="app-title">Joker Deluxe</div><div class="app-meta">1:3 • Exclusive</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Newark</span></div><div class="app-price">$1,850</div></div></div>
-                <div class="market-item clickable" data-open-detail="wolverine-xm" data-market-brand="XM" data-market-scale="1:4" data-market-location="Portland" data-market-price="980" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="wolverine-xm" alt=""></div><div class="app-body"><div class="app-title">Wolverine</div><div class="app-meta">1:4 • XM Studios</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Portland</span></div><div class="app-price">$980</div></div></div>
-                <div class="market-item clickable" data-open-detail="vader-mythos" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="760" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="vader-mythos" alt=""></div><div class="app-body"><div class="app-title">Vader Mythos</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$760</div></div></div>
-                <div class="market-item clickable" data-open-detail="venom-p1" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Chicago" data-market-price="2050" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="venom-p1" alt=""></div><div class="app-body"><div class="app-title">Venom Deluxe</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Chicago</span></div><div class="app-price">$2,050</div></div></div>
-                <div class="market-item clickable" data-open-detail="joker2" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1920" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker2" alt=""></div><div class="app-body"><div class="app-title">Joker Dark Knight</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Newark</span></div><div class="app-price">$1,920</div></div></div>
-                <div class="market-item clickable" data-open-detail="joker3" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1780" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker3" alt=""></div><div class="app-body"><div class="app-title">The Joker</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Newark</span></div><div class="app-price">$1,780</div></div></div>
-                <div class="market-item clickable" data-open-detail="startwars" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="420" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars" alt=""></div><div class="app-body"><div class="app-title">Star Wars Rogue</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$420</div></div></div>
-                <div class="market-item clickable" data-open-detail="startwars2" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="440" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars2" alt=""></div><div class="app-body"><div class="app-title">Star Wars Obi</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$440</div></div></div>
-                <div class="market-item clickable" data-open-detail="startwars3" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="460" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars3" alt=""></div><div class="app-body"><div class="app-title">Star Wars Vader</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$460</div></div></div>
-                <div class="market-item clickable" data-open-detail="superman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="2100" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="superman" alt=""></div><div class="app-body"><div class="app-title">Superman PF</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Atlanta</span></div><div class="app-price">$2,100</div></div></div>
-                <div class="market-item clickable" data-open-detail="wick1" data-market-brand="Exclusive" data-market-scale="1:4" data-market-location="Austin" data-market-price="680" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="wick1" alt=""></div><div class="app-body"><div class="app-title">John Wick Statue</div><div class="app-meta">1:4 • Exclusive</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Austin</span></div><div class="app-price">$680</div></div></div>
-                <div class="market-item clickable" data-open-detail="wolverine2" data-market-brand="XM" data-market-scale="1:4" data-market-location="Portland" data-market-price="1050" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="wolverine2" alt=""></div><div class="app-body"><div class="app-title">Wolverine X</div><div class="app-meta">1:4 • XM Studios</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Portland</span></div><div class="app-price">$1,050</div></div></div>
-                <div class="market-item clickable" data-open-detail="prime1-heman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="1899" data-market-verified="true"><div class="app-img gold"><img class="demo-listing-photo" data-listing-id="prime1-heman" alt=""></div><div class="app-body"><div class="app-title">He-Man 1:3</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Atlanta</span></div><div class="app-price">$1,899</div></div></div>
-                <div class="market-item clickable" data-open-detail="sideshow-davy-jones" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Chicago" data-market-price="520" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="sideshow-davy-jones" alt=""></div><div class="app-body"><div class="app-title">Davy Jones PF</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Chicago</span></div><div class="app-price">$520</div></div></div>
-                <div class="market-item clickable" data-open-detail="sideshow-killercroc" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="410" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="sideshow-killercroc" alt=""></div><div class="app-body"><div class="app-title">Killer Croc PF</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$410</div></div></div>
-                <div class="market-item clickable" data-open-detail="starwars-ezra" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Portland" data-market-price="340" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="starwars-ezra" alt=""></div><div class="app-body"><div class="app-title">Ezra Bridger PF</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Portland</span></div><div class="app-price">$340</div></div></div>
-                <div class="market-item clickable" data-open-detail="starwars-mandalorian" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Chicago" data-market-price="890" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="starwars-mandalorian" alt=""></div><div class="app-body"><div class="app-title">The Mandalorian Premium Format</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Chicago</span></div><div class="app-price">$890</div></div></div>
-                <div class="market-item clickable" data-open-detail="tweeterhead-scare-glow" data-market-brand="Exclusive" data-market-scale="1:3" data-market-location="Newark" data-market-price="780" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="tweeterhead-scare-glow" alt=""></div><div class="app-body"><div class="app-title">Scare Glow</div><div class="app-meta">1:3 • Tweeterhead</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Newark</span></div><div class="app-price">$780</div></div></div>
+                <div class="market-item clickable" data-open-detail="prime1-batman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="2400" data-market-verified="true"><div class="app-img gold"><img class="demo-listing-photo" data-listing-id="prime1-batman" alt=""></div><div class="app-body"><div class="app-title">Batman Beyond</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$2,400</div></div></div>
+                <div class="market-item clickable" data-open-detail="ironman-markvii" data-market-brand="Queen" data-market-scale="1:4" data-market-location="Austin" data-market-price="1150" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="ironman-markvii" alt=""></div><div class="app-body"><div class="app-title">Iron Man Mark VII</div><div class="app-meta">1:4 • Queen Studios</div><div class="app-price">$1,150</div></div></div>
+                <div class="market-item clickable" data-open-detail="joker-deluxe" data-market-brand="Exclusive" data-market-scale="1:3" data-market-location="Newark" data-market-price="1850" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker-deluxe" alt=""></div><div class="app-body"><div class="app-title">Joker Deluxe</div><div class="app-meta">1:3 • Exclusive</div><div class="app-price">$1,850</div></div></div>
+                <div class="market-item clickable" data-open-detail="wolverine-xm" data-market-brand="XM" data-market-scale="1:4" data-market-location="Portland" data-market-price="980" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="wolverine-xm" alt=""></div><div class="app-body"><div class="app-title">Wolverine</div><div class="app-meta">1:4 • XM Studios</div><div class="app-price">$980</div></div></div>
+                <div class="market-item clickable" data-open-detail="vader-mythos" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="760" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="vader-mythos" alt=""></div><div class="app-body"><div class="app-title">Vader Mythos</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$760</div></div></div>
+                <div class="market-item clickable" data-open-detail="venom-p1" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Chicago" data-market-price="2050" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="venom-p1" alt=""></div><div class="app-body"><div class="app-title">Venom Deluxe</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$2,050</div></div></div>
+                <div class="market-item clickable" data-open-detail="joker2" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1920" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker2" alt=""></div><div class="app-body"><div class="app-title">Joker Dark Knight</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$1,920</div></div></div>
+                <div class="market-item clickable" data-open-detail="joker3" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1780" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker3" alt=""></div><div class="app-body"><div class="app-title">The Joker</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$1,780</div></div></div>
+                <div class="market-item clickable" data-open-detail="startwars" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="420" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars" alt=""></div><div class="app-body"><div class="app-title">Star Wars Rogue</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$420</div></div></div>
+                <div class="market-item clickable" data-open-detail="startwars2" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="440" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars2" alt=""></div><div class="app-body"><div class="app-title">Star Wars Obi</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$440</div></div></div>
+                <div class="market-item clickable" data-open-detail="startwars3" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="460" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars3" alt=""></div><div class="app-body"><div class="app-title">Star Wars Vader</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$460</div></div></div>
+                <div class="market-item clickable" data-open-detail="superman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="2100" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="superman" alt=""></div><div class="app-body"><div class="app-title">Superman PF</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$2,100</div></div></div>
+                <div class="market-item clickable" data-open-detail="wick1" data-market-brand="Exclusive" data-market-scale="1:4" data-market-location="Austin" data-market-price="680" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="wick1" alt=""></div><div class="app-body"><div class="app-title">John Wick Statue</div><div class="app-meta">1:4 • Exclusive</div><div class="app-price">$680</div></div></div>
+                <div class="market-item clickable" data-open-detail="wolverine2" data-market-brand="XM" data-market-scale="1:4" data-market-location="Portland" data-market-price="1050" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="wolverine2" alt=""></div><div class="app-body"><div class="app-title">Wolverine X</div><div class="app-meta">1:4 • XM Studios</div><div class="app-price">$1,050</div></div></div>
+                <div class="market-item clickable" data-open-detail="prime1-heman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="1899" data-market-verified="true"><div class="app-img gold"><img class="demo-listing-photo" data-listing-id="prime1-heman" alt=""></div><div class="app-body"><div class="app-title">He-Man 1:3</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$1,899</div></div></div>
+                <div class="market-item clickable" data-open-detail="sideshow-davy-jones" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Chicago" data-market-price="520" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="sideshow-davy-jones" alt=""></div><div class="app-body"><div class="app-title">Davy Jones PF</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$520</div></div></div>
+                <div class="market-item clickable" data-open-detail="sideshow-killercroc" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="410" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="sideshow-killercroc" alt=""></div><div class="app-body"><div class="app-title">Killer Croc PF</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$410</div></div></div>
+                <div class="market-item clickable" data-open-detail="starwars-ezra" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Portland" data-market-price="340" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="starwars-ezra" alt=""></div><div class="app-body"><div class="app-title">Ezra Bridger PF</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$340</div></div></div>
+                <div class="market-item clickable" data-open-detail="starwars-mandalorian" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Chicago" data-market-price="890" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="starwars-mandalorian" alt=""></div><div class="app-body"><div class="app-title">The Mandalorian Premium Format</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$890</div></div></div>
+                <div class="market-item clickable" data-open-detail="tweeterhead-scare-glow" data-market-brand="Exclusive" data-market-scale="1:3" data-market-location="Newark" data-market-price="780" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="tweeterhead-scare-glow" alt=""></div><div class="app-body"><div class="app-title">Scare Glow</div><div class="app-meta">1:3 • Tweeterhead</div><div class="app-price">$780</div></div></div>
               </div>
             </div>
 
@@ -11688,6 +12898,18 @@
                       <span class="listing-modal-seller-count" id="detailSellerReviewCount">127 reviews</span>
                     </div>
                   </div>
+                  <button
+                    type="button"
+                    class="listing-seller-txn-btn listing-modal-seller-txn-btn"
+                    id="detailSellerTxnBtn"
+                    aria-label="View seller transaction history"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                      <path d="M9 5a2 2 0 012-2h2a2 2 0 012 2v0a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                      <path d="M9 12h6M9 16h4"/>
+                    </svg>
+                  </button>
                 </div>
                 <div class="app-row">
                   <div>
@@ -11702,6 +12924,7 @@
                 <p class="detail-description" id="detailDescription">
                   Collector-owned piece. Displayed in smoke-free room. Includes art box, shipper, and all accessories.
                 </p>
+                <div class="listing-mobile-insights" id="detailMobileInsights" aria-label="Sales insights"></div>
                 <div class="detail-actions">
                   <button class="small-btn primary" type="button" id="messageSeller">Message Seller</button>
                   <button class="small-btn" type="button" id="detailWishlist">Add to Wishlist</button>
@@ -11724,17 +12947,23 @@
 
             <div class="app-screen" data-screen="profile">
               <div class="profile-screen-top">
+                <div class="profile-mobile-nav" id="profileMobileNav" hidden>
+                  <button type="button" class="listing-back-btn profile-mobile-back-btn" id="profileMobileBackBtn" aria-label="Back">
+                    <span aria-hidden="true">←</span>
+                  </button>
+                </div>
                 <div class="profile-header-hero">
                   <div class="profile-cover" id="profileCover" aria-hidden="true">
                     <img src="vader-mythos.jpg" alt="" width="640" height="360" decoding="async" id="profileCoverImg" />
                   </div>
+                </div>
                 <div class="profile-header-row">
                   <div class="profile-avatar" id="profileAvatar">GC</div>
                   <div class="profile-info">
                     <h2 class="profile-display-name" id="profileName">Gotham Collector</h2>
                     <div class="profile-subtitle-row" id="profileSubtitleRow">
-                      <span class="profile-verified-line"><span class="profile-verified-badge" aria-hidden="true">✓</span> Verified Seller</span>
-                      <span class="profile-location-sep" aria-hidden="true">·</span>
+                      <span class="profile-verified-line" id="profileVerifiedLine"><span class="profile-verified-badge" aria-hidden="true">✓</span> Verified Seller</span>
+                      <span class="profile-location-sep" id="profileLocationSep" aria-hidden="true">·</span>
                       <span class="profile-location-text" id="profileLocation">Atlanta, GA</span>
                     </div>
                     <div class="profile-review-summary-row">
@@ -11742,7 +12971,6 @@
                       <button type="button" class="profile-review-count-btn" id="openProfileReviewsModal">25 reviews</button>
                     </div>
                   </div>
-                </div>
                 </div>
 
                 <div class="profile-mode-switch" role="tablist" aria-label="Profile type">
@@ -11758,16 +12986,16 @@
 
               <div class="profile-mode-panel profile-mode-panel--market" data-profile-mode-panel="marketplace" role="tabpanel">
                 <div class="market-grid profile-vault-grid" id="profileVaultGrid" aria-label="Your listings">
-                <div class="market-item clickable" data-open-detail="prime1-batman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="2400" data-market-verified="true"><div class="app-img gold"><img class="demo-listing-photo" data-listing-id="prime1-batman" alt=""></div><div class="app-body"><div class="app-title">Batman Beyond</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Atlanta</span></div><div class="app-price">$2,400</div></div></div>
-                <div class="market-item clickable" data-open-detail="ironman-markvii" data-market-brand="Queen" data-market-scale="1:4" data-market-location="Austin" data-market-price="1150" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="ironman-markvii" alt=""></div><div class="app-body"><div class="app-title">Iron Man Mark VII</div><div class="app-meta">1:4 • Queen Studios</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Austin</span></div><div class="app-price">$1,150</div></div></div>
-                <div class="market-item clickable" data-open-detail="joker-deluxe" data-market-brand="Exclusive" data-market-scale="1:3" data-market-location="Newark" data-market-price="1850" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker-deluxe" alt=""></div><div class="app-body"><div class="app-title">Joker Deluxe</div><div class="app-meta">1:3 • Exclusive</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Newark</span></div><div class="app-price">$1,850</div></div></div>
-                <div class="market-item clickable" data-open-detail="wolverine-xm" data-market-brand="XM" data-market-scale="1:4" data-market-location="Portland" data-market-price="980" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="wolverine-xm" alt=""></div><div class="app-body"><div class="app-title">Wolverine</div><div class="app-meta">1:4 • XM Studios</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Portland</span></div><div class="app-price">$980</div></div></div>
-                <div class="market-item clickable" data-open-detail="vader-mythos" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="760" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="vader-mythos" alt=""></div><div class="app-body"><div class="app-title">Vader Mythos</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$760</div></div></div>
-                <div class="market-item clickable" data-open-detail="venom-p1" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Chicago" data-market-price="2050" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="venom-p1" alt=""></div><div class="app-body"><div class="app-title">Venom Deluxe</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Chicago</span></div><div class="app-price">$2,050</div></div></div>
-                <div class="market-item clickable" data-open-detail="joker2" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1920" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker2" alt=""></div><div class="app-body"><div class="app-title">Joker Dark Knight</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Newark</span></div><div class="app-price">$1,920</div></div></div>
-                <div class="market-item clickable" data-open-detail="joker3" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1780" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker3" alt=""></div><div class="app-body"><div class="app-title">The Joker</div><div class="app-meta">1:3 • Prime 1</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Newark</span></div><div class="app-price">$1,780</div></div></div>
-                <div class="market-item clickable" data-open-detail="startwars" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="420" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars" alt=""></div><div class="app-body"><div class="app-title">Star Wars Rogue</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$420</div></div></div>
-                <div class="market-item clickable" data-open-detail="startwars2" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="440" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars2" alt=""></div><div class="app-body"><div class="app-title">Star Wars Obi</div><div class="app-meta">1:4 • Sideshow</div><div class="market-trust-row"><span class="market-trust-pill is-verified">✓ Verified</span><span class="market-trust-pill">📍 Orlando</span></div><div class="app-price">$440</div></div></div>
+                <div class="market-item clickable" data-open-detail="prime1-batman" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Atlanta" data-market-price="2400" data-market-verified="true"><div class="app-img gold"><img class="demo-listing-photo" data-listing-id="prime1-batman" alt=""></div><div class="app-body"><div class="app-title">Batman Beyond</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$2,400</div></div></div>
+                <div class="market-item clickable" data-open-detail="ironman-markvii" data-market-brand="Queen" data-market-scale="1:4" data-market-location="Austin" data-market-price="1150" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="ironman-markvii" alt=""></div><div class="app-body"><div class="app-title">Iron Man Mark VII</div><div class="app-meta">1:4 • Queen Studios</div><div class="app-price">$1,150</div></div></div>
+                <div class="market-item clickable" data-open-detail="joker-deluxe" data-market-brand="Exclusive" data-market-scale="1:3" data-market-location="Newark" data-market-price="1850" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker-deluxe" alt=""></div><div class="app-body"><div class="app-title">Joker Deluxe</div><div class="app-meta">1:3 • Exclusive</div><div class="app-price">$1,850</div></div></div>
+                <div class="market-item clickable" data-open-detail="wolverine-xm" data-market-brand="XM" data-market-scale="1:4" data-market-location="Portland" data-market-price="980" data-market-verified="true"><div class="app-img green"><img class="demo-listing-photo" data-listing-id="wolverine-xm" alt=""></div><div class="app-body"><div class="app-title">Wolverine</div><div class="app-meta">1:4 • XM Studios</div><div class="app-price">$980</div></div></div>
+                <div class="market-item clickable" data-open-detail="vader-mythos" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="760" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="vader-mythos" alt=""></div><div class="app-body"><div class="app-title">Vader Mythos</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$760</div></div></div>
+                <div class="market-item clickable" data-open-detail="venom-p1" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Chicago" data-market-price="2050" data-market-verified="true"><div class="app-img"><img class="demo-listing-photo" data-listing-id="venom-p1" alt=""></div><div class="app-body"><div class="app-title">Venom Deluxe</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$2,050</div></div></div>
+                <div class="market-item clickable" data-open-detail="joker2" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1920" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker2" alt=""></div><div class="app-body"><div class="app-title">Joker Dark Knight</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$1,920</div></div></div>
+                <div class="market-item clickable" data-open-detail="joker3" data-market-brand="Prime 1" data-market-scale="1:3" data-market-location="Newark" data-market-price="1780" data-market-verified="true"><div class="app-img red"><img class="demo-listing-photo" data-listing-id="joker3" alt=""></div><div class="app-body"><div class="app-title">The Joker</div><div class="app-meta">1:3 • Prime 1</div><div class="app-price">$1,780</div></div></div>
+                <div class="market-item clickable" data-open-detail="startwars" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="420" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars" alt=""></div><div class="app-body"><div class="app-title">Star Wars Rogue</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$420</div></div></div>
+                <div class="market-item clickable" data-open-detail="startwars2" data-market-brand="Sideshow" data-market-scale="1:4" data-market-location="Orlando" data-market-price="440" data-market-verified="true"><div class="app-img blue"><img class="demo-listing-photo" data-listing-id="startwars2" alt=""></div><div class="app-body"><div class="app-title">Star Wars Obi</div><div class="app-meta">1:4 • Sideshow</div><div class="app-price">$440</div></div></div>
                 </div>
               </div>
               </div>
@@ -12006,6 +13234,44 @@
                   </form>
                 </div>
               </aside>
+              <aside class="listing-detail-txn-dock" id="listingDetailTxnDock" aria-hidden="true">
+                <div class="listing-detail-txn-card">
+                  <div class="listing-detail-chat-toolbar">
+                    <button
+                      type="button"
+                      class="listing-detail-chat-back"
+                      id="listingDetailTxnCollapse"
+                      aria-label="Hide transaction history"
+                    >
+                      ← Hide
+                    </button>
+                    <div class="listing-detail-chat-toolbar-meta">
+                      <span class="listing-detail-chat-peer-name" id="listingDetailTxnTitle">Transaction history</span>
+                      <span class="listing-detail-chat-peer-sub" id="listingDetailTxnSub">Seller</span>
+                    </div>
+                  </div>
+                  <div class="listing-detail-txn-list" id="listingDetailTxnList" role="list" aria-label="Seller transactions"></div>
+                </div>
+              </aside>
+              <aside class="listing-detail-intel-dock" id="listingDetailIntelDock" aria-hidden="true">
+                <div class="listing-detail-intel-card">
+                  <div class="listing-detail-chat-toolbar">
+                    <button
+                      type="button"
+                      class="listing-detail-chat-back"
+                      id="listingDetailIntelCollapse"
+                      aria-label="Hide market intelligence"
+                    >
+                      ← Hide
+                    </button>
+                    <div class="listing-detail-chat-toolbar-meta">
+                      <span class="listing-detail-chat-peer-name" id="listingDetailIntelTitle">Market intelligence</span>
+                      <span class="listing-detail-chat-peer-sub" id="listingDetailIntelSub">Listing</span>
+                    </div>
+                  </div>
+                  <div class="listing-detail-intel-scroll" id="listingDetailIntelScroll" aria-label="Market intelligence details"></div>
+                </div>
+              </aside>
               </div>
             </div>
           </div>
@@ -12193,6 +13459,55 @@
               </form>
             </div>
           </div>
+          <div class="listing-mobile-txn-root" id="listingMobileTxnRoot" aria-hidden="true">
+            <div class="listing-mobile-txn-backdrop" id="listingMobileTxnBackdrop" tabindex="-1"></div>
+            <div
+              class="listing-mobile-txn-sheet"
+              id="listingMobileTxnSheet"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Seller transaction history"
+            >
+              <div class="listing-mobile-txn-sheet-handle" aria-hidden="true"></div>
+              <div class="listing-mobile-txn-toolbar">
+                <button type="button" class="listing-back-btn listing-mobile-txn-back" id="listingMobileTxnClose" aria-label="Close transaction history">
+                  <span aria-hidden="true">←</span>
+                </button>
+                <div class="listing-mobile-txn-toolbar-meta">
+                  <span class="listing-mobile-txn-title" id="listingMobileTxnTitle">Transaction history</span>
+                  <span class="listing-mobile-txn-sub" id="listingMobileTxnSub">Seller</span>
+                </div>
+              </div>
+              <div class="listing-mobile-txn-list" id="listingMobileTxnList" role="list" aria-label="Seller transactions"></div>
+            </div>
+          </div>
+          <div class="listing-mobile-intel-root" id="listingMobileIntelRoot" aria-hidden="true">
+            <div class="listing-mobile-intel-backdrop" id="listingMobileIntelBackdrop" tabindex="-1"></div>
+            <div
+              class="listing-mobile-intel-sheet"
+              id="listingMobileIntelSheet"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Market intelligence"
+            >
+              <div class="listing-mobile-intel-sheet-handle" aria-hidden="true"></div>
+              <div class="listing-mobile-intel-toolbar">
+                <button
+                  type="button"
+                  class="listing-back-btn listing-mobile-intel-back"
+                  id="listingMobileIntelClose"
+                  aria-label="Close market intelligence"
+                >
+                  <span aria-hidden="true">←</span>
+                </button>
+                <div class="listing-mobile-intel-toolbar-meta">
+                  <span class="listing-mobile-intel-title" id="listingMobileIntelTitle">Market intelligence</span>
+                  <span class="listing-mobile-intel-sub" id="listingMobileIntelSub">Listing</span>
+                </div>
+              </div>
+              <div class="listing-mobile-intel-scroll" id="listingMobileIntelScroll" aria-label="Market intelligence details"></div>
+            </div>
+          </div>
         </div>
         </div>
         </div>
@@ -12255,6 +13570,8 @@
         ['feedMobileExpand', 'is-active'],
         ['feedMobileCommentsRoot', 'is-active'],
         ['listingMobileMessageRoot', 'is-active'],
+        ['listingMobileTxnRoot', 'is-active'],
+        ['listingMobileIntelRoot', 'is-active'],
         ['profileReviewsOverlay', 'is-open'],
         ['demoNotificationsOverlay', 'is-open'],
         ['demoMobileMenuOverlay', 'is-open']
@@ -12280,6 +13597,8 @@
         'feedMobileExpand',
         'feedMobileCommentsRoot',
         'listingMobileMessageRoot',
+        'listingMobileTxnRoot',
+        'listingMobileIntelRoot',
         'profileReviewsOverlay',
         'demoNotificationsOverlay',
         'demoMobileMenuOverlay',
@@ -13807,8 +15126,8 @@
       collectorsGrid.querySelectorAll('.collector-card').forEach(function (card) {
         card.addEventListener('click', function (e) {
           if (e.target.closest('.collector-follow-btn')) return;
-          resetDemoMeProfile();
-          switchScreen('profile', true);
+          var collectorId = card.getAttribute('data-collector-id');
+          if (collectorId) openProfile(collectorId);
         });
       });
     }
@@ -14402,6 +15721,38 @@
       }
     };
 
+    const SELLER_TRANSACTION_HISTORY = {
+      'Gotham Collector': [
+        { item: 'Joker Deluxe', listingId: 'joker-deluxe', buyer: '@LaughCollect', price: '$1,850', date: 'Apr 12, 2026', rating: 5 },
+        { item: 'Batman Beyond', listingId: 'prime1-batman', buyer: '@CapeCollector', price: '$2,400', date: 'Mar 28, 2026', rating: 5 },
+        { item: 'Venom Deluxe', listingId: 'venom-p1', buyer: '@SymbioteShelf', price: '$2,050', date: 'Mar 3, 2026', rating: 4 },
+        { item: 'The Joker', listingId: 'joker3', buyer: '@RoguesRow', price: '$1,780', date: 'Feb 14, 2026', rating: 5 }
+      ],
+      'Sith Vault': [
+        { item: 'Vader Mythos', listingId: 'vader-mythos', buyer: '@RebelShelf', price: '$760', date: 'Apr 8, 2026', rating: 5 },
+        { item: 'Ezra Bridger', listingId: 'starwars-ezra', buyer: '@OuterRim', price: '$620', date: 'Mar 19, 2026', rating: 4 },
+        { item: 'The Mandalorian', listingId: 'starwars-mandalorian', buyer: '@MandoDen', price: '$890', date: 'Feb 22, 2026', rating: 5 }
+      ],
+      'Arc Collector': [
+        { item: 'Iron Man Mark VII', listingId: 'ironman-markvii', buyer: '@ArcReactor', price: '$1,150', date: 'Apr 2, 2026', rating: 5 },
+        { item: 'Iron Man Bust', listingId: 'ironman-markvii', buyer: '@BustWall', price: '$2,100', date: 'Jan 30, 2026', rating: 4 }
+      ],
+      'Mutant Room': [
+        { item: 'XM Wolverine', listingId: 'wolverine-xm', buyer: '@GlassCase', price: '$980', date: 'Mar 25, 2026', rating: 5 },
+        { item: 'XM Wolverine (Yellow)', listingId: 'wolverine2', buyer: '@MutantRoom', price: '$940', date: 'Feb 8, 2026', rating: 5 }
+      ],
+      'Chaos Cabinet': [
+        { item: 'Joker Dark Knight', listingId: 'joker2', buyer: '@NightAlley', price: '$1,920', date: 'Mar 11, 2026', rating: 5 },
+        { item: 'Scare Glow', listingId: 'tweeterhead-scare-glow', buyer: '@EterniaShelf', price: '$780', date: 'Feb 2, 2026', rating: 4 }
+      ]
+    };
+
+    const DEFAULT_SELLER_TRANSACTIONS = [
+      { item: 'Prime 1 Display Piece', listingId: 'prime1-batman', buyer: '@ScaleVault', price: '$1,420', date: 'Mar 15, 2026', rating: 5 },
+      { item: '1:4 Statue Lot', listingId: 'vader-mythos', buyer: '@BayStatues', price: '$2,180', date: 'Feb 20, 2026', rating: 4 },
+      { item: 'Exclusive Resin', listingId: 'venom-p1', buyer: '@FlipStatue', price: '$1,650', date: 'Jan 28, 2026', rating: 5 }
+    ];
+
     const listingInsightsById = {
       'prime1-batman': {
         verdict: 'fair',
@@ -14412,7 +15763,19 @@
         gaugeHigh: 2700,
         historySummary: 'Price history',
         historyBody:
-          'Originally listed at $4,400 on the listing history. Current ask is $2,000 below that anchor while still landing inside the typical recent band.'
+          'Originally listed at $4,400 on the listing history. Current ask is $2,000 below that anchor while still landing inside the typical recent band.',
+        demandTrend: 'up',
+        demandLabel: 'Collector demand is heating up',
+        demandCounts: [118, 132, 148, 162, 178, 196, 214],
+        demandFootnote: 'Weekly saved + wishlisted totals in the vault.',
+        wishlistSaves: 214,
+        wishlistWatchers: 47,
+        wishlistAdds7d: 14,
+        wishlistRank: 'Top 8% in 1:3 DC exclusives',
+        marketTrend: 'down',
+        marketDelta: '−3.1% median ask',
+        marketMedians: [2520, 2490, 2465, 2440, 2420, 2410, 2380],
+        marketNote: 'Two nearby Batman Beyond comps reduced in the last 14 days, pulling the band down slightly.'
       },
       'vader-mythos': {
         verdict: 'under',
@@ -14421,7 +15784,19 @@
         gaugeLow: 820,
         gaugeHigh: 980,
         historySummary: 'Price history',
-        historyBody: 'Seller reduced twice in the recent activity (−$120 total). Current ask is below the median Mythos comp band.'
+        historyBody: 'Seller reduced twice in the recent activity (−$120 total). Current ask is below the median Mythos comp band.',
+        demandTrend: 'up',
+        demandLabel: 'Grail-watch demand climbing',
+        demandCounts: [102, 118, 124, 138, 152, 168, 186],
+        demandFootnote: 'Weekly saved + wishlisted totals in the vault.',
+        wishlistSaves: 186,
+        wishlistWatchers: 39,
+        wishlistAdds7d: 11,
+        wishlistRank: 'Top 5% Star Wars 1:4',
+        marketTrend: 'down',
+        marketDelta: '−4.2% median ask',
+        marketMedians: [820, 808, 798, 788, 778, 768, 760],
+        marketNote: 'Recent seller reductions on two Mythos comps softened the typical close band.'
       },
       'ironman-markvii': {
         verdict: 'fair',
@@ -14431,7 +15806,19 @@
         gaugeLow: 1050,
         gaugeHigh: 1250,
         historySummary: 'Price history',
-        historyBody: 'No reductions in the recent weeks, but watchlist activity is steady — typical for a clean Mk VII listing.'
+        historyBody: 'No reductions in the recent weeks, but watchlist activity is steady — typical for a clean Mk VII listing.',
+        demandTrend: 'steady',
+        demandLabel: 'Steady Queen Studios interest',
+        demandCounts: [78, 80, 82, 84, 86, 89, 92],
+        demandFootnote: 'Weekly saved + wishlisted totals in the vault.',
+        wishlistSaves: 92,
+        wishlistWatchers: 18,
+        wishlistAdds7d: 4,
+        wishlistRank: 'Mid-pack in 1:4 Marvel',
+        marketTrend: 'steady',
+        marketDelta: '+0.6% median ask',
+        marketMedians: [1140, 1145, 1142, 1148, 1146, 1150, 1150],
+        marketNote: 'Median ask is holding with light drift — typical for clean Mk VII listings.'
       },
       'wolverine-xm': {
         verdict: 'fair',
@@ -14440,7 +15827,19 @@
         gaugeLow: 920,
         gaugeHigh: 1050,
         historySummary: 'Price history',
-        historyBody: 'One small adjustment (−$40) after initial listing in the recent activity; still within the expected XM band.'
+        historyBody: 'One small adjustment (−$40) after initial listing in the recent activity; still within the expected XM band.',
+        demandTrend: 'up',
+        demandLabel: 'Strong XM collector pull',
+        demandCounts: [88, 92, 96, 102, 108, 112, 118],
+        demandFootnote: 'Weekly saved + wishlisted totals in the vault.',
+        wishlistSaves: 118,
+        wishlistWatchers: 26,
+        wishlistAdds7d: 7,
+        wishlistRank: 'Top 15% XM Marvel 1:4',
+        marketTrend: 'steady',
+        marketDelta: '+1.1% median ask',
+        marketMedians: [968, 972, 974, 976, 978, 980, 980],
+        marketNote: 'Band is stable with a slight upward bias as fewer clean copies hit the grid.'
       },
       'joker-deluxe': {
         verdict: 'over',
@@ -14451,7 +15850,19 @@
         gaugeHigh: 1850,
         historySummary: 'Price history',
         historyBody:
-          'Listed $80 above the typical median at open; seller notes indicate room for a reasonable offer on similar pieces.'
+          'Listed $80 above the typical median at open; seller notes indicate room for a reasonable offer on similar pieces.',
+        demandTrend: 'steady',
+        demandLabel: 'Deluxe buyers watching closely',
+        demandCounts: [62, 64, 66, 68, 70, 73, 76],
+        demandFootnote: 'Weekly saved + wishlisted totals in the vault.',
+        wishlistSaves: 76,
+        wishlistWatchers: 21,
+        wishlistAdds7d: 3,
+        wishlistRank: 'Upper tier 1:3 DC villains',
+        marketTrend: 'up',
+        marketDelta: '+2.3% median ask',
+        marketMedians: [1780, 1795, 1810, 1825, 1835, 1845, 1850],
+        marketNote: 'Deluxe Joker comps ticked up as fewer bonus-complete listings stayed live.'
       },
       'venom-p1': {
         verdict: 'over',
@@ -14461,7 +15872,19 @@
         gaugeLow: 1850,
         gaugeHigh: 2100,
         historySummary: 'Price history',
-        historyBody: 'Holding near the original opening ask; comps suggest buyers may negotiate toward the mid $1.9k range.'
+        historyBody: 'Holding near the original opening ask; comps suggest buyers may negotiate toward the mid $1.9k range.',
+        demandTrend: 'up',
+        demandLabel: 'Large-scale demand surging',
+        demandCounts: [142, 158, 172, 188, 206, 224, 241],
+        demandFootnote: 'Weekly saved + wishlisted totals in the vault.',
+        wishlistSaves: 241,
+        wishlistWatchers: 52,
+        wishlistAdds7d: 19,
+        wishlistRank: 'Top 3% Prime 1 Marvel 1:3',
+        marketTrend: 'up',
+        marketDelta: '+4.8% median ask',
+        marketMedians: [1920, 1945, 1970, 1995, 2010, 2035, 2050],
+        marketNote: 'Premium large-scale Venom asks are firming as inventory thins in this run.'
       },
       'joker2': {
         verdict: 'fair',
@@ -14754,11 +16177,108 @@
     };
 
     const profiles = {
-      gotham: { avatar: 'GC', name: 'Gotham Collector', location: 'Atlanta, GA', pieces: '42', sold: '18' },
-      vader: { avatar: 'SV', name: 'Sith Vault', location: 'Orlando, FL', pieces: '31', sold: '9' },
-      arc: { avatar: 'AC', name: 'Arc Collector', location: 'Austin, TX', pieces: '27', sold: '14' },
-      mutant: { avatar: 'MR', name: 'Mutant Room', location: 'Portland, OR', pieces: '38', sold: '6' }
+      gotham: { avatar: 'GC', name: 'Gotham Collector', handle: '@GothamCollector', location: 'Atlanta, GA', pieces: '42', sold: '18', verified: true },
+      vader: { avatar: 'SV', name: 'Sith Vault', handle: '@SithVault', location: 'Orlando, FL', pieces: '31', sold: '9', verified: true },
+      arc: { avatar: 'AC', name: 'Arc Collector', handle: '@ArcCollector', location: 'Austin, TX', pieces: '27', sold: '14', verified: true },
+      mutant: { avatar: 'MR', name: 'Mutant Room', handle: '@MutantRoom', location: 'Portland, OR', pieces: '38', sold: '6', verified: false }
     };
+    const COLLECTOR_PROFILE_ALIASES = {
+      'gotham-collector': 'gotham',
+      'sith-vault': 'vader',
+      'arc-collector': 'arc',
+      'mutant-room': 'mutant'
+    };
+    const PROFILE_DEMO_CITIES = [
+      'Atlanta, GA', 'Austin, TX', 'Portland, OR', 'Orlando, FL', 'Chicago, IL',
+      'Newark, NJ', 'Denver, CO', 'Seattle, WA', 'Phoenix, AZ', 'Nashville, TN'
+    ];
+    var demoProfileIsSelf = true;
+
+    function hashCollectorDemoId(id) {
+      var hash = 0;
+      for (var i = 0; i < id.length; i++) {
+        hash = ((hash << 5) - hash) + id.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash);
+    }
+
+    function resolveProfileKey(profileId) {
+      if (!profileId) return 'gotham';
+      return COLLECTOR_PROFILE_ALIASES[profileId] || profileId;
+    }
+
+    function getProfileRecord(profileId) {
+      var resolved = resolveProfileKey(profileId);
+      if (profiles[resolved]) {
+        return Object.assign({ key: resolved }, profiles[resolved]);
+      }
+      var collector = collectorsDemoData.find(function (c) {
+        return c.id === profileId;
+      });
+      if (collector) {
+        var hash = hashCollectorDemoId(collector.id);
+        return {
+          key: collector.id,
+          avatar: collector.initials,
+          name: collector.name,
+          handle: collector.handle,
+          location: PROFILE_DEMO_CITIES[hash % PROFILE_DEMO_CITIES.length],
+          pieces: String(18 + (hash % 35)),
+          sold: String(4 + (hash % 22)),
+          verified: !!collector.verified
+        };
+      }
+      return Object.assign({ key: 'gotham' }, profiles.gotham);
+    }
+
+    var feedAuthorProfileMap = null;
+
+    function getFeedAuthorProfileMap() {
+      if (feedAuthorProfileMap) return feedAuthorProfileMap;
+      feedAuthorProfileMap = {};
+      Object.keys(profiles).forEach(function (key) {
+        var handle = profiles[key].handle;
+        if (handle) feedAuthorProfileMap[handle.toLowerCase()] = key;
+      });
+      collectorsDemoData.forEach(function (collector) {
+        feedAuthorProfileMap[collector.handle.toLowerCase()] =
+          COLLECTOR_PROFILE_ALIASES[collector.id] || collector.id;
+      });
+      return feedAuthorProfileMap;
+    }
+
+    function resolveProfileIdFromFeedSpec(spec) {
+      if (!spec) return null;
+      if (spec.profile) return spec.profile;
+      if (spec.author && spec.author !== 'You') {
+        var mapped = getFeedAuthorProfileMap()[spec.author.toLowerCase()];
+        if (mapped) return mapped;
+      }
+      return null;
+    }
+
+    function appendFeedPostAvatar(head, spec, opts) {
+      opts = opts || {};
+      var profileId = resolveProfileIdFromFeedSpec(spec);
+      var avClass = 'feed-post-avatar ' + (spec.av || 'gc');
+      if (opts.profileFeed) avClass += ' wall-self profile-wall-avatar-sync';
+      var av;
+      if (profileId) {
+        av = document.createElement('button');
+        av.type = 'button';
+        av.className = avClass + ' feed-post-avatar-btn';
+        av.setAttribute('data-open-profile', profileId);
+        var labelName = (spec.author && spec.author !== 'You') ? spec.author : 'collector';
+        av.setAttribute('aria-label', 'View ' + labelName + ' profile');
+      } else {
+        av = document.createElement('div');
+        av.className = avClass;
+        av.setAttribute('aria-hidden', 'true');
+      }
+      av.textContent = spec.avText || '?';
+      head.appendChild(av);
+    }
 
     const demoInterestOverlay = document.getElementById('demoInterestOverlay');
     const demoInterestDialog = demoInterestOverlay ? demoInterestOverlay.querySelector('.demo-interest-dialog') : null;
@@ -14873,9 +16393,12 @@
     }
 
     function getProfileFeedSpecs(profileId) {
-      var id = profileId || 'gotham';
+      var record = getProfileRecord(profileId);
+      var id = record.key;
+      var handle = record.handle;
       var matched = DEMO_FEED_POST_SPECS.filter(function (spec) {
         if (spec.profile === id) return true;
+        if (handle && spec.author === handle) return true;
         if (id === 'gotham' && spec.author === '@GothamCollector') return true;
         return false;
       });
@@ -14896,12 +16419,7 @@
       body.className = 'app-body';
       var head = document.createElement('div');
       head.className = 'feed-post-head';
-      var av = document.createElement('div');
-      var avClass = 'feed-post-avatar ' + (spec.av || 'gc');
-      if (opts.profileFeed) avClass += ' wall-self profile-wall-avatar-sync';
-      av.className = avClass;
-      av.setAttribute('aria-hidden', 'true');
-      av.textContent = spec.avText || '?';
+      appendFeedPostAvatar(head, spec, opts);
       var meta = document.createElement('div');
       meta.className = 'feed-post-meta';
       var author = document.createElement('div');
@@ -14912,7 +16430,6 @@
       sub.textContent = (spec.sub || 'Following').replace(' · Following', opts.profileFeed ? ' · Profile' : ' · Following');
       meta.appendChild(author);
       meta.appendChild(sub);
-      head.appendChild(av);
       head.appendChild(meta);
       body.appendChild(head);
       if (spec.body) {
@@ -14961,8 +16478,8 @@
     function renderProfileFeedPosts(profileId) {
       var list = document.getElementById('profileFeedList');
       if (!list) return;
-      var profile = profiles[profileId] || profiles.gotham;
-      var isMe = profileId === 'gotham';
+      var profile = getProfileRecord(profileId);
+      var isMe = demoProfileIsSelf;
       list.innerHTML = '';
       var profileAvClass = { gotham: 'gc', vader: 'sw', arc: 'p1', mutant: 'ms' };
       getProfileFeedSpecs(profileId).forEach(function (spec) {
@@ -14972,7 +16489,7 @@
           postSpec.av = 'gc';
           postSpec.avText = profile.avatar;
         } else {
-          postSpec.av = profileAvClass[profileId] || spec.av || 'gc';
+          postSpec.av = profileAvClass[profile.key] || spec.av || 'gc';
           postSpec.avText = profile.avatar;
         }
         list.appendChild(
@@ -16084,6 +17601,7 @@
       closeFeedPostModal();
       closeFeedMobileExpand();
       closeListingMobileMessageSheet();
+      closeListingMobileTxnSheet();
       closeNotificationsPanel();
       closeMobileMenu();
       const activeScreen = previewModal ? previewModal.querySelector('.app-screen.active') : document.querySelector('.app-screen.active');
@@ -16232,28 +17750,413 @@
       return '$' + v.toLocaleString('en-US');
     }
 
-    function buildListingInsightsDom(resolvedId) {
+    var DEFAULT_LISTING_INSIGHTS = {
+      verdict: 'fair',
+      label: 'Fair vs recent comps',
+      dealTeaser: 'This listing lines up with recent sales pacing in the vault.',
+      gaugeLow: 0,
+      gaugeHigh: 0,
+      historySummary: 'Price history',
+      historyBody: 'No additional timeline detail yet.',
+      demandTrend: 'steady',
+      demandLabel: 'Stable collector interest',
+      demandCounts: [68, 72, 74, 78, 80, 83, 86],
+      demandFootnote: 'Weekly saved + wishlisted totals in the vault.',
+      wishlistSaves: 86,
+      wishlistWatchers: 22,
+      wishlistAdds7d: 5,
+      wishlistRank: 'Typical for this category',
+      marketTrend: 'steady',
+      marketDelta: '+0.8% median ask',
+      marketMedians: [980, 982, 984, 986, 988, 990, 992],
+      marketNote: 'Median ask is holding near recent comps with light day-to-day drift.'
+    };
+
+    function getListingInsightsPack(resolvedId) {
       var item = listings[resolvedId] || listings['prime1-batman'];
-      var data = Object.assign(
-        {
-          verdict: 'fair',
-          label: 'Fair vs recent comps',
-          dealTeaser: 'This listing lines up with recent sales pacing in the vault.',
-          gaugeLow: 0,
-          gaugeHigh: 0,
-          historySummary: 'Price history',
-          historyBody: 'No additional timeline detail yet.'
-        },
-        listingInsightsById[resolvedId] || {}
-      );
+      var data = Object.assign({}, DEFAULT_LISTING_INSIGHTS, listingInsightsById[resolvedId] || {});
+      return { item: item, data: data };
+    }
+
+    function appendListingSalesEstimateChart(nest, resolvedId) {
+      var pack = getListingInsightsPack(resolvedId);
+      var data = pack.data;
+      var item = pack.item;
+      if (!(data.gaugeHigh > data.gaugeLow)) return false;
+
+      var current = parseListingPriceNumber(item.price);
+      var fairSpan = data.gaugeHigh - data.gaugeLow;
+      var extend = typeof data.gaugeBandExtend === 'number' ? data.gaugeBandExtend : 0.85;
+      var barMin =
+        data.gaugeBarMin != null ? Number(data.gaugeBarMin) : Math.max(0, Math.round(data.gaugeLow - fairSpan * extend));
+      var barMax =
+        data.gaugeBarMax != null ? Number(data.gaugeBarMax) : Math.round(data.gaugeHigh + fairSpan * extend);
+      if (barMax <= barMin) barMax = barMin + 1;
+      if (current < barMin) barMin = Math.max(0, Math.floor(current - Math.max(fairSpan * 0.15, 1)));
+      if (current > barMax) barMax = Math.ceil(current + Math.max(fairSpan * 0.15, 1));
+
+      var r1 = Math.max(0.0001, data.gaugeLow - barMin);
+      var r2 = Math.max(0.0001, data.gaugeHigh - data.gaugeLow);
+      var r3 = Math.max(0.0001, barMax - data.gaugeHigh);
+      var colTpl = r1 + 'fr 5px ' + r2 + 'fr 5px ' + r3 + 'fr';
+
+      var estTitle = document.createElement('div');
+      estTitle.className = 'listing-insights-estimate-title';
+      estTitle.textContent = 'Sales estimate';
+      nest.appendChild(estTitle);
+
+      var chart = document.createElement('div');
+      chart.className = 'listing-insights-estimate-chart';
+
+      var bars = document.createElement('div');
+      bars.className = 'listing-insights-estimate-bars';
+      bars.style.gridTemplateColumns = colTpl;
+
+      var segG = document.createElement('div');
+      segG.className = 'listing-insights-estimate-seg listing-insights-estimate-seg--great';
+      segG.setAttribute('title', 'Great deal');
+      var gapA = document.createElement('div');
+      gapA.className = 'listing-insights-estimate-gap';
+      gapA.setAttribute('aria-hidden', 'true');
+      var segF = document.createElement('div');
+      segF.className = 'listing-insights-estimate-seg listing-insights-estimate-seg--fair';
+      segF.setAttribute('title', 'Fair range');
+      var gapB = document.createElement('div');
+      gapB.className = 'listing-insights-estimate-gap';
+      gapB.setAttribute('aria-hidden', 'true');
+      var segO = document.createElement('div');
+      segO.className = 'listing-insights-estimate-seg listing-insights-estimate-seg--over';
+      segO.setAttribute('title', 'Overpriced');
+      bars.appendChild(segG);
+      bars.appendChild(gapA);
+      bars.appendChild(segF);
+      bars.appendChild(gapB);
+      bars.appendChild(segO);
+
+      var overlay = document.createElement('div');
+      overlay.className = 'listing-insights-estimate-overlay';
+      var pin = document.createElement('div');
+      pin.className = 'listing-insights-estimate-pin';
+      var tMarker = (current - barMin) / (barMax - barMin);
+      tMarker = Math.max(0, Math.min(1, tMarker));
+      pin.style.left = 100 * tMarker + '%';
+      var tooltip = document.createElement('div');
+      tooltip.className = 'listing-insights-estimate-tooltip';
+      tooltip.textContent = formatInsightMoney(current);
+      var dot = document.createElement('div');
+      dot.className = 'listing-insights-estimate-dot';
+      pin.appendChild(tooltip);
+      pin.appendChild(dot);
+      overlay.appendChild(pin);
+
+      chart.appendChild(bars);
+      chart.appendChild(overlay);
+      nest.appendChild(chart);
+
+      var fairRow = document.createElement('div');
+      fairRow.className = 'listing-insights-estimate-fair-row';
+      fairRow.style.gridTemplateColumns = colTpl;
+      var padL = document.createElement('div');
+      padL.setAttribute('aria-hidden', 'true');
+      var padG1 = document.createElement('div');
+      padG1.setAttribute('aria-hidden', 'true');
+      var fairCell = document.createElement('div');
+      fairCell.className = 'listing-insights-estimate-fair-labels';
+      var lowEl = document.createElement('span');
+      lowEl.textContent = formatInsightMoney(data.gaugeLow);
+      var highEl = document.createElement('span');
+      highEl.textContent = formatInsightMoney(data.gaugeHigh);
+      fairCell.appendChild(lowEl);
+      fairCell.appendChild(highEl);
+      var padG2 = document.createElement('div');
+      padG2.setAttribute('aria-hidden', 'true');
+      var padR = document.createElement('div');
+      padR.setAttribute('aria-hidden', 'true');
+      fairRow.appendChild(padL);
+      fairRow.appendChild(padG1);
+      fairRow.appendChild(fairCell);
+      fairRow.appendChild(padG2);
+      fairRow.appendChild(padR);
+      nest.appendChild(fairRow);
+
+      var leg = document.createElement('div');
+      leg.className = 'listing-insights-estimate-legend';
+      leg.style.gridTemplateColumns = colTpl;
+      var lg = document.createElement('span');
+      lg.textContent = 'Great deal';
+      var legGap1 = document.createElement('div');
+      legGap1.setAttribute('aria-hidden', 'true');
+      var lf = document.createElement('span');
+      lf.textContent = 'Fair';
+      var legGap2 = document.createElement('div');
+      legGap2.setAttribute('aria-hidden', 'true');
+      var lo = document.createElement('span');
+      lo.textContent = 'Overpriced';
+      leg.appendChild(lg);
+      leg.appendChild(legGap1);
+      leg.appendChild(lf);
+      leg.appendChild(legGap2);
+      leg.appendChild(lo);
+      nest.appendChild(leg);
+      return true;
+    }
+
+    function formatIntelShortMoney(n) {
+      var v = Math.round(Number(n) || 0);
+      if (!v) return '$ 0';
+      var k = v / 1000;
+      var s = k.toFixed(1);
+      if (s.slice(-2) === '.0') s = String(Math.round(k));
+      return '$ ' + s + 'k';
+    }
+
+    function getDemandCountsSeries(data) {
+      if (data.demandCounts && data.demandCounts.length) return data.demandCounts.slice();
+      var peak = Math.max(1, Number(data.wishlistSaves) || 86);
+      var pts = data.demandPoints || [44, 46, 45, 48, 47, 49, 50];
+      var maxP = Math.max.apply(null, pts.map(Number));
+      return pts.map(function (p) {
+        return Math.max(1, Math.round((peak * Number(p)) / (maxP || 1)));
+      });
+    }
+
+    function getMarketMediansSeries(data, item) {
+      if (data.marketMedians && data.marketMedians.length) return data.marketMedians.slice();
+      var pts = data.marketPoints || [58, 59, 58, 60, 59, 60, 61];
+      var mid =
+        data.gaugeLow > 0 && data.gaugeHigh > data.gaugeLow
+          ? Math.round((data.gaugeLow + data.gaugeHigh) / 2)
+          : parseListingPriceNumber(item.price);
+      var nums = pts.map(Number);
+      var minP = Math.min.apply(null, nums);
+      var maxP = Math.max.apply(null, nums);
+      var span = maxP - minP || 1;
+      return nums.map(function (p) {
+        return Math.round(mid * (0.94 + 0.06 * ((p - minP) / span)));
+      });
+    }
+
+    function appendIntelSparkline(host, series, trend, opts) {
+      opts = opts || {};
+      var vals = (series && series.length ? series : [50, 50, 50]).map(function (v) {
+        return Number(v) || 0;
+      });
+      var min = Math.min.apply(null, vals);
+      var max = Math.max.apply(null, vals);
+      var span = max - min || 1;
+      var w = 280;
+      var h = 88;
+      var padX = 10;
+      var padBottom = 12;
+      var padTop = 22;
+      var svgNs = 'http://www.w3.org/2000/svg';
+      var trendKey = trend || 'steady';
+      var labelFormat = opts.labelFormat || 'count';
+
+      function labelForValue(v) {
+        if (labelFormat === 'money') return formatIntelShortMoney(v);
+        return String(Math.round(v));
+      }
+
+      var wrap = document.createElement('div');
+      wrap.className = 'listing-intel-spark-wrap';
+
+      var svg = document.createElementNS(svgNs, 'svg');
+      svg.setAttribute('class', 'listing-intel-sparkline');
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svg.setAttribute('preserveAspectRatio', 'none');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', opts.chartLabel || 'Weekly trend chart');
+
+      var coords = vals.map(function (v, i) {
+        var x = padX + (i / Math.max(1, vals.length - 1)) * (w - padX * 2);
+        var y = h - padBottom - ((v - min) / span) * (h - padBottom - padTop);
+        return { x: x, y: y, value: v };
+      });
+      var linePts = coords
+        .map(function (c) {
+          return c.x + ',' + c.y;
+        })
+        .join(' ');
+      var areaPts = padX + ',' + (h - padBottom) + ' ' + linePts + ' ' + (w - padX) + ',' + (h - padBottom);
+      var fill = document.createElementNS(svgNs, 'polygon');
+      fill.setAttribute('class', 'listing-intel-sparkline-fill listing-intel-sparkline-fill--' + trendKey);
+      fill.setAttribute('points', areaPts);
+      var line = document.createElementNS(svgNs, 'polyline');
+      line.setAttribute('class', 'listing-intel-sparkline-line listing-intel-sparkline-line--' + trendKey);
+      line.setAttribute('points', linePts);
+      svg.appendChild(fill);
+      svg.appendChild(line);
+
+      coords.forEach(function (c, i) {
+        var labelY = i % 2 === 0 ? c.y - 11 : c.y - 18;
+        if (labelY < padTop - 4) labelY = c.y + 14;
+
+        var text = document.createElementNS(svgNs, 'text');
+        text.setAttribute('class', 'listing-intel-spark-label listing-intel-spark-label--' + trendKey);
+        text.setAttribute('x', c.x);
+        text.setAttribute('y', labelY);
+        text.setAttribute('text-anchor', 'middle');
+        text.textContent = labelForValue(c.value);
+        svg.appendChild(text);
+
+        var dot = document.createElementNS(svgNs, 'circle');
+        dot.setAttribute('class', 'listing-intel-spark-dot listing-intel-spark-dot--' + trendKey);
+        dot.setAttribute('cx', c.x);
+        dot.setAttribute('cy', c.y);
+        dot.setAttribute('r', 3.5);
+        svg.appendChild(dot);
+      });
+
+      wrap.appendChild(svg);
+      host.appendChild(wrap);
+    }
+
+    function appendIntelDivider(parent) {
+      var hr = document.createElement('hr');
+      hr.className = 'listing-intel-divider';
+      parent.appendChild(hr);
+    }
+
+    function renderListingIntelPanel(resolvedId, scrollEl) {
+      var target = scrollEl || listingDetailIntelScrollEl;
+      if (!target) return;
+      var pack = getListingInsightsPack(resolvedId);
+      var data = pack.data;
+      var item = pack.item;
+      target.innerHTML = '';
+
+      var secEstimate = document.createElement('section');
+      secEstimate.className = 'listing-intel-section';
+      secEstimate.setAttribute('aria-label', 'Sales estimate');
+      var estTitle = document.createElement('h3');
+      estTitle.className = 'listing-intel-section-title';
+      estTitle.textContent = 'Sales estimate';
+      secEstimate.appendChild(estTitle);
+      var badge = document.createElement('div');
+      badge.className = 'listing-insights-verdict listing-insights-verdict--' + (data.verdict || 'fair');
+      badge.textContent = data.label;
+      secEstimate.appendChild(badge);
+      var estLead = document.createElement('p');
+      estLead.className = 'listing-intel-section-lead';
+      estLead.textContent = data.dealTeaser || '';
+      secEstimate.appendChild(estLead);
+      var estNest = document.createElement('div');
+      estNest.className = 'listing-insights-nest';
+      appendListingSalesEstimateChart(estNest, resolvedId);
+      secEstimate.appendChild(estNest);
+      target.appendChild(secEstimate);
+
+      appendIntelDivider(target);
+
+      var secDemand = document.createElement('section');
+      secDemand.className = 'listing-intel-section';
+      secDemand.setAttribute('aria-label', 'Collector demand');
+      var demandTitle = document.createElement('h3');
+      demandTitle.className = 'listing-intel-section-title';
+      demandTitle.textContent = 'Collector demand';
+      secDemand.appendChild(demandTitle);
+      var demandChip = document.createElement('div');
+      demandChip.className = 'listing-intel-trend-chip listing-intel-trend-chip--' + (data.demandTrend || 'steady');
+      demandChip.textContent = data.demandLabel || 'Collector interest';
+      secDemand.appendChild(demandChip);
+      appendIntelSparkline(secDemand, getDemandCountsSeries(data), data.demandTrend, {
+        labelFormat: 'count',
+        chartLabel: 'Weekly saved plus wishlisted totals'
+      });
+      var demandFoot = document.createElement('p');
+      demandFoot.className = 'listing-intel-footnote';
+      demandFoot.textContent = data.demandFootnote || '';
+      secDemand.appendChild(demandFoot);
+      target.appendChild(secDemand);
+
+      appendIntelDivider(target);
+
+      var secWish = document.createElement('section');
+      secWish.className = 'listing-intel-section';
+      secWish.setAttribute('aria-label', 'Wishlist activity');
+      var wishTitle = document.createElement('h3');
+      wishTitle.className = 'listing-intel-section-title';
+      wishTitle.textContent = 'Wishlist activity';
+      secWish.appendChild(wishTitle);
+      var wishLead = document.createElement('p');
+      wishLead.className = 'listing-intel-section-lead';
+      wishLead.textContent = 'How collectors are saving and watching this piece in the vault.';
+      secWish.appendChild(wishLead);
+      var statGrid = document.createElement('div');
+      statGrid.className = 'listing-intel-stat-grid';
+      [
+        { value: String(data.wishlistSaves || 0), label: 'Vault saves' },
+        { value: String(data.wishlistWatchers || 0), label: 'Price alerts' },
+        { value: '+' + String(data.wishlistAdds7d || 0), label: 'New this week' },
+        { value: 'Active', label: 'Listing status' }
+      ].forEach(function (stat) {
+        var card = document.createElement('div');
+        card.className = 'listing-intel-stat';
+        var val = document.createElement('div');
+        val.className = 'listing-intel-stat-value';
+        val.textContent = stat.value;
+        var lbl = document.createElement('div');
+        lbl.className = 'listing-intel-stat-label';
+        lbl.textContent = stat.label;
+        card.appendChild(val);
+        card.appendChild(lbl);
+        statGrid.appendChild(card);
+      });
+      secWish.appendChild(statGrid);
+      if (data.wishlistRank) {
+        var rank = document.createElement('div');
+        rank.className = 'listing-intel-rank-pill';
+        rank.textContent = data.wishlistRank;
+        secWish.appendChild(rank);
+      }
+      target.appendChild(secWish);
+
+      appendIntelDivider(target);
+
+      var secMarket = document.createElement('section');
+      secMarket.className = 'listing-intel-section';
+      secMarket.setAttribute('aria-label', 'Market movement');
+      var marketTitle = document.createElement('h3');
+      marketTitle.className = 'listing-intel-section-title';
+      marketTitle.textContent = 'Market movement';
+      secMarket.appendChild(marketTitle);
+      var marketChip = document.createElement('div');
+      marketChip.className = 'listing-intel-trend-chip listing-intel-trend-chip--' + (data.marketTrend || 'steady');
+      marketChip.textContent = data.marketDelta || 'Recent comps';
+      secMarket.appendChild(marketChip);
+      appendIntelSparkline(secMarket, getMarketMediansSeries(data, item), data.marketTrend, {
+        labelFormat: 'money',
+        chartLabel: 'Weekly median comp ask'
+      });
+      var marketFoot = document.createElement('p');
+      marketFoot.className = 'listing-intel-footnote';
+      marketFoot.textContent = data.marketNote || '';
+      secMarket.appendChild(marketFoot);
+      target.appendChild(secMarket);
+    }
+
+    function buildListingInsightsDom(resolvedId) {
+      var pack = getListingInsightsPack(resolvedId);
+      var data = pack.data;
 
       var wrap = document.createElement('div');
       wrap.className = 'listing-insights';
 
+      var head = document.createElement('div');
+      head.className = 'listing-insights-head';
       var h = document.createElement('div');
       h.className = 'listing-insights-title';
       h.textContent = 'Sales insights';
-      wrap.appendChild(h);
+      head.appendChild(h);
+      var intelPill = document.createElement('button');
+      intelPill.type = 'button';
+      intelPill.className = 'listing-insights-intel-pill';
+      intelPill.setAttribute('aria-label', 'Open market intelligence');
+      intelPill.innerHTML =
+        '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12 L6 7 L9 10 L14 3"/><circle cx="14" cy="3" r="1.5" fill="currentColor" stroke="none"/></svg> Intel';
+      head.appendChild(intelPill);
+      wrap.appendChild(head);
 
       var badge = document.createElement('div');
       badge.className = 'listing-insights-verdict listing-insights-verdict--' + (data.verdict || 'fair');
@@ -16268,122 +18171,7 @@
       teaser.textContent = data.dealTeaser || '';
       nest.appendChild(teaser);
 
-      if (data.gaugeHigh > data.gaugeLow) {
-        var current = parseListingPriceNumber(item.price);
-        var fairSpan = data.gaugeHigh - data.gaugeLow;
-        var extend = typeof data.gaugeBandExtend === 'number' ? data.gaugeBandExtend : 0.85;
-        var barMin =
-          data.gaugeBarMin != null ? Number(data.gaugeBarMin) : Math.max(0, Math.round(data.gaugeLow - fairSpan * extend));
-        var barMax =
-          data.gaugeBarMax != null ? Number(data.gaugeBarMax) : Math.round(data.gaugeHigh + fairSpan * extend);
-        if (barMax <= barMin) barMax = barMin + 1;
-        if (current < barMin) barMin = Math.max(0, Math.floor(current - Math.max(fairSpan * 0.15, 1)));
-        if (current > barMax) barMax = Math.ceil(current + Math.max(fairSpan * 0.15, 1));
-
-        var r1 = Math.max(0.0001, data.gaugeLow - barMin);
-        var r2 = Math.max(0.0001, data.gaugeHigh - data.gaugeLow);
-        var r3 = Math.max(0.0001, barMax - data.gaugeHigh);
-        var colTpl = r1 + 'fr 5px ' + r2 + 'fr 5px ' + r3 + 'fr';
-
-        var estTitle = document.createElement('div');
-        estTitle.className = 'listing-insights-estimate-title';
-        estTitle.textContent = 'Sales estimate';
-        nest.appendChild(estTitle);
-
-        var chart = document.createElement('div');
-        chart.className = 'listing-insights-estimate-chart';
-
-        var bars = document.createElement('div');
-        bars.className = 'listing-insights-estimate-bars';
-        bars.style.gridTemplateColumns = colTpl;
-
-        var segG = document.createElement('div');
-        segG.className = 'listing-insights-estimate-seg listing-insights-estimate-seg--great';
-        segG.setAttribute('title', 'Great deal');
-        var gapA = document.createElement('div');
-        gapA.className = 'listing-insights-estimate-gap';
-        gapA.setAttribute('aria-hidden', 'true');
-        var segF = document.createElement('div');
-        segF.className = 'listing-insights-estimate-seg listing-insights-estimate-seg--fair';
-        segF.setAttribute('title', 'Fair range');
-        var gapB = document.createElement('div');
-        gapB.className = 'listing-insights-estimate-gap';
-        gapB.setAttribute('aria-hidden', 'true');
-        var segO = document.createElement('div');
-        segO.className = 'listing-insights-estimate-seg listing-insights-estimate-seg--over';
-        segO.setAttribute('title', 'Overpriced');
-        bars.appendChild(segG);
-        bars.appendChild(gapA);
-        bars.appendChild(segF);
-        bars.appendChild(gapB);
-        bars.appendChild(segO);
-
-        var overlay = document.createElement('div');
-        overlay.className = 'listing-insights-estimate-overlay';
-        var pin = document.createElement('div');
-        pin.className = 'listing-insights-estimate-pin';
-        var tMarker = (current - barMin) / (barMax - barMin);
-        tMarker = Math.max(0, Math.min(1, tMarker));
-        pin.style.left = 100 * tMarker + '%';
-        var tooltip = document.createElement('div');
-        tooltip.className = 'listing-insights-estimate-tooltip';
-        tooltip.textContent = formatInsightMoney(current);
-        var dot = document.createElement('div');
-        dot.className = 'listing-insights-estimate-dot';
-        pin.appendChild(tooltip);
-        pin.appendChild(dot);
-        overlay.appendChild(pin);
-
-        chart.appendChild(bars);
-        chart.appendChild(overlay);
-        nest.appendChild(chart);
-
-        var fairRow = document.createElement('div');
-        fairRow.className = 'listing-insights-estimate-fair-row';
-        fairRow.style.gridTemplateColumns = colTpl;
-        var padL = document.createElement('div');
-        padL.setAttribute('aria-hidden', 'true');
-        var padG1 = document.createElement('div');
-        padG1.setAttribute('aria-hidden', 'true');
-        var fairCell = document.createElement('div');
-        fairCell.className = 'listing-insights-estimate-fair-labels';
-        var lowEl = document.createElement('span');
-        lowEl.textContent = formatInsightMoney(data.gaugeLow);
-        var highEl = document.createElement('span');
-        highEl.textContent = formatInsightMoney(data.gaugeHigh);
-        fairCell.appendChild(lowEl);
-        fairCell.appendChild(highEl);
-        var padG2 = document.createElement('div');
-        padG2.setAttribute('aria-hidden', 'true');
-        var padR = document.createElement('div');
-        padR.setAttribute('aria-hidden', 'true');
-        fairRow.appendChild(padL);
-        fairRow.appendChild(padG1);
-        fairRow.appendChild(fairCell);
-        fairRow.appendChild(padG2);
-        fairRow.appendChild(padR);
-        nest.appendChild(fairRow);
-
-        var leg = document.createElement('div');
-        leg.className = 'listing-insights-estimate-legend';
-        leg.style.gridTemplateColumns = colTpl;
-        var lg = document.createElement('span');
-        lg.textContent = 'Great deal';
-        var legGap1 = document.createElement('div');
-        legGap1.setAttribute('aria-hidden', 'true');
-        var lf = document.createElement('span');
-        lf.textContent = 'Fair';
-        var legGap2 = document.createElement('div');
-        legGap2.setAttribute('aria-hidden', 'true');
-        var lo = document.createElement('span');
-        lo.textContent = 'Overpriced';
-        leg.appendChild(lg);
-        leg.appendChild(legGap1);
-        leg.appendChild(lf);
-        leg.appendChild(legGap2);
-        leg.appendChild(lo);
-        nest.appendChild(leg);
-      }
+      appendListingSalesEstimateChart(nest, resolvedId);
 
       var details = document.createElement('details');
       details.className = 'listing-insights-history';
@@ -16434,6 +18222,22 @@
         textCol.appendChild(sub);
         row.appendChild(av);
         row.appendChild(textCol);
+        var txnBtn = document.createElement('button');
+        txnBtn.type = 'button';
+        txnBtn.className = 'listing-seller-txn-btn';
+        txnBtn.setAttribute('aria-label', 'View ' + seller.name + ' transaction history');
+        txnBtn.innerHTML =
+          '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+          '<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>' +
+          '<path d="M9 5a2 2 0 012-2h2a2 2 0 012 2v0a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>' +
+          '<path d="M9 12h6M9 16h4"/>' +
+          '</svg>';
+        txnBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          openListingTxnHistory();
+        });
+        row.appendChild(txnBtn);
         snap.appendChild(row);
 
         var sellerName = seller.name;
@@ -16479,6 +18283,29 @@
     const listingDetailChatPeerNameEl = document.getElementById('listingDetailChatPeerName');
     const listingDetailChatPeerSubEl = document.getElementById('listingDetailChatPeerSub');
     const listingDetailChatCollapseEl = document.getElementById('listingDetailChatCollapse');
+    const listingDetailTxnDockEl = document.getElementById('listingDetailTxnDock');
+    const listingDetailTxnListEl = document.getElementById('listingDetailTxnList');
+    const listingDetailTxnTitleEl = document.getElementById('listingDetailTxnTitle');
+    const listingDetailTxnSubEl = document.getElementById('listingDetailTxnSub');
+    const listingDetailTxnCollapseEl = document.getElementById('listingDetailTxnCollapse');
+    const listingDetailIntelDockEl = document.getElementById('listingDetailIntelDock');
+    const listingDetailIntelScrollEl = document.getElementById('listingDetailIntelScroll');
+    const listingDetailIntelTitleEl = document.getElementById('listingDetailIntelTitle');
+    const listingDetailIntelSubEl = document.getElementById('listingDetailIntelSub');
+    const listingDetailIntelCollapseEl = document.getElementById('listingDetailIntelCollapse');
+    const listingMobileTxnRootEl = document.getElementById('listingMobileTxnRoot');
+    const listingMobileTxnBackdropEl = document.getElementById('listingMobileTxnBackdrop');
+    const listingMobileTxnCloseEl = document.getElementById('listingMobileTxnClose');
+    const listingMobileTxnListEl = document.getElementById('listingMobileTxnList');
+    const listingMobileTxnTitleEl = document.getElementById('listingMobileTxnTitle');
+    const listingMobileTxnSubEl = document.getElementById('listingMobileTxnSub');
+    const listingMobileIntelRootEl = document.getElementById('listingMobileIntelRoot');
+    const listingMobileIntelBackdropEl = document.getElementById('listingMobileIntelBackdrop');
+    const listingMobileIntelCloseEl = document.getElementById('listingMobileIntelClose');
+    const listingMobileIntelScrollEl = document.getElementById('listingMobileIntelScroll');
+    const listingMobileIntelTitleEl = document.getElementById('listingMobileIntelTitle');
+    const listingMobileIntelSubEl = document.getElementById('listingMobileIntelSub');
+    const detailSellerTxnBtn = document.getElementById('detailSellerTxnBtn');
     const listingMobileMessageRootEl = document.getElementById('listingMobileMessageRoot');
     const listingMobileMessageBackdropEl = document.getElementById('listingMobileMessageBackdrop');
     const listingMobileMessageCloseEl = document.getElementById('listingMobileMessageClose');
@@ -16917,6 +18744,9 @@
 
     function openListingMobileMessageSheet() {
       if (!listingMobileMessageRootEl || (previewDemoHost && previewDemoHost.classList.contains('is-desktop'))) return;
+      closeListingMobileTxnSheet();
+      closeListingTxnHistoryDesktop();
+      closeListingMobileIntelSheet();
       syncListingChatPeerUi(listingMobileMessagePeerNameEl, listingMobileMessagePeerSubEl);
       seedListingChatThreadIfEmpty(listingMobileMessageThreadEl);
       if (iphoneScreenEl) iphoneScreenEl.classList.add('listing-mobile-message-open');
@@ -16932,6 +18762,192 @@
           listingMobileMessageInputEl.focus();
         }, 380);
       }
+    }
+
+    function getSellerTransactions(sellerName) {
+      var name = sellerName || 'Seller';
+      return SELLER_TRANSACTION_HISTORY[name] || DEFAULT_SELLER_TRANSACTIONS;
+    }
+
+    function appendTxnBuyerRating(parent, rating) {
+      var r = Math.min(5, Math.max(0, Math.round(Number(rating) || 0)));
+      var stars = document.createElement('div');
+      stars.className = 'listing-txn-stars';
+      stars.setAttribute('aria-label', 'Buyer rated seller ' + r + ' out of 5 stars');
+      for (var i = 1; i <= 5; i++) {
+        var star = document.createElement('span');
+        star.className = 'listing-txn-star' + (i <= r ? ' is-on' : '');
+        star.setAttribute('aria-hidden', 'true');
+        star.textContent = '★';
+        stars.appendChild(star);
+      }
+      parent.appendChild(stars);
+    }
+
+    function renderListingTxnHistory(sellerName, listEl) {
+      var container = listEl || listingDetailTxnListEl;
+      if (!container) return;
+      var txns = getSellerTransactions(sellerName);
+      container.innerHTML = '';
+      if (!txns.length) {
+        var empty = document.createElement('p');
+        empty.className = 'listing-txn-empty';
+        empty.textContent = 'No completed sales on record for this collector yet.';
+        container.appendChild(empty);
+        return;
+      }
+      txns.forEach(function (txn) {
+        var row = document.createElement('article');
+        row.className = 'listing-txn-row';
+        row.setAttribute('role', 'listitem');
+        var body = document.createElement('div');
+        body.className = 'listing-txn-body';
+        var details = document.createElement('div');
+        details.className = 'listing-txn-details';
+        var item = document.createElement('div');
+        item.className = 'listing-txn-item';
+        item.textContent = txn.item;
+        var buyer = document.createElement('div');
+        buyer.className = 'listing-txn-buyer';
+        buyer.textContent = 'Bought by ' + txn.buyer;
+        details.appendChild(item);
+        details.appendChild(buyer);
+        if (txn.date) {
+          var date = document.createElement('div');
+          date.className = 'listing-txn-date';
+          date.textContent = txn.date;
+          details.appendChild(date);
+        }
+        appendTxnBuyerRating(details, txn.rating);
+        var refBtn = document.createElement('button');
+        refBtn.type = 'button';
+        refBtn.className = 'listing-txn-referral-btn';
+        refBtn.textContent = 'Request referral';
+        refBtn.setAttribute('data-txn-buyer', txn.buyer);
+        refBtn.setAttribute('data-txn-seller', sellerName);
+        details.appendChild(refBtn);
+        var visual = document.createElement('div');
+        visual.className = 'listing-txn-visual';
+        var thumb = document.createElement('div');
+        thumb.className = 'listing-txn-thumb';
+        var listingId = txn.listingId && listings[txn.listingId] ? txn.listingId : 'prime1-batman';
+        var img = document.createElement('img');
+        img.className = 'listing-txn-photo';
+        img.src = demoListingImageUrl(listingId);
+        img.alt = txn.item;
+        img.decoding = 'async';
+        img.loading = 'lazy';
+        thumb.appendChild(img);
+        var price = document.createElement('div');
+        price.className = 'listing-txn-price';
+        price.textContent = txn.price;
+        visual.appendChild(thumb);
+        visual.appendChild(price);
+        body.appendChild(details);
+        body.appendChild(visual);
+        row.appendChild(body);
+        container.appendChild(row);
+      });
+    }
+
+    function closeListingTxnHistoryDesktop() {
+      if (!listingDetailModalDialogEl) return;
+      listingDetailModalDialogEl.classList.remove('is-txn-open');
+      if (listingDetailTxnDockEl) listingDetailTxnDockEl.setAttribute('aria-hidden', 'true');
+    }
+
+    function closeListingMarketIntelDesktop() {
+      if (!listingDetailModalDialogEl) return;
+      listingDetailModalDialogEl.classList.remove('is-intel-open');
+      if (listingDetailIntelDockEl) listingDetailIntelDockEl.setAttribute('aria-hidden', 'true');
+    }
+
+    function closeListingMobileIntelSheet() {
+      if (!listingMobileIntelRootEl || !listingMobileIntelRootEl.classList.contains('is-active')) return;
+      listingMobileIntelRootEl.classList.remove('is-open');
+      listingMobileIntelRootEl.classList.remove('is-active');
+      listingMobileIntelRootEl.setAttribute('aria-hidden', 'true');
+      if (iphoneScreenEl) iphoneScreenEl.classList.remove('listing-mobile-intel-open');
+    }
+
+    function closeListingMarketIntel() {
+      closeListingMobileIntelSheet();
+      if (!previewDemoHost || !previewDemoHost.classList.contains('is-desktop')) return;
+      closeListingMarketIntelDesktop();
+    }
+
+    function openListingMobileIntelSheet() {
+      if (!listingMobileIntelRootEl || (previewDemoHost && previewDemoHost.classList.contains('is-desktop'))) return;
+      closeListingMobileMessageSheet();
+      closeListingTxnHistoryDesktop();
+      closeListingMobileTxnSheet();
+      var resolvedId = getActiveListingIdForChat();
+      var item = listings[resolvedId] || listings['prime1-batman'];
+      renderListingIntelPanel(resolvedId, listingMobileIntelScrollEl);
+      if (listingMobileIntelTitleEl) listingMobileIntelTitleEl.textContent = 'Market intelligence';
+      if (listingMobileIntelSubEl) listingMobileIntelSubEl.textContent = item.title || 'Listing';
+      if (iphoneScreenEl) iphoneScreenEl.classList.add('listing-mobile-intel-open');
+      listingMobileIntelRootEl.classList.add('is-active');
+      listingMobileIntelRootEl.setAttribute('aria-hidden', 'false');
+      window.requestAnimationFrame(function () {
+        if (listingMobileIntelRootEl && listingMobileIntelRootEl.classList.contains('is-active')) {
+          listingMobileIntelRootEl.classList.add('is-open');
+        }
+      });
+    }
+
+    function openListingMarketIntel() {
+      if (!previewDemoHost || !previewDemoHost.classList.contains('is-desktop')) {
+        openListingMobileIntelSheet();
+        return;
+      }
+      if (!listingDetailModalDialogEl || !listingDetailIntelDockEl) return;
+      closeListingChat();
+      closeListingTxnHistoryDesktop();
+      closeListingMobileMessageSheet();
+      closeListingMobileTxnSheet();
+      closeListingMobileIntelSheet();
+      var resolvedId = getActiveListingIdForChat();
+      var item = listings[resolvedId] || listings['prime1-batman'];
+      renderListingIntelPanel(resolvedId);
+      if (listingDetailIntelTitleEl) listingDetailIntelTitleEl.textContent = 'Market intelligence';
+      if (listingDetailIntelSubEl) listingDetailIntelSubEl.textContent = item.title || 'Listing';
+      listingDetailModalDialogEl.classList.add('is-intel-open');
+      listingDetailIntelDockEl.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeListingMobileTxnSheet() {
+      if (!listingMobileTxnRootEl || !listingMobileTxnRootEl.classList.contains('is-active')) return;
+      listingMobileTxnRootEl.classList.remove('is-open');
+      listingMobileTxnRootEl.classList.remove('is-active');
+      listingMobileTxnRootEl.setAttribute('aria-hidden', 'true');
+      if (iphoneScreenEl) iphoneScreenEl.classList.remove('listing-mobile-txn-open');
+    }
+
+    function closeListingTxnHistory() {
+      closeListingMobileTxnSheet();
+      if (!previewDemoHost || !previewDemoHost.classList.contains('is-desktop')) return;
+      closeListingTxnHistoryDesktop();
+    }
+
+    function openListingMobileTxnSheet() {
+      if (!listingMobileTxnRootEl || (previewDemoHost && previewDemoHost.classList.contains('is-desktop'))) return;
+      closeListingMobileMessageSheet();
+      closeListingTxnHistoryDesktop();
+      closeListingMobileIntelSheet();
+      var item = listings[getActiveListingIdForChat()] || listings['prime1-batman'];
+      var seller = item.seller || { name: 'Seller' };
+      renderListingTxnHistory(seller.name, listingMobileTxnListEl);
+      if (listingMobileTxnTitleEl) listingMobileTxnTitleEl.textContent = 'Transaction history';
+      if (listingMobileTxnSubEl) listingMobileTxnSubEl.textContent = seller.name;
+      if (iphoneScreenEl) iphoneScreenEl.classList.add('listing-mobile-txn-open');
+      listingMobileTxnRootEl.classList.add('is-active');
+      listingMobileTxnRootEl.setAttribute('aria-hidden', 'false');
+      window.requestAnimationFrame(function () {
+        if (listingMobileTxnRootEl && listingMobileTxnRootEl.classList.contains('is-active')) {
+          listingMobileTxnRootEl.classList.add('is-open');
+        }
+      });
     }
 
     function closeListingChat() {
@@ -16986,12 +19002,34 @@
       }, 650 + Math.floor(Math.random() * 500));
     }
 
+    function openListingTxnHistory() {
+      if (!previewDemoHost || !previewDemoHost.classList.contains('is-desktop')) {
+        openListingMobileTxnSheet();
+        return;
+      }
+      if (!listingDetailModalDialogEl || !listingDetailTxnDockEl) return;
+      closeListingChat();
+      closeListingMarketIntelDesktop();
+      closeListingMobileTxnSheet();
+      closeListingMobileIntelSheet();
+      var item = listings[getActiveListingIdForChat()] || listings['prime1-batman'];
+      var seller = item.seller || { name: 'Seller' };
+      renderListingTxnHistory(seller.name);
+      if (listingDetailTxnTitleEl) listingDetailTxnTitleEl.textContent = 'Transaction history';
+      if (listingDetailTxnSubEl) listingDetailTxnSubEl.textContent = seller.name;
+      listingDetailModalDialogEl.classList.add('is-txn-open');
+      listingDetailTxnDockEl.setAttribute('aria-hidden', 'false');
+    }
+
     function openListingChat() {
       if (!previewDemoHost || !previewDemoHost.classList.contains('is-desktop')) {
         openListingMobileMessageSheet();
         return;
       }
       if (!listingDetailModalDialogEl || !listingDetailChatDockEl) return;
+      closeListingTxnHistory();
+      closeListingMarketIntelDesktop();
+      closeListingMobileIntelSheet();
       syncListingChatPeerUi(listingDetailChatPeerNameEl, listingDetailChatPeerSubEl);
       seedListingChatThreadIfEmpty(listingDetailChatThreadEl);
       listingDetailModalDialogEl.classList.add('is-chat-open');
@@ -17006,6 +19044,9 @@
     function closeListingDetailModal() {
       if (!listingDetailModalEl || !listingDetailModalEl.classList.contains('is-open')) return;
       closeListingChat();
+      closeListingTxnHistory();
+      closeListingMarketIntel();
+      closeListingMobileIntelSheet();
       if (listingDetailChatThreadEl) {
         listingDetailChatThreadEl.innerHTML = '';
         delete listingDetailChatThreadEl.dataset.seeded;
@@ -17025,6 +19066,8 @@
       var resolvedId = listings[id] ? id : 'prime1-batman';
       listingDetailModalOpenListingId = resolvedId;
       closeListingChat();
+      closeListingTxnHistory();
+      closeListingMarketIntel();
       if (listingDetailChatThreadEl) {
         listingDetailChatThreadEl.innerHTML = '';
         delete listingDetailChatThreadEl.dataset.seeded;
@@ -17051,6 +19094,13 @@
       var resolvedId = listings[id] ? id : 'prime1-batman';
       mobileListingOpenId = resolvedId;
       closeListingMobileMessageSheet();
+      closeListingMobileTxnSheet();
+      closeListingMobileIntelSheet();
+      var detailMobileInsightsEl = document.getElementById('detailMobileInsights');
+      if (detailMobileInsightsEl) {
+        detailMobileInsightsEl.innerHTML = '';
+        detailMobileInsightsEl.appendChild(buildListingInsightsDom(resolvedId));
+      }
       if (listingMobileMessageThreadEl) {
         listingMobileMessageThreadEl.innerHTML = '';
         delete listingMobileMessageThreadEl.dataset.seeded;
@@ -17133,22 +19183,67 @@
       arc: 'ironman-markvii.jpg',
       mutant: 'wolverine-xm.jpg'
     };
+    const PROFILE_COVER_POOL = [
+      'vader-mythos.jpg',
+      'ironman-markvii.jpg',
+      'wolverine-xm.jpg',
+      'prime1-batman.jpg',
+      'joker-deluxe.jpg',
+      'venom-p1.jpg'
+    ];
 
     function syncProfileCover(profileId) {
       var img = document.getElementById('profileCoverImg');
       if (!img) return;
-      img.src = PROFILE_COVER_IMAGES[profileId] || PROFILE_COVER_IMAGES.gotham;
+      var key = resolveProfileKey(profileId);
+      if (PROFILE_COVER_IMAGES[key]) {
+        img.src = PROFILE_COVER_IMAGES[key];
+        return;
+      }
+      var hash = hashCollectorDemoId(profileId || key);
+      img.src = PROFILE_COVER_POOL[hash % PROFILE_COVER_POOL.length];
+    }
+
+    function syncProfileVerifiedBadge(profile) {
+      var verifiedLine = document.getElementById('profileVerifiedLine');
+      var locationSep = document.getElementById('profileLocationSep');
+      var showVerified = !!profile.verified;
+      if (verifiedLine) verifiedLine.hidden = !showVerified;
+      if (locationSep) locationSep.hidden = !showVerified;
+    }
+
+    function syncProfileMobileNav() {
+      var nav = document.getElementById('profileMobileNav');
+      if (!nav) return;
+      var isMobile = previewDemoHost && !previewDemoHost.classList.contains('is-desktop');
+      nav.hidden = !isMobile || demoProfileIsSelf;
+    }
+
+    function demoNavigateToProfileFromClick(e) {
+      var openProfileEl = e.target.closest('[data-open-profile]');
+      if (!openProfileEl) return false;
+      var profileId = openProfileEl.getAttribute('data-open-profile');
+      if (!profileId) return false;
+      e.preventDefault();
+      e.stopPropagation();
+      closeFeedPostModal();
+      closeFeedMobileExpand();
+      closeDiscoverPostOverlay();
+      openProfile(profileId);
+      return true;
     }
 
     function openProfile(profileId) {
-      const profile = profiles[profileId] || profiles.gotham;
+      demoProfileIsSelf = false;
+      const profile = getProfileRecord(profileId);
       const profileAvatar = document.getElementById('profileAvatar');
       const profileName = document.getElementById('profileName');
       const profileLocation = document.getElementById('profileLocation');
       const profilePieces = document.getElementById('profilePieces');
       const profileSold = document.getElementById('profileSold');
 
-      syncProfileCover(profileId);
+      syncProfileCover(profile.key);
+      syncProfileVerifiedBadge(profile);
       if (profileAvatar) profileAvatar.textContent = profile.avatar;
       if (profileName) profileName.textContent = profile.name;
       if (profileLocation) profileLocation.textContent = profile.location || '';
@@ -17163,12 +19258,14 @@
         });
       }
 
-      renderProfileFeedPosts(profileId);
+      renderProfileFeedPosts(profile.key);
       setProfileMode('regular');
+      syncProfileMobileNav();
       switchScreen('profile', true);
     }
 
     function resetDemoMeProfile() {
+      demoProfileIsSelf = true;
       const p = profiles.gotham;
       const profileAvatar = document.getElementById('profileAvatar');
       const profileName = document.getElementById('profileName');
@@ -17176,6 +19273,7 @@
       const profilePieces = document.getElementById('profilePieces');
       const profileSold = document.getElementById('profileSold');
       syncProfileCover('gotham');
+      syncProfileVerifiedBadge(p);
       if (profileAvatar) profileAvatar.textContent = p.avatar;
       if (profileName) profileName.textContent = p.name;
       if (profileLocation) profileLocation.textContent = p.location || '';
@@ -17191,6 +19289,24 @@
       }
       renderProfileFeedPosts('gotham');
       setProfileMode('regular');
+      syncProfileMobileNav();
+    }
+
+    function bindDemoProfileLinkDelegation(root) {
+      if (!root) return;
+      root.addEventListener(
+        'click',
+        function (e) {
+          if (!(e.target instanceof Element)) return;
+          if (!e.target.closest('[data-open-profile]')) return;
+          if (demoNavigateToProfileFromClick(e)) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+          }
+        },
+        true
+      );
     }
 
     function toggleActionButton(button, inactiveText, activeText) {
@@ -17347,9 +19463,25 @@
         if (listingMobileMessageInputEl) listingMobileMessageInputEl.blur();
         return;
       }
+      if (listingMobileTxnRootEl && listingMobileTxnRootEl.classList.contains('is-active')) {
+        closeListingMobileTxnSheet();
+        return;
+      }
+      if (listingMobileIntelRootEl && listingMobileIntelRootEl.classList.contains('is-active')) {
+        closeListingMobileIntelSheet();
+        return;
+      }
       if (listingDetailModalDialogEl && listingDetailModalDialogEl.classList.contains('is-chat-open')) {
         closeListingChat();
         if (listingDetailChatInputEl) listingDetailChatInputEl.blur();
+        return;
+      }
+      if (listingDetailModalDialogEl && listingDetailModalDialogEl.classList.contains('is-txn-open')) {
+        closeListingTxnHistory();
+        return;
+      }
+      if (listingDetailModalDialogEl && listingDetailModalDialogEl.classList.contains('is-intel-open')) {
+        closeListingMarketIntel();
         return;
       }
       if (listingDetailModalEl && listingDetailModalEl.classList.contains('is-open')) {
@@ -17401,6 +19533,14 @@
       listingDetailModalBackdropEl.addEventListener('click', function () {
         if (listingDetailModalDialogEl && listingDetailModalDialogEl.classList.contains('is-chat-open')) {
           closeListingChat();
+          return;
+        }
+        if (listingDetailModalDialogEl && listingDetailModalDialogEl.classList.contains('is-txn-open')) {
+          closeListingTxnHistory();
+          return;
+        }
+        if (listingDetailModalDialogEl && listingDetailModalDialogEl.classList.contains('is-intel-open')) {
+          closeListingMarketIntel();
           return;
         }
         closeListingDetailModal();
@@ -17582,9 +19722,18 @@
     if (demoMobileMenuProfile) {
       demoMobileMenuProfile.addEventListener('click', function () {
         closeMobileMenu();
+        resetDemoMeProfile();
         switchScreen('profile');
       });
     }
+    var profileMobileBackBtn = document.getElementById('profileMobileBackBtn');
+    if (profileMobileBackBtn) {
+      profileMobileBackBtn.addEventListener('click', function () {
+        switchScreen(previousScreen || 'home', false);
+      });
+    }
+    bindDemoProfileLinkDelegation(iphoneScreenEl);
+    syncProfileMobileNav();
     if (demoMobileMenuNotifications) {
       demoMobileMenuNotifications.addEventListener('click', function () {
         closeMobileMenu();
@@ -17681,6 +19830,39 @@
         if (listingModalMessage) listingModalMessage.focus();
       });
     }
+    if (listingDetailTxnCollapseEl) {
+      listingDetailTxnCollapseEl.addEventListener('click', function () {
+        closeListingTxnHistory();
+      });
+    }
+    if (listingDetailIntelCollapseEl) {
+      listingDetailIntelCollapseEl.addEventListener('click', function () {
+        closeListingMarketIntel();
+      });
+    }
+    if (listingDetailModalEl) {
+      listingDetailModalEl.addEventListener('click', function (e) {
+        if (e.target.closest('.listing-insights-intel-pill')) {
+          e.preventDefault();
+          openListingMarketIntel();
+        }
+      });
+    }
+    if (listingMobileIntelBackdropEl) {
+      listingMobileIntelBackdropEl.addEventListener('click', closeListingMobileIntelSheet);
+    }
+    if (listingMobileIntelCloseEl) {
+      listingMobileIntelCloseEl.addEventListener('click', closeListingMobileIntelSheet);
+    }
+    if (listingDetailTxnListEl) {
+      listingDetailTxnListEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('.listing-txn-referral-btn');
+        if (!btn) return;
+        var buyer = btn.getAttribute('data-txn-buyer') || 'buyer';
+        var seller = btn.getAttribute('data-txn-seller') || 'seller';
+        showToast('Referral request sent to ' + buyer + ' for ' + seller);
+      });
+    }
     if (listingDetailChatFormEl) {
       listingDetailChatFormEl.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -17699,12 +19881,42 @@
         submitListingChatMessage(listingMobileMessageThreadEl, listingMobileMessageInputEl);
       });
     }
+    if (detailSellerTxnBtn) {
+      detailSellerTxnBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openListingTxnHistory();
+      });
+    }
+    if (listingMobileTxnBackdropEl) {
+      listingMobileTxnBackdropEl.addEventListener('click', closeListingMobileTxnSheet);
+    }
+    if (listingMobileTxnCloseEl) {
+      listingMobileTxnCloseEl.addEventListener('click', closeListingMobileTxnSheet);
+    }
+    if (listingMobileTxnListEl) {
+      listingMobileTxnListEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('.listing-txn-referral-btn');
+        if (!btn) return;
+        var buyer = btn.getAttribute('data-txn-buyer') || 'buyer';
+        var seller = btn.getAttribute('data-txn-seller') || 'seller';
+        showToast('Referral request sent to ' + buyer + ' for ' + seller);
+      });
+    }
 
     // Delegated clicks inside the app preview
     if (appContent) {
       appContent.addEventListener('click', function (e) {
         const target = e.target;
         if (!(target instanceof Element)) return;
+
+        if (demoNavigateToProfileFromClick(e)) return;
+
+        if (target.closest('.listing-insights-intel-pill')) {
+          e.preventDefault();
+          openListingMarketIntel();
+          return;
+        }
 
         const listingHero = target.closest('#detailHero, #listingModalHero');
         if (listingHero && listingHero.classList.contains('has-photo')) {
@@ -17715,6 +19927,7 @@
         const homeFeedPost = target.closest('.app-screen[data-screen="home"] article.feed-post');
         if (homeFeedPost) {
           var deskFeed = previewDemoHost && previewDemoHost.classList.contains('is-desktop');
+          if (!deskFeed && target.closest('[data-open-profile]')) return;
           if (target.closest('.demo-feed-comment')) {
             if (deskFeed) openFeedPostModal(homeFeedPost);
             else openFeedMobileExpand(homeFeedPost);
@@ -17734,6 +19947,7 @@
         const profileFeedPost = target.closest('.app-screen[data-screen="profile"] article.feed-post');
         if (profileFeedPost) {
           var deskProfileFeed = previewDemoHost && previewDemoHost.classList.contains('is-desktop');
+          if (!deskProfileFeed && target.closest('[data-open-profile]')) return;
           if (target.closest('.demo-feed-comment')) {
             if (deskProfileFeed) openFeedPostModal(profileFeedPost);
             else openFeedMobileExpand(profileFeedPost);
@@ -17808,13 +20022,6 @@
           } else {
             openListing(id);
           }
-          return;
-        }
-
-        const openProfileEl = target.closest('[data-open-profile]');
-        if (openProfileEl) {
-          const profileId = openProfileEl.getAttribute('data-open-profile');
-          if (profileId) openProfile(profileId);
           return;
         }
 
