@@ -2764,6 +2764,68 @@
     .demo-mobile-menu-link-badge[hidden] {
       display: none;
     }
+    .demo-mobile-menu-footer {
+      margin-top: auto;
+      padding: 20px 12px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .demo-mobile-menu-level-card {
+      margin: 0;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(199, 210, 254, 0.14);
+      background: rgba(30, 27, 75, 0.55);
+      box-shadow: none;
+    }
+    .demo-mobile-menu-level-card .desktop-level-title {
+      font-size: 13px;
+      font-weight: 900;
+      color: #f4f4f5;
+    }
+    .demo-mobile-menu-level-card .desktop-level-sub {
+      font-size: 12px;
+      font-weight: 700;
+      color: #a1a1aa;
+      margin-top: 6px;
+    }
+    .demo-mobile-menu-level-card .desktop-level-bar {
+      margin-top: 10px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      border: 1px solid rgba(199, 210, 254, 0.12);
+    }
+    .demo-mobile-menu-level-card .desktop-level-bar > span {
+      display: block;
+      height: 100%;
+      width: 82%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold) 45%, var(--gold-light));
+    }
+    .demo-mobile-menu-level-card .desktop-level-xp {
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #a1a1aa;
+    }
+    .preview-demo-host.demo-theme-light .demo-mobile-menu-level-card {
+      border-color: rgba(76, 29, 149, 0.12);
+      background: #f8f7fc;
+      box-shadow: 0 4px 16px rgba(76, 29, 149, 0.08);
+    }
+    .preview-demo-host.demo-theme-light .demo-mobile-menu-level-card .desktop-level-title {
+      color: #1e1b4b;
+    }
+    .preview-demo-host.demo-theme-light .demo-mobile-menu-level-card .desktop-level-sub,
+    .preview-demo-host.demo-theme-light .demo-mobile-menu-level-card .desktop-level-xp {
+      color: #5b576b;
+    }
+    .preview-demo-host.demo-theme-light .demo-mobile-menu-level-card .desktop-level-bar {
+      background: rgba(76, 29, 149, 0.08);
+      border-color: rgba(76, 29, 149, 0.12);
+    }
     .preview-demo-host.demo-theme-light .app-tabbar .tab-btn--menu-nav.is-open {
       color: var(--sf-accent);
       background: rgba(92, 58, 194, 0.1);
@@ -7664,6 +7726,147 @@
       outline: 2px solid var(--gold);
       outline-offset: 3px;
     }
+    .profile-extras {
+      flex-shrink: 0;
+      padding: 0 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .profile-extras[hidden] {
+      display: none !important;
+    }
+    .profile-social-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .profile-social-links {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      gap: 10px;
+      min-width: 0;
+    }
+    .profile-social-btn {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ececec;
+      font: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.14s ease, border-color 0.14s ease, transform 0.14s ease;
+    }
+    .profile-social-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .profile-social-btn:active {
+      transform: scale(0.98);
+    }
+    .profile-social-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    .profile-social-btn--facebook {
+      border-color: rgba(59, 89, 152, 0.35);
+      background: rgba(59, 89, 152, 0.18);
+    }
+    .profile-social-btn--instagram {
+      border-color: rgba(193, 53, 132, 0.35);
+      background: rgba(193, 53, 132, 0.14);
+    }
+    .profile-social-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .profile-social-btn--facebook .profile-social-icon {
+      background: #3b5998;
+      color: #fff;
+    }
+    .profile-social-btn--instagram .profile-social-icon {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: #fff;
+      font-size: 12px;
+    }
+    .profile-social-handle {
+      min-width: 0;
+      flex: 1;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ececec;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+    }
+    .profile-mutual-link {
+      align-self: flex-start;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gold);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .profile-mutual-link:hover {
+      color: var(--gold-light);
+    }
+    .profile-mutual-link:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .profile-mutual-link[hidden] {
+      display: none !important;
+    }
+    .preview-demo-host:not(.is-desktop) #profileExtras .profile-mutual-link {
+      margin: 10px 0 0;
+    }
+    .preview-demo-host.is-desktop .profile-review-summary-row .profile-mutual-link {
+      margin: 0;
+      flex-shrink: 0;
+    }
+    .preview-demo-host.demo-theme-light .profile-social-btn {
+      border-color: rgba(0, 0, 0, 0.1);
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+    .preview-demo-host.demo-theme-light .profile-social-btn--facebook {
+      border-color: rgba(59, 89, 152, 0.25);
+      background: rgba(59, 89, 152, 0.1);
+    }
+    .preview-demo-host.demo-theme-light .profile-social-btn--instagram {
+      border-color: rgba(193, 53, 132, 0.22);
+      background: rgba(193, 53, 132, 0.08);
+    }
+    .preview-demo-host.demo-theme-light .profile-social-handle {
+      color: #1f2937;
+    }
+    .preview-demo-host.demo-theme-light .profile-mutual-link {
+      color: #6d28d9;
+    }
 
     /* Profile reviews modal — inside demo shell (.iphone-screen), mobile + desktop preview */
     .profile-reviews-overlay {
@@ -8947,6 +9150,9 @@
     .listing-mobile-insights {
       padding: 4px 16px 14px;
     }
+    .preview-demo-host:not(.is-desktop) .listing-mobile-insights .listing-insights--mobile-compact .listing-insights-nest {
+      padding: 10px 12px 12px;
+    }
     .preview-demo-host:not(.is-desktop) .listing-mobile-insights .listing-insights-nest {
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -9108,6 +9314,37 @@
       font-weight: 900;
       font-size: 15px;
       color: var(--desk-text, #fff);
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .listing-rail-snapshot-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+    .listing-rail-snapshot-verified {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+    }
+    .listing-rail-snapshot-verified[hidden] {
+      display: none !important;
+    }
+    .listing-rail-snapshot-verified-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold-grad);
+      color: #080808;
+      font-size: 11px;
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+      box-shadow: 0 2px 10px rgba(92, 58, 194, 0.2);
     }
     .listing-rail-snapshot-sub {
       font-size: 12px;
@@ -9697,6 +9934,39 @@
       min-width: 0;
       flex: 1;
     }
+    .listing-modal-seller-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      text-align: left;
+      cursor: default;
+      font: inherit;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .preview-demo-host:not(.is-desktop) .listing-modal-seller-main {
+      cursor: pointer;
+      border-radius: 12px;
+      transition: background 0.15s ease;
+    }
+    .preview-demo-host:not(.is-desktop) .listing-modal-seller-main:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-modal-seller-main:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+    .preview-demo-host:not(.is-desktop) .listing-modal-seller-main:active {
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-modal-seller-main:active {
+      background: rgba(0, 0, 0, 0.06);
+    }
     .listing-modal-seller-txn-btn {
       flex-shrink: 0;
       margin-left: auto;
@@ -9711,6 +9981,37 @@
       letter-spacing: -0.02em;
       color: var(--desk-text, #fff);
       line-height: 1.2;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .listing-modal-seller-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+    .listing-modal-seller-verified {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+    }
+    .listing-modal-seller-verified[hidden] {
+      display: none !important;
+    }
+    .listing-modal-seller-verified-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold-grad);
+      color: #080808;
+      font-size: 11px;
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+      box-shadow: 0 2px 10px rgba(92, 58, 194, 0.2);
     }
     .listing-modal-seller-reviews {
       display: flex;
@@ -10588,8 +10889,131 @@
     .preview-demo-host:not(.is-desktop) .iphone-screen.feed-mobile-expand-open,
     .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-message-open,
     .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-txn-open,
-    .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-intel-open {
+    .preview-demo-host:not(.is-desktop) .iphone-screen.listing-mobile-intel-open,
+    .preview-demo-host:not(.is-desktop) .iphone-screen.profile-mutual-collectors-open {
       overflow: hidden;
+    }
+    .profile-mutual-collectors-root {
+      position: absolute;
+      inset: 0;
+      z-index: 46;
+      display: none;
+      pointer-events: none;
+    }
+    .profile-mutual-collectors-root.is-active {
+      display: block;
+      pointer-events: auto;
+    }
+    .profile-mutual-collectors-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.28s ease;
+    }
+    .profile-mutual-collectors-root.is-active .profile-mutual-collectors-backdrop {
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .profile-mutual-collectors-sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 22%;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #121212;
+      color: #ececec;
+      border-radius: 18px 18px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.55);
+      transform: translateY(110%);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .profile-mutual-collectors-root.is-open .profile-mutual-collectors-sheet {
+      transform: translateY(0);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .profile-mutual-collectors-sheet {
+      background: #fff;
+      color: #141414;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.18);
+    }
+    .profile-mutual-collectors-sheet-handle {
+      flex-shrink: 0;
+      width: 40px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      margin: 8px auto 4px;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .profile-mutual-collectors-sheet-handle {
+      background: rgba(0, 0, 0, 0.15);
+    }
+    .profile-mutual-collectors-toolbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .profile-mutual-collectors-toolbar {
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+    .profile-mutual-collectors-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #f0f0f0;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .profile-mutual-collectors-title {
+      color: #141414;
+    }
+    .profile-mutual-collectors-list {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px 14px calc(16px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .profile-mutual-collectors-list .profile-mutual-collector-card {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .preview-demo-host.is-desktop .profile-mutual-collectors-root.is-active .profile-mutual-collectors-backdrop {
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(10px);
+    }
+    .preview-demo-host.is-desktop .profile-mutual-collectors-sheet {
+      left: 50%;
+      right: auto;
+      top: 50%;
+      bottom: auto;
+      width: min(420px, calc(100% - 48px));
+      max-height: min(520px, calc(100% - 48px));
+      transform: translate(-50%, -50%) scale(0.96);
+      opacity: 0;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition:
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.28s ease;
+    }
+    .preview-demo-host.is-desktop .profile-mutual-collectors-root.is-open .profile-mutual-collectors-sheet {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    .preview-demo-host.is-desktop .profile-mutual-collectors-sheet-handle {
+      display: none;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .profile-mutual-collectors-sheet {
+      border-color: rgba(0, 0, 0, 0.1);
     }
     .feed-mobile-comments-root {
       position: absolute;
@@ -10882,6 +11306,10 @@
     .listing-mobile-message-input::placeholder {
       color: #7a7a7a;
     }
+    .listing-mobile-message-input:disabled {
+      cursor: not-allowed;
+      opacity: 0.72;
+    }
     .preview-demo-host.demo-theme-light:not(.is-desktop) .listing-mobile-message-input {
       background: #fff;
       border-color: rgba(0, 0, 0, 0.12);
@@ -10899,6 +11327,12 @@
       min-height: 40px;
       cursor: pointer;
       font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .listing-mobile-message-send:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      filter: grayscale(0.2);
     }
     .listing-mobile-message-thread .listing-detail-chat-bubble--them {
       background: rgba(255, 255, 255, 0.08);
@@ -12476,6 +12910,16 @@
                     </button>
                   </li>
                 </ul>
+                <div class="demo-mobile-menu-footer">
+                  <div class="demo-mobile-menu-level-card desktop-level-card" aria-label="Collector level progress">
+                    <div class="desktop-level-title">Collector Level · Elite</div>
+                    <div class="desktop-level-sub">Level 8 · keep grinding for perks</div>
+                    <div class="desktop-level-bar" role="progressbar" aria-valuenow="2450" aria-valuemin="0" aria-valuemax="3000" aria-label="2,450 of 3,000 XP">
+                      <span></span>
+                    </div>
+                    <div class="desktop-level-xp">2,450 / 3,000 XP</div>
+                  </div>
+                </div>
               </nav>
             </div>
           </div>
@@ -12949,18 +13393,30 @@
                   <div class="listing-detail-inline-thumbs" id="detailInlineThumbs" role="tablist" aria-label="Listing photos"></div>
                 </div>
                 <div class="listing-modal-seller" id="detailSellerRow" aria-label="Seller">
-                  <div class="listing-modal-seller-avatar" id="detailSellerAvatar" aria-hidden="true">GC</div>
-                  <div class="listing-modal-seller-info">
-                    <div class="listing-modal-seller-name" id="detailSellerName">Gotham Collector</div>
-                    <div
-                      class="listing-modal-seller-reviews"
-                      id="detailSellerReviews"
-                      aria-label="Seller rating and reviews"
-                    >
-                      <span class="listing-modal-seller-stars" id="detailSellerStars" aria-hidden="true">★★★★★</span>
-                      <span class="listing-modal-seller-count" id="detailSellerReviewCount">127 reviews</span>
+                  <button
+                    type="button"
+                    class="listing-modal-seller-main"
+                    id="detailSellerMainBtn"
+                    aria-label="View collector profile"
+                  >
+                    <div class="listing-modal-seller-avatar" id="detailSellerAvatar" aria-hidden="true">GC</div>
+                    <div class="listing-modal-seller-info">
+                      <div class="listing-modal-seller-name-row">
+                        <div class="listing-modal-seller-name" id="detailSellerName">Gotham Collector</div>
+                        <span class="listing-modal-seller-verified" id="detailSellerVerified" hidden aria-label="Verified seller">
+                          <span class="listing-modal-seller-verified-badge" aria-hidden="true">✓</span>
+                        </span>
+                      </div>
+                      <div
+                        class="listing-modal-seller-reviews"
+                        id="detailSellerReviews"
+                        aria-label="Seller rating and reviews"
+                      >
+                        <span class="listing-modal-seller-stars" id="detailSellerStars" aria-hidden="true">★★★★★</span>
+                        <span class="listing-modal-seller-count" id="detailSellerReviewCount">127 reviews</span>
+                      </div>
                     </div>
-                  </div>
+                  </button>
                   <button
                     type="button"
                     class="listing-seller-txn-btn listing-modal-seller-txn-btn"
@@ -13032,6 +13488,24 @@
                     <div class="profile-review-summary-row">
                       <div class="profile-review-stars" aria-label="5 out of 5 stars">★★★★★</div>
                       <button type="button" class="profile-review-count-btn" id="openProfileReviewsModal">25 reviews</button>
+                      <button type="button" class="profile-mutual-link" id="profileMutualCollectorsBtn" hidden>
+                        <span id="profileMutualCollectorsLabel">2 mutual collectors</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="profile-extras" id="profileExtras">
+                  <div class="profile-social-section" id="profileSocialSection" aria-label="Social links">
+                    <div class="profile-social-links">
+                      <button type="button" class="profile-social-btn profile-social-btn--facebook" id="profileSocialFacebookBtn" aria-label="Facebook profile">
+                        <span class="profile-social-icon" aria-hidden="true">f</span>
+                        <span class="profile-social-handle" id="profileSocialFacebookHandle">@GothamCollector</span>
+                      </button>
+                      <button type="button" class="profile-social-btn profile-social-btn--instagram" id="profileSocialInstagramBtn" aria-label="Instagram profile">
+                        <span class="profile-social-icon" aria-hidden="true">◎</span>
+                        <span class="profile-social-handle" id="profileSocialInstagramHandle">@GothamCollector</span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -13411,6 +13885,30 @@
               </div>
             </div>
           </div>
+          <div class="profile-mutual-collectors-root" id="profileMutualCollectorsRoot" aria-hidden="true">
+            <div class="profile-mutual-collectors-backdrop" id="profileMutualCollectorsBackdrop" tabindex="-1"></div>
+            <div
+              class="profile-mutual-collectors-sheet"
+              id="profileMutualCollectorsSheet"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="profileMutualCollectorsTitle"
+            >
+              <div class="profile-mutual-collectors-sheet-handle" aria-hidden="true"></div>
+              <div class="profile-mutual-collectors-toolbar">
+                <button
+                  type="button"
+                  class="listing-back-btn profile-mutual-collectors-back"
+                  id="profileMutualCollectorsClose"
+                  aria-label="Close mutual collectors"
+                >
+                  <span aria-hidden="true">←</span>
+                </button>
+                <span class="profile-mutual-collectors-title" id="profileMutualCollectorsTitle">Mutual collectors</span>
+              </div>
+              <div class="profile-mutual-collectors-list" id="profileMutualCollectorsList" role="list"></div>
+            </div>
+          </div>
           <div class="profile-reviews-overlay" id="profileReviewsOverlay" aria-hidden="true">
             <div class="profile-reviews-backdrop" id="profileReviewsBackdrop" tabindex="-1"></div>
             <div class="profile-reviews-dialog" role="dialog" aria-modal="true" aria-labelledby="profileReviewsTitle" id="profileReviewsDialog">
@@ -13514,11 +14012,12 @@
                   type="text"
                   id="listingMobileMessageInput"
                   class="listing-mobile-message-input"
-                  placeholder="Write a message…"
+                  placeholder="Messages are view-only in phone preview"
                   maxlength="2000"
-                  aria-label="Message to seller"
+                  aria-label="Messages are view-only in phone preview"
+                  disabled
                 />
-                <button type="submit" class="listing-mobile-message-send">Send</button>
+                <button type="button" class="listing-mobile-message-send" id="listingMobileMessageSend" disabled>Send</button>
               </form>
             </div>
           </div>
@@ -13636,6 +14135,7 @@
         ['listingMobileTxnRoot', 'is-active'],
         ['listingMobileIntelRoot', 'is-active'],
         ['profileReviewsOverlay', 'is-open'],
+        ['profileMutualCollectorsRoot', 'is-active'],
         ['demoNotificationsOverlay', 'is-open'],
         ['demoMobileMenuOverlay', 'is-open']
       ];
@@ -13663,6 +14163,7 @@
         'listingMobileTxnRoot',
         'listingMobileIntelRoot',
         'profileReviewsOverlay',
+        'profileMutualCollectorsRoot',
         'demoNotificationsOverlay',
         'demoMobileMenuOverlay',
         'vaultFacetModal'
@@ -13692,6 +14193,33 @@
         'Listing was accurate; arrival matched expectations.',
         'Great communication through the whole deal.'
       ];
+      var buyerNames = [
+        'Marcus Reid',
+        'Priya Nair',
+        'Elias Holt',
+        'Dana Cross',
+        'Owen Pike',
+        'Sofia Marchetti',
+        'Jonah Weiss',
+        'Camille Duarte',
+        'Theo Brennan',
+        'Mira Okonkwo',
+        'Leo Santana',
+        'Hannah Kwan',
+        'Felix Arden',
+        'Nina Volkov',
+        'Caleb Monroe',
+        'Ava Lindstrom',
+        'Derek Cho',
+        'Isla Mercer',
+        'Ryan Petrov',
+        'Chloe Hartwell',
+        'Noah Sinclair',
+        'Zoe Kaplan',
+        'Miles Okafor',
+        'Ruby Tanaka',
+        'Grant Holloway'
+      ];
       var i;
       for (i = 1; i <= 25; i++) {
         var div = document.createElement('div');
@@ -13699,7 +14227,7 @@
         var meta = document.createElement('div');
         meta.className = 'profile-review-item-meta';
         var strong = document.createElement('strong');
-        strong.textContent = 'Buyer ' + i;
+        strong.textContent = buyerNames[(i - 1) % buyerNames.length];
         var span = document.createElement('span');
         span.textContent = '5★ · Verified purchase';
         meta.appendChild(strong);
@@ -15474,6 +16002,7 @@
       updateDemoMarketFocus();
       ensureInterestOverlayInDeviceView();
       requestAnimationFrame(syncCompactDesktopPreview);
+      placeProfileMutualLink();
     }
 
     var previewLayoutFlipFallbackTimer = null;
@@ -16251,6 +16780,19 @@
       'arc-collector': 'arc',
       'mutant-room': 'mutant'
     };
+    var MUTUAL_COLLECTORS_BY_PROFILE = {
+      gotham: ['arc-collector', 'mutant-room'],
+      vader: ['gotham-collector', 'arc-collector'],
+      arc: ['gotham-collector', 'mutant-room'],
+      mutant: ['gotham-collector', 'arc-collector'],
+      'prime1-fan': ['gotham-collector', 'sith-vault'],
+      'mandalorian-den': ['gotham-collector', 'arc-collector'],
+      'resin-king': ['gotham-collector', 'mutant-room'],
+      'queen-vault': ['gotham-collector', 'mutant-room'],
+      'xm-atelier': ['gotham-collector', 'mutant-room'],
+      'statue-society': ['gotham-collector', 'arc-collector', 'sith-vault']
+    };
+    var demoViewedProfileKey = 'gotham';
     const PROFILE_DEMO_CITIES = [
       'Atlanta, GA', 'Austin, TX', 'Portland, OR', 'Orlando, FL', 'Chicago, IL',
       'Newark, NJ', 'Denver, CO', 'Seattle, WA', 'Phoenix, AZ', 'Nashville, TN'
@@ -17722,6 +18264,7 @@
         var seller = item.seller || { avatar: '—', name: 'Verified seller', rating: 5, reviews: 0 };
         els.sellerAvatar.textContent = seller.avatar;
         if (els.sellerName) els.sellerName.textContent = seller.name;
+        if (els.sellerVerifiedBadge) els.sellerVerifiedBadge.hidden = !sellerIsVerified(seller);
         var r = Math.min(5, Math.max(0, Math.round(Number(seller.rating) || 0)));
         var starStr = '';
         for (var si = 1; si <= 5; si++) starStr += si <= r ? '★' : '☆';
@@ -17841,7 +18384,8 @@
       return { item: item, data: data };
     }
 
-    function appendListingSalesEstimateChart(nest, resolvedId) {
+    function appendListingSalesEstimateChart(nest, resolvedId, options) {
+      options = options || {};
       var pack = getListingInsightsPack(resolvedId);
       var data = pack.data;
       var item = pack.item;
@@ -17863,10 +18407,12 @@
       var r3 = Math.max(0.0001, barMax - data.gaugeHigh);
       var colTpl = r1 + 'fr 5px ' + r2 + 'fr 5px ' + r3 + 'fr';
 
-      var estTitle = document.createElement('div');
-      estTitle.className = 'listing-insights-estimate-title';
-      estTitle.textContent = 'Sales estimate';
-      nest.appendChild(estTitle);
+      if (!options.hideTitle) {
+        var estTitle = document.createElement('div');
+        estTitle.className = 'listing-insights-estimate-title';
+        estTitle.textContent = 'Sales estimate';
+        nest.appendChild(estTitle);
+      }
 
       var chart = document.createElement('div');
       chart.className = 'listing-insights-estimate-chart';
@@ -18199,12 +18745,13 @@
       target.appendChild(secMarket);
     }
 
-    function buildListingInsightsDom(resolvedId) {
+    function buildListingInsightsDom(resolvedId, options) {
+      options = options || {};
       var pack = getListingInsightsPack(resolvedId);
       var data = pack.data;
 
       var wrap = document.createElement('div');
-      wrap.className = 'listing-insights';
+      wrap.className = 'listing-insights' + (options.mobileCompact ? ' listing-insights--mobile-compact' : '');
 
       var head = document.createElement('div');
       head.className = 'listing-insights-head';
@@ -18229,12 +18776,14 @@
       var nest = document.createElement('div');
       nest.className = 'listing-insights-nest';
 
-      var teaser = document.createElement('p');
-      teaser.className = 'listing-insights-deal';
-      teaser.textContent = data.dealTeaser || '';
-      nest.appendChild(teaser);
+      if (!options.mobileCompact) {
+        var teaser = document.createElement('p');
+        teaser.className = 'listing-insights-deal';
+        teaser.textContent = data.dealTeaser || '';
+        nest.appendChild(teaser);
+      }
 
-      appendListingSalesEstimateChart(nest, resolvedId);
+      appendListingSalesEstimateChart(nest, resolvedId, { hideTitle: !!options.mobileCompact });
 
       var details = document.createElement('details');
       details.className = 'listing-insights-history';
@@ -18267,9 +18816,23 @@
         av.textContent = seller.avatar;
         var textCol = document.createElement('div');
         textCol.style.minWidth = '0';
+        var nameRow = document.createElement('div');
+        nameRow.className = 'listing-rail-snapshot-name-row';
         var nm = document.createElement('div');
         nm.className = 'listing-rail-snapshot-name';
         nm.textContent = seller.name;
+        nameRow.appendChild(nm);
+        if (sellerIsVerified(seller)) {
+          var verifiedWrap = document.createElement('span');
+          verifiedWrap.className = 'listing-rail-snapshot-verified';
+          verifiedWrap.setAttribute('aria-label', 'Verified seller');
+          var verifiedBadge = document.createElement('span');
+          verifiedBadge.className = 'listing-rail-snapshot-verified-badge';
+          verifiedBadge.setAttribute('aria-hidden', 'true');
+          verifiedBadge.textContent = '✓';
+          verifiedWrap.appendChild(verifiedBadge);
+          nameRow.appendChild(verifiedWrap);
+        }
         var sub = document.createElement('div');
         sub.className = 'listing-rail-snapshot-sub';
         var r = Math.min(5, Math.max(0, Math.round(Number(seller.rating) || 0)));
@@ -18281,7 +18844,7 @@
           seller.reviews +
           (seller.reviews === 1 ? ' review' : ' reviews') +
           ' · Responds within a day';
-        textCol.appendChild(nm);
+        textCol.appendChild(nameRow);
         textCol.appendChild(sub);
         row.appendChild(av);
         row.appendChild(textCol);
@@ -18368,6 +18931,7 @@
     const listingMobileIntelScrollEl = document.getElementById('listingMobileIntelScroll');
     const listingMobileIntelTitleEl = document.getElementById('listingMobileIntelTitle');
     const listingMobileIntelSubEl = document.getElementById('listingMobileIntelSub');
+    const detailSellerMainBtn = document.getElementById('detailSellerMainBtn');
     const detailSellerTxnBtn = document.getElementById('detailSellerTxnBtn');
     const listingMobileMessageRootEl = document.getElementById('listingMobileMessageRoot');
     const listingMobileMessageBackdropEl = document.getElementById('listingMobileMessageBackdrop');
@@ -18375,6 +18939,7 @@
     const listingMobileMessageThreadEl = document.getElementById('listingMobileMessageThread');
     const listingMobileMessageInputEl = document.getElementById('listingMobileMessageInput');
     const listingMobileMessageFormEl = document.getElementById('listingMobileMessageForm');
+    const listingMobileMessageSendEl = document.getElementById('listingMobileMessageSend');
     const listingMobileMessagePeerNameEl = document.getElementById('listingMobileMessagePeerName');
     const listingMobileMessagePeerSubEl = document.getElementById('listingMobileMessagePeerSub');
     var listingDetailModalOpenListingId = '';
@@ -18820,11 +19385,6 @@
           listingMobileMessageRootEl.classList.add('is-open');
         }
       });
-      if (listingMobileMessageInputEl) {
-        window.setTimeout(function () {
-          listingMobileMessageInputEl.focus();
-        }, 380);
-      }
     }
 
     function getSellerTransactions(sellerName) {
@@ -19055,6 +19615,10 @@
 
     function submitListingChatMessage(threadEl, inputEl) {
       if (!inputEl) return;
+      if (inputEl.disabled) {
+        showToast('Messages are view-only in phone preview');
+        return;
+      }
       var msg = String(inputEl.value || '').trim();
       if (!msg) return;
       var thread = threadEl || listingDetailChatThreadEl;
@@ -19162,7 +19726,7 @@
       var detailMobileInsightsEl = document.getElementById('detailMobileInsights');
       if (detailMobileInsightsEl) {
         detailMobileInsightsEl.innerHTML = '';
-        detailMobileInsightsEl.appendChild(buildListingInsightsDom(resolvedId));
+        detailMobileInsightsEl.appendChild(buildListingInsightsDom(resolvedId, { mobileCompact: true }));
       }
       if (listingMobileMessageThreadEl) {
         listingMobileMessageThreadEl.innerHTML = '';
@@ -19181,6 +19745,7 @@
         sellerName: document.getElementById('detailSellerName'),
         sellerStars: document.getElementById('detailSellerStars'),
         sellerReviewCount: document.getElementById('detailSellerReviewCount'),
+        sellerVerifiedBadge: document.getElementById('detailSellerVerified'),
         sellerReviewsEl: document.getElementById('detailSellerReviews')
       });
       switchScreen('listing', true);
@@ -19296,8 +19861,179 @@
       return true;
     }
 
+    function sellerIsVerified(seller) {
+      if (!seller) return false;
+      if (typeof seller.verified === 'boolean') return seller.verified;
+      var name = String(seller.name || '').trim();
+      var avatar = String(seller.avatar || '').trim();
+      var profileKey = '';
+      Object.keys(profiles).some(function (key) {
+        if (profiles[key].name === name || profiles[key].avatar === avatar) {
+          profileKey = key;
+          return true;
+        }
+        return false;
+      });
+      if (profileKey) return !!profiles[profileKey].verified;
+      var collector = collectorsDemoData.find(function (c) {
+        return c.name === name || c.initials === avatar;
+      });
+      if (collector) return !!collector.verified;
+      return false;
+    }
+
+    function resolveProfileIdFromSeller(seller) {
+      seller = seller || {};
+      var name = String(seller.name || '').trim();
+      var avatar = String(seller.avatar || '').trim();
+      var profileKey = '';
+      Object.keys(profiles).some(function (key) {
+        if (profiles[key].name === name || profiles[key].avatar === avatar) {
+          profileKey = key;
+          return true;
+        }
+        return false;
+      });
+      if (profileKey) return profileKey;
+      var collector = collectorsDemoData.find(function (c) {
+        return c.name === name || c.initials === avatar;
+      });
+      if (collector) return COLLECTOR_PROFILE_ALIASES[collector.id] || collector.id;
+      return 'gotham';
+    }
+
+    function openListingSellerCollectorProfile() {
+      if (previewDemoHost && previewDemoHost.classList.contains('is-desktop')) return;
+      var item = listings[getActiveListingIdForChat()] || listings['prime1-batman'];
+      var seller = item.seller || { name: 'Seller' };
+      openProfile(resolveProfileIdFromSeller(seller));
+    }
+
+    function getMutualCollectorIds(profileKey) {
+      if (demoProfileIsSelf) return [];
+      var key = resolveProfileKey(profileKey);
+      var preset = MUTUAL_COLLECTORS_BY_PROFILE[key] || MUTUAL_COLLECTORS_BY_PROFILE[profileKey];
+      if (preset && preset.length) return preset.slice();
+      var out = [];
+      collectorsDemoData.forEach(function (c) {
+        var ck = COLLECTOR_PROFILE_ALIASES[c.id] || c.id;
+        if (ck === key || ck === 'gotham') return;
+        if (out.indexOf(c.id) === -1) out.push(c.id);
+      });
+      return out.slice(0, 2);
+    }
+
+    function placeProfileMutualLink() {
+      var btn = document.getElementById('profileMutualCollectorsBtn');
+      var reviewRow = document.querySelector('.app-screen[data-screen="profile"] .profile-review-summary-row');
+      var extras = document.getElementById('profileExtras');
+      if (!btn || !reviewRow || !extras) return;
+      var isDesktop = previewDemoHost && previewDemoHost.classList.contains('is-desktop');
+      if (isDesktop) {
+        reviewRow.appendChild(btn);
+      } else {
+        extras.appendChild(btn);
+      }
+    }
+
+    function syncProfileMutualLink(profileKey) {
+      var btn = document.getElementById('profileMutualCollectorsBtn');
+      var label = document.getElementById('profileMutualCollectorsLabel');
+      if (!btn || !label) return;
+      var ids = getMutualCollectorIds(profileKey);
+      if (!ids.length) {
+        btn.hidden = true;
+        return;
+      }
+      btn.hidden = false;
+      var n = ids.length;
+      label.textContent = n + ' mutual collector' + (n === 1 ? '' : 's');
+      btn.setAttribute('data-profile-mutual-for', profileKey);
+      placeProfileMutualLink();
+    }
+
+    function syncProfileExtras(profile) {
+      profile = profile || getProfileRecord('gotham');
+      var handle = profile.handle || '@collector';
+      var fbHandle = document.getElementById('profileSocialFacebookHandle');
+      var igHandle = document.getElementById('profileSocialInstagramHandle');
+      if (fbHandle) fbHandle.textContent = handle;
+      if (igHandle) igHandle.textContent = handle;
+      syncProfileMutualLink(profile.key);
+    }
+
+    function buildProfileMutualCollectorCard(collectorId) {
+      var record = getProfileRecord(collectorId);
+      var card = document.createElement('article');
+      card.className = 'collector-card profile-mutual-collector-card';
+      card.setAttribute('role', 'listitem');
+      card.setAttribute('data-mutual-collector-id', collectorId);
+      var avatar = document.createElement('div');
+      avatar.className = 'collector-card-avatar';
+      avatar.setAttribute('aria-hidden', 'true');
+      avatar.textContent = record.avatar;
+      var body = document.createElement('div');
+      body.className = 'collector-card-body';
+      var nameRow = document.createElement('div');
+      nameRow.className = 'collector-card-name';
+      nameRow.textContent = record.name;
+      if (record.verified) {
+        var verified = document.createElement('span');
+        verified.className = 'collector-card-verified';
+        verified.setAttribute('aria-label', 'Verified');
+        verified.textContent = '✓';
+        nameRow.appendChild(verified);
+      }
+      var handleEl = document.createElement('span');
+      handleEl.className = 'collector-card-handle';
+      handleEl.textContent = record.handle;
+      body.appendChild(nameRow);
+      body.appendChild(handleEl);
+      card.appendChild(avatar);
+      card.appendChild(body);
+      return card;
+    }
+
+    function renderProfileMutualCollectorsSheet(profileKey) {
+      var list = document.getElementById('profileMutualCollectorsList');
+      var title = document.getElementById('profileMutualCollectorsTitle');
+      if (!list) return;
+      var ids = getMutualCollectorIds(profileKey);
+      list.innerHTML = '';
+      if (title) {
+        title.textContent =
+          ids.length === 1 ? '1 mutual collector' : ids.length + ' mutual collectors';
+      }
+      ids.forEach(function (cid) {
+        list.appendChild(buildProfileMutualCollectorCard(cid));
+      });
+    }
+
+    function closeProfileMutualCollectorsSheet() {
+      var root = document.getElementById('profileMutualCollectorsRoot');
+      if (!root || !root.classList.contains('is-active')) return;
+      root.classList.remove('is-open');
+      root.classList.remove('is-active');
+      root.setAttribute('aria-hidden', 'true');
+      if (iphoneScreenEl) iphoneScreenEl.classList.remove('profile-mutual-collectors-open');
+    }
+
+    function openProfileMutualCollectorsSheet() {
+      var root = document.getElementById('profileMutualCollectorsRoot');
+      if (!root) return;
+      renderProfileMutualCollectorsSheet(demoViewedProfileKey);
+      var isDesktop = previewDemoHost && previewDemoHost.classList.contains('is-desktop');
+      if (!isDesktop && iphoneScreenEl) iphoneScreenEl.classList.add('profile-mutual-collectors-open');
+      root.classList.add('is-active');
+      root.setAttribute('aria-hidden', 'false');
+      window.requestAnimationFrame(function () {
+        if (root && root.classList.contains('is-active')) root.classList.add('is-open');
+      });
+    }
+
     function openProfile(profileId) {
       demoProfileIsSelf = false;
+      demoViewedProfileKey = resolveProfileKey(profileId);
       const profile = getProfileRecord(profileId);
       const profileAvatar = document.getElementById('profileAvatar');
       const profileName = document.getElementById('profileName');
@@ -19322,6 +20058,7 @@
       }
 
       renderProfileFeedPosts(profile.key);
+      syncProfileExtras(profile);
       setProfileMode('regular');
       syncProfileMobileNav();
       switchScreen('profile', true);
@@ -19329,6 +20066,7 @@
 
     function resetDemoMeProfile() {
       demoProfileIsSelf = true;
+      demoViewedProfileKey = 'gotham';
       const p = profiles.gotham;
       const profileAvatar = document.getElementById('profileAvatar');
       const profileName = document.getElementById('profileName');
@@ -19351,6 +20089,7 @@
         });
       }
       renderProfileFeedPosts('gotham');
+      syncProfileExtras(getProfileRecord('gotham'));
       setProfileMode('regular');
       syncProfileMobileNav();
     }
@@ -19555,6 +20294,11 @@
         closeProfileReviewsModal();
         return;
       }
+      var profileMutualCollectorsRootEl = document.getElementById('profileMutualCollectorsRoot');
+      if (profileMutualCollectorsRootEl && profileMutualCollectorsRootEl.classList.contains('is-active')) {
+        closeProfileMutualCollectorsSheet();
+        return;
+      }
       if (isMobileMenuOpen()) {
         closeMobileMenu();
         return;
@@ -19586,6 +20330,46 @@
       openProfileReviewsBtn.addEventListener('click', function (e) {
         e.preventDefault();
         openProfileReviewsModal();
+      });
+    }
+    var profileSocialFacebookBtn = document.getElementById('profileSocialFacebookBtn');
+    var profileSocialInstagramBtn = document.getElementById('profileSocialInstagramBtn');
+    var profileMutualCollectorsBtn = document.getElementById('profileMutualCollectorsBtn');
+    var profileMutualCollectorsBackdrop = document.getElementById('profileMutualCollectorsBackdrop');
+    var profileMutualCollectorsClose = document.getElementById('profileMutualCollectorsClose');
+    var profileMutualCollectorsList = document.getElementById('profileMutualCollectorsList');
+    if (profileSocialFacebookBtn) {
+      profileSocialFacebookBtn.addEventListener('click', function () {
+        var h = document.getElementById('profileSocialFacebookHandle');
+        showToast('Open Facebook — ' + (h ? h.textContent : ''));
+      });
+    }
+    if (profileSocialInstagramBtn) {
+      profileSocialInstagramBtn.addEventListener('click', function () {
+        var h = document.getElementById('profileSocialInstagramHandle');
+        showToast('Open Instagram — ' + (h ? h.textContent : ''));
+      });
+    }
+    if (profileMutualCollectorsBtn) {
+      profileMutualCollectorsBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openProfileMutualCollectorsSheet();
+      });
+    }
+    if (profileMutualCollectorsBackdrop) {
+      profileMutualCollectorsBackdrop.addEventListener('click', closeProfileMutualCollectorsSheet);
+    }
+    if (profileMutualCollectorsClose) {
+      profileMutualCollectorsClose.addEventListener('click', closeProfileMutualCollectorsSheet);
+    }
+    if (profileMutualCollectorsList) {
+      profileMutualCollectorsList.addEventListener('click', function (e) {
+        var card = e.target.closest('[data-mutual-collector-id]');
+        if (!card) return;
+        e.preventDefault();
+        var cid = card.getAttribute('data-mutual-collector-id');
+        closeProfileMutualCollectorsSheet();
+        if (cid) openProfile(cid);
       });
     }
     if (closeProfileReviewsBtn) closeProfileReviewsBtn.addEventListener('click', closeProfileReviewsModal);
@@ -19712,6 +20496,12 @@
       if (feedMobileCommentsRootEl && feedMobileCommentsRootEl.classList.contains('is-active')) {
         ev.preventDefault();
         closeFeedMobileCommentSheet();
+        return;
+      }
+      var profileMutualRootEsc = document.getElementById('profileMutualCollectorsRoot');
+      if (profileMutualRootEsc && profileMutualRootEsc.classList.contains('is-active')) {
+        ev.preventDefault();
+        closeProfileMutualCollectorsSheet();
         return;
       }
       if (feedMobileExpandEl && feedMobileExpandEl.classList.contains('is-active')) {
@@ -19942,6 +20732,18 @@
       listingMobileMessageFormEl.addEventListener('submit', function (e) {
         e.preventDefault();
         submitListingChatMessage(listingMobileMessageThreadEl, listingMobileMessageInputEl);
+      });
+    }
+    if (listingMobileMessageSendEl) {
+      listingMobileMessageSendEl.addEventListener('click', function () {
+        submitListingChatMessage(listingMobileMessageThreadEl, listingMobileMessageInputEl);
+      });
+    }
+    if (detailSellerMainBtn) {
+      detailSellerMainBtn.addEventListener('click', function (e) {
+        if (previewDemoHost && previewDemoHost.classList.contains('is-desktop')) return;
+        e.preventDefault();
+        openListingSellerCollectorProfile();
       });
     }
     if (detailSellerTxnBtn) {
