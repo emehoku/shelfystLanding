@@ -18512,11 +18512,12 @@
 
     function formatIntelShortMoney(n) {
       var v = Math.round(Number(n) || 0);
-      if (!v) return '$ 0';
+      if (!v) return '$0';
+      if (v < 10000) return '$' + v.toLocaleString('en-US');
       var k = v / 1000;
       var s = k.toFixed(1);
-      if (s.slice(-2) === '.0') s = String(Math.round(k));
-      return '$ ' + s + 'k';
+      if (s.slice(-2) === '.0') return '$' + String(Math.round(k)) + 'k';
+      return '$' + s + 'k';
     }
 
     function getDemandCountsSeries(data) {
