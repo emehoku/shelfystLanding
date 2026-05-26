@@ -3449,6 +3449,11 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
     }
+    /* Wide desktop (>1330 stack width): give Discover more width (avoid “squeezed” look). */
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .discover-post-modal {
+      width: min(820px, calc(100% - 64px));
+      max-width: min(820px, calc(100% - 64px));
+    }
     .preview-demo-host:not(.is-desktop) .discover-post-modal {
       border-radius: 0;
     }
@@ -19667,9 +19672,23 @@
         inner = Math.max(240, inner);
         modal.style.height = inner + 'px';
         modal.style.maxHeight = inner + 'px';
+        /* Wide desktop: scale modal width up with available space. */
+        if (host.classList.contains('is-stack-wide-desktop')) {
+          var pr = parseFloat(cs.paddingRight) || 0;
+          var pl = parseFloat(cs.paddingLeft) || 0;
+          var innerW = Math.floor(overlay.clientWidth - pl - pr);
+          var targetW = Math.max(560, Math.min(820, innerW - 64));
+          modal.style.width = targetW + 'px';
+          modal.style.maxWidth = targetW + 'px';
+        } else {
+          modal.style.width = '';
+          modal.style.maxWidth = '';
+        }
       } else if (modal) {
         modal.style.height = '';
         modal.style.maxHeight = '';
+        modal.style.width = '';
+        modal.style.maxWidth = '';
       }
 
       var h = sc.clientHeight;
