@@ -1396,9 +1396,15 @@
       align-items: stretch;
       overflow-x: auto;
       overflow-y: hidden;
-      grid-template-columns: 300px var(--desk-feed-width) 400px;
+      --desk-grid-col-gap: 0px;
+      --desk-grid-total-width: calc(var(--desk-sidebar-left-min) + var(--desk-feed-width) + var(--desk-sidebar-right-min) + (2 * var(--desk-grid-col-gap)));
+      grid-template-columns: var(--desk-sidebar-left-min) var(--desk-feed-width) var(--desk-sidebar-right-min);
       grid-template-rows: minmax(0, 1fr);
-      justify-content: center;
+      column-gap: var(--desk-grid-col-gap);
+      justify-content: start;
+      /* Center strip without making the left edge unreachable in horizontal scroll. */
+      padding-inline: max(14px, calc((100% - var(--desk-grid-total-width)) / 2));
+      box-sizing: border-box;
     }
     .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-sidebar--right {
       overflow-y: hidden;
@@ -1576,7 +1582,7 @@
       visibility: hidden;
       pointer-events: none;
     }
-    .preview-shell { position: relative; width: min(1500px, 100%); min-height: min(680px, calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom))); max-height: calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom)); border-radius: 28px; border: 1px solid rgba(199, 210, 254, 0.18); background: radial-gradient(circle at 70% 18%, rgba(92,58,194,0.14), transparent 32%), #1E1B4B; box-shadow: 0 40px 100px rgba(0,0,0,0.45); display: grid; grid-template-columns: minmax(280px, 1fr) minmax(360px, 600px); grid-template-rows: minmax(0, 1fr); align-items: stretch; gap: 38px; padding: 42px; overflow: hidden; transition: gap 0.4s ease; }
+    .preview-shell { position: relative; width: min(1530px, 100%); min-height: min(680px, calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom))); max-height: calc(100dvh - var(--preview-modal-pad-top) - var(--preview-modal-pad-bottom)); border-radius: 28px; border: 1px solid rgba(199, 210, 254, 0.18); background: radial-gradient(circle at 70% 18%, rgba(92,58,194,0.14), transparent 32%), #1E1B4B; box-shadow: 0 40px 100px rgba(0,0,0,0.45); display: grid; grid-template-columns: minmax(280px, 1fr) minmax(360px, 600px); grid-template-rows: minmax(0, 1fr); align-items: stretch; gap: 38px; padding: 42px; overflow: hidden; transition: gap 0.4s ease; }
     .preview-modal.active .preview-shell {
       align-self: flex-start;
       margin-bottom: 0;
@@ -3646,8 +3652,16 @@
       --desk-muted: #9d9d9d;
       /* Wide layouts: fixed feed column; left/right grow equally with floor widths (visual margin from 1fr tracks). */
       --desk-feed-width: 600px;
-      --desk-sidebar-left-min: 240px;
-      --desk-sidebar-right-min: 260px;
+      --desk-sidebar-left-min: 300px;
+      --desk-sidebar-right-min: 400px;
+      /* Stack-width layouts (measured from .preview-browser-device-stack) */
+      --desk-stack-rail-col: 300px;
+      --desk-stack-feed-col: 600px;
+      --desk-stack-filter-col: 280px;
+      --desk-stack-gutter: 12px;
+      --desk-stack-narrow-total: calc(var(--desk-stack-rail-col) + var(--desk-stack-feed-col));
+      --desk-stack-tablet-total: var(--desk-stack-feed-col);
+      --desk-stack-tablet-vault-total: calc(var(--desk-stack-filter-col) + var(--desk-stack-feed-col));
     }
     .preview-demo-host.is-desktop.demo-theme-light {
       --desk-accent: var(--gold);
@@ -4003,14 +4017,25 @@
     }
     .preview-demo-host.is-desktop .desktop-top-bar-inner {
       display: grid;
+      --desk-top-col-gap: 18px;
+      --desk-top-total-width: calc(
+        var(--desk-sidebar-left-min) +
+        var(--desk-feed-width) +
+        var(--desk-sidebar-right-min) +
+        (2 * var(--desk-top-col-gap))
+      );
       grid-template-columns:
-        minmax(var(--desk-sidebar-left-min), 1fr)
+        var(--desk-sidebar-left-min)
         var(--desk-feed-width)
-        minmax(var(--desk-sidebar-right-min), 1fr);
+        var(--desk-sidebar-right-min);
       align-items: center;
+      justify-content: start;
       width: 100%;
       min-height: 55px;
       column-gap: 0;
+      /* Match main grid centering gutters. */
+      padding-inline: max(14px, calc((100% - var(--desk-top-total-width)) / 2));
+      box-sizing: border-box;
     }
     .preview-demo-host.is-desktop .desktop-top-bar-cell--brand {
       display: flex;
@@ -4039,8 +4064,11 @@
       box-sizing: border-box;
     }
     .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-inner {
-      grid-template-columns: 300px var(--desk-feed-width) 400px;
-      justify-content: center;
+      grid-template-columns: var(--desk-sidebar-left-min) var(--desk-feed-width) var(--desk-sidebar-right-min);
+      --desk-top-total-width: calc(var(--desk-sidebar-left-min) + var(--desk-feed-width) + var(--desk-sidebar-right-min) + (2 * 18px));
+      justify-content: start;
+      padding-inline: max(14px, calc((100% - var(--desk-top-total-width)) / 2));
+      box-sizing: border-box;
     }
     .desktop-top-brand {
       display: flex;
@@ -4215,19 +4243,31 @@
 
     .preview-demo-host.is-desktop .desktop-main-grid {
       display: grid !important;
+      --desk-grid-col-gap: 0px;
+      --desk-grid-total-width: calc(
+        var(--desk-sidebar-left-min) +
+        var(--desk-feed-width) +
+        var(--desk-sidebar-right-min) +
+        (2 * var(--desk-grid-col-gap))
+      );
       grid-template-columns:
-        minmax(var(--desk-sidebar-left-min), 1fr)
+        var(--desk-sidebar-left-min)
         var(--desk-feed-width)
-        minmax(var(--desk-sidebar-right-min), 1fr);
+        var(--desk-sidebar-right-min);
       grid-template-rows: minmax(0, 1fr);
-      gap: 0;
+      column-gap: var(--desk-grid-col-gap);
+      row-gap: 0;
       flex: 1 1 auto;
       min-width: 0;
       min-height: 0;
       border-top: none;
+      justify-content: start;
       overflow-x: auto;
       overflow-y: hidden;
       align-items: start;
+      /* Center the fixed-width 3-col strip without breaking scroll-left. */
+      padding-inline: max(14px, calc((100% - var(--desk-grid-total-width)) / 2));
+      box-sizing: border-box;
     }
     .preview-demo-host.is-desktop .desktop-main-grid > .demo-app-center {
       align-self: stretch;
@@ -4291,6 +4331,13 @@
       align-self: start;
       box-sizing: border-box;
     }
+    .preview-demo-host.is-desktop .desktop-sidebar-widgets {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      min-width: 0;
+    }
     /*
       Desktop preview responsive floor:
       240px left rail + 600px feed + 260px right widgets = 1100px minimum,
@@ -4352,46 +4399,30 @@
         width: 22px;
         height: 22px;
       }
-      .preview-demo-host.is-desktop .desktop-main-grid {
-        grid-template-columns: minmax(0, min(100%, 680px));
-        justify-content: center;
-        overflow-x: hidden;
-        padding-inline: 12px;
-      }
-      .preview-demo-host.is-desktop .desktop-sidebar--left,
-      .preview-demo-host.is-desktop .desktop-sidebar--right {
-        display: none !important;
-      }
-      .preview-demo-host.is-desktop .demo-app-center,
-      .preview-demo-host.is-desktop.demo-market-focus .demo-app-center {
-        grid-column: 1;
-        max-width: 680px;
-        width: 100%;
-        justify-self: center;
-      }
     }
+    /* Immersive: legacy viewport rules only when stack breakpoint classes are not active. */
     @media (max-width: 1320px) {
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-inner {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-inner {
         grid-template-columns: minmax(0, min(100%, 720px));
         justify-content: center;
         padding-inline: 14px;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-cell--brand,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-cell--actions {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--brand,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--actions {
         display: none !important;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-main-grid {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-main-grid {
         grid-template-columns: minmax(0, min(100%, 720px));
         justify-content: center;
         overflow-x: hidden;
         padding-inline: 14px;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-sidebar--left,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-sidebar--right {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-sidebar--left,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-sidebar--right {
         display: none !important;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .demo-app-center,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.demo-market-focus .demo-app-center {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .demo-app-center,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet).demo-market-focus .demo-app-center {
         grid-column: 1;
         max-width: 720px;
         width: 100%;
@@ -4399,10 +4430,12 @@
       }
     }
     /* Full-window desktop: fixed rails + centered strip (extra width → gutters left/right). */
+    /* NOTE: Size the ASIDE, not the inner rail, so padding doesn't cause clipping. */
     .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-sidebar--left {
-      width: 300px;
-      min-width: 300px;
-      max-width: 300px;
+      width: var(--desk-sidebar-left-min);
+      min-width: var(--desk-sidebar-left-min);
+      max-width: var(--desk-sidebar-left-min);
+      box-sizing: border-box;
     }
     .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-sidebar--right {
       width: 400px;
@@ -6275,7 +6308,7 @@
       background: var(--desk-card);
       box-shadow: 0 6px 18px rgba(0,0,0,0.05);
     }
-    .preview-demo-host.is-desktop .desktop-sidebar--right > .desktop-widget-card:last-child {
+    .preview-demo-host.is-desktop .desktop-sidebar-widgets > .desktop-widget-card:last-child {
       margin-bottom: 0;
     }
     .desktop-trend-row,
@@ -6393,33 +6426,34 @@
       height: 0;
     }
 
+    /* Legacy viewport fallback only when stack breakpoint classes are not set. */
     @media (max-width: 1180px) {
-      .preview-demo-host.is-desktop .desktop-top-bar-inner {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-inner {
         grid-template-columns: minmax(0, min(100%, 680px));
         justify-content: center;
         padding-inline: 12px;
       }
-      .preview-demo-host.is-desktop .desktop-top-bar-cell--brand,
-      .preview-demo-host.is-desktop .desktop-top-bar-cell--actions {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--brand,
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--actions {
         display: none !important;
       }
-      .preview-demo-host.is-desktop .desktop-top-bar-cell--search {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--search {
         grid-column: 1;
         width: 100%;
         padding-inline: 0;
       }
-      .preview-demo-host.is-desktop .desktop-main-grid {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-main-grid {
         grid-template-columns: minmax(0, min(100%, 680px));
         justify-content: center;
         overflow-x: hidden;
         padding-inline: 12px;
       }
-      .preview-demo-host.is-desktop .desktop-sidebar--left,
-      .preview-demo-host.is-desktop .desktop-sidebar--right {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-sidebar--left,
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-sidebar--right {
         display: none !important;
       }
-      .preview-demo-host.is-desktop .demo-app-center,
-      .preview-demo-host.is-desktop.demo-market-focus .demo-app-center {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .demo-app-center,
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet).demo-market-focus .demo-app-center {
         grid-column: 1;
         max-width: 680px;
         width: 100%;
@@ -6427,7 +6461,7 @@
         position: relative;
         overflow: visible;
       }
-      .preview-demo-host.is-desktop .app-tabbar {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .app-tabbar {
         display: grid !important;
         position: absolute;
         left: 0;
@@ -6442,15 +6476,15 @@
         border-top-color: var(--desk-border);
         background: var(--desk-card);
       }
-      .preview-demo-host.is-desktop .app-content {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .app-content {
         padding-bottom: 70px;
       }
-      .preview-demo-host.is-desktop:not(.demo-theme-light) .app-tabbar {
+      .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet):not(.demo-theme-light) .app-tabbar {
         background: #312E81;
       }
     }
     @media (max-width: 1320px) {
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-inner {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-inner {
         grid-template-columns: minmax(116px, 1fr) minmax(240px, 460px) minmax(82px, 1fr);
         grid-template-rows: auto;
         align-items: center;
@@ -6458,39 +6492,39 @@
         min-height: 48px;
         padding: 6px 12px;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-cell--brand,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-cell--actions {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--brand,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--actions {
         display: flex !important;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-cell--brand {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--brand {
         grid-column: 1;
         grid-row: 1;
         padding: 0;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-brand-logo {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-brand-logo {
         width: 108px;
         height: auto;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-brand-tag {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-brand-tag {
         display: none;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-cell--actions {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--actions {
         grid-column: 3;
         grid-row: 1;
         padding: 0;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-bar-cell--search {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-bar-cell--search {
         grid-column: 2;
         grid-row: 1;
         width: 100%;
         padding: 0;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-search {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-search {
         width: 100%;
         margin-inline: auto;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-actions > .desktop-icon-btn,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-actions > .demo-notifications-btn--header {
         width: 40px;
         height: 40px;
         min-width: 40px;
@@ -6499,23 +6533,23 @@
         border-radius: 12px;
         font-size: 22px;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .desktop-icon-btn svg,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-top-actions > .demo-notifications-btn--header svg {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-actions > .desktop-icon-btn svg,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-top-actions > .demo-notifications-btn--header svg {
         width: 22px;
         height: 22px;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-main-grid {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-main-grid {
         grid-template-columns: minmax(0, min(100%, 720px));
         justify-content: center;
         overflow-x: hidden;
         padding-inline: 14px;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-sidebar--left,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .desktop-sidebar--right {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-sidebar--left,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .desktop-sidebar--right {
         display: none !important;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .demo-app-center,
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.demo-market-focus .demo-app-center {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .demo-app-center,
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet).demo-market-focus .demo-app-center {
         grid-column: 1;
         max-width: 720px;
         width: 100%;
@@ -6523,7 +6557,7 @@
         position: relative;
         overflow: visible;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .app-tabbar {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .app-tabbar {
         display: grid !important;
         position: absolute;
         left: 0;
@@ -6537,9 +6571,404 @@
         justify-content: center;
         background: #312E81;
       }
-      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop .app-content {
+      .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop:not(.is-stack-wide-desktop):not(.is-stack-narrow-desktop):not(.is-stack-tablet) .app-content {
         padding-bottom: 70px;
       }
+    }
+
+    /* Container-width breakpoints (measured from .preview-browser-device-stack) */
+    /* Small desktop (1024–1329): 280px stacked rails + 600px feed, centered (12px gutters at 1024). */
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop {
+      --desk-stack-rail-col: 280px;
+      --desk-stack-narrow-total: calc(var(--desk-stack-rail-col) + var(--desk-stack-feed-col));
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-main-grid {
+      --desk-grid-total-width: var(--desk-stack-narrow-total);
+      width: 100%;
+      max-width: 100%;
+      grid-template-columns: var(--desk-stack-rail-col) minmax(0, var(--desk-stack-feed-col));
+      grid-template-rows: minmax(0, 1fr);
+      align-content: stretch;
+      align-items: stretch;
+      column-gap: 0;
+      row-gap: 0;
+      justify-content: center;
+      overflow: hidden;
+      padding-inline: var(--desk-stack-gutter);
+      box-sizing: border-box;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-main-grid > .desktop-sidebar--left {
+      min-height: 0;
+      max-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-main-grid > .desktop-sidebar--left::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-top-bar-inner {
+      --desk-top-total-width: var(--desk-stack-narrow-total);
+      grid-template-columns: var(--desk-stack-rail-col) minmax(0, var(--desk-stack-feed-col));
+      justify-content: center;
+      padding-inline: var(--desk-stack-gutter);
+      box-sizing: border-box;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-top-bar-cell--brand {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-top-bar-cell--search {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-top-bar-cell--actions {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar--left {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex !important;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      min-width: 0;
+      max-width: var(--desk-stack-rail-col);
+      align-self: stretch;
+      justify-self: stretch;
+      min-height: 0;
+      max-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar-left-rail {
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      flex: 0 0 auto;
+      overflow: visible;
+    }
+    /* Stacked layout: level card follows nav (no wide-desktop “pin to bottom” flex). */
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar-extra--home {
+      flex: 0 0 auto;
+      min-height: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar-extra--home .desktop-sidebar-scroll {
+      flex: 0 0 auto;
+      min-height: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar-left-rail .desktop-sidebar-extra--home > .desktop-sidebar-divider {
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar-extra--home .desktop-level-card {
+      margin-top: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar--right {
+      display: none !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar-widgets {
+      display: flex !important;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      min-width: 0;
+      flex: 0 0 auto;
+      padding: 0;
+      background: transparent;
+    }
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop .demo-app-center,
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop.demo-market-focus .demo-app-center {
+      grid-column: 2;
+      grid-row: 1;
+      max-width: none;
+      width: 100%;
+      min-width: 0;
+      min-height: 0;
+      align-self: stretch;
+      height: 100%;
+      justify-self: stretch;
+    }
+    /* Vault on small desktop: hide right-rail widgets (collectors / picks). */
+    .preview-demo-host.is-desktop.is-stack-narrow-desktop.demo-market-focus .desktop-sidebar-widgets {
+      display: none !important;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-main-grid {
+      --desk-grid-total-width: var(--desk-stack-narrow-total);
+      width: 100%;
+      max-width: 100%;
+      grid-template-columns: var(--desk-stack-rail-col) minmax(0, var(--desk-stack-feed-col));
+      grid-template-rows: minmax(0, 1fr);
+      align-content: stretch;
+      align-items: stretch;
+      column-gap: 0;
+      row-gap: 0;
+      justify-content: center;
+      overflow: hidden;
+      padding-inline: var(--desk-stack-gutter);
+      box-sizing: border-box;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-narrow-desktop .desktop-sidebar--left {
+      width: 100%;
+      min-width: 0;
+      max-width: var(--desk-stack-rail-col);
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-narrow-desktop .demo-app-center,
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-narrow-desktop.demo-market-focus .demo-app-center {
+      grid-column: 2;
+      grid-row: 1;
+      max-width: var(--desk-stack-feed-col);
+      width: 100%;
+      justify-self: stretch;
+    }
+
+    /* Tablet (600–1023 stack width): single 600px feed column, bottom nav. */
+    .preview-demo-host.is-desktop.is-stack-tablet {
+      --desk-stack-filter-col: 240px;
+      --desk-stack-tablet-vault-total: calc(var(--desk-stack-filter-col) + var(--desk-stack-feed-col));
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-main-grid {
+      --desk-grid-total-width: var(--desk-stack-tablet-total);
+      grid-template-columns: var(--desk-stack-feed-col);
+      grid-template-rows: minmax(0, 1fr);
+      justify-content: start;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-inline: max(var(--desk-stack-gutter), calc((100% - var(--desk-grid-total-width)) / 2));
+      box-sizing: border-box;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-top-bar-inner {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      justify-content: stretch;
+      width: 100%;
+      max-width: none;
+      padding-inline: 12px;
+      box-sizing: border-box;
+      column-gap: 10px;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-top-bar-cell--brand {
+      display: flex !important;
+      grid-column: 1;
+      grid-row: 1;
+      min-width: 0;
+      padding: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-top-bar-cell--search {
+      grid-column: 2;
+      grid-row: 1;
+      width: 100%;
+      min-width: 0;
+      padding: 0 8px;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-top-bar-cell--actions {
+      display: flex !important;
+      grid-column: 3;
+      grid-row: 1;
+      min-width: 0;
+      padding: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-top-brand-tag {
+      display: none;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-top-brand-logo {
+      width: 104px;
+      height: auto;
+      max-width: min(148px, 28vw);
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-top-search {
+      width: 100%;
+      max-width: none;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .demo-app-root {
+      position: relative;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-sidebar--left {
+      display: none !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .desktop-sidebar--right {
+      display: none !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .demo-app-center,
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .demo-app-center {
+      grid-column: 1;
+      max-width: var(--desk-stack-feed-col);
+      width: 100%;
+      justify-self: stretch;
+      position: static;
+      overflow: visible;
+    }
+    /* Tablet + Vault: filters left, listings right (no compact icon nav — bottom tabs handle nav). */
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-main-grid {
+      --desk-grid-total-width: var(--desk-stack-tablet-vault-total);
+      grid-template-columns: var(--desk-stack-filter-col) var(--desk-stack-feed-col);
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar--left {
+      display: flex !important;
+      grid-column: 1;
+      grid-row: 1;
+      width: var(--desk-stack-filter-col);
+      min-width: var(--desk-stack-filter-col);
+      max-width: var(--desk-stack-filter-col);
+      align-self: stretch;
+      padding: 14px 10px 18px 12px;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar--right {
+      display: none !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-profile-card,
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar-nav,
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar-extra--home,
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar-left-rail > .desktop-sidebar-divider {
+      display: none !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar-left-rail {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+      height: 100%;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      overflow: hidden;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-market-filters {
+      display: flex !important;
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .demo-app-center {
+      grid-column: 2;
+      max-width: var(--desk-stack-feed-col);
+    }
+    /* Immersive fullscreen: mirror stack tablet / narrow layouts */
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-tablet .desktop-sidebar--left,
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-tablet .desktop-sidebar--right {
+      display: none !important;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar--left {
+      display: flex !important;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-tablet.demo-market-focus .desktop-sidebar--right {
+      display: none !important;
+    }
+    .preview-modal.preview-modal--immersive-desktop .preview-demo-host.is-desktop.is-stack-narrow-desktop.demo-market-focus .desktop-sidebar-widgets {
+      display: none !important;
+    }
+    /* Tablet bottom nav: full-width bar, icons clustered in the center (no Menu tab). */
+    .preview-demo-host.is-desktop.is-stack-tablet .app-tabbar {
+      display: grid !important;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      transform: none;
+      z-index: 24;
+      grid-template-columns: repeat(4, auto);
+      justify-content: center;
+      justify-items: center;
+      column-gap: clamp(20px, 5vw, 44px);
+      border-top-color: var(--desk-border);
+      background: var(--desk-card);
+      box-sizing: border-box;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .app-tabbar .tab-btn--menu-nav {
+      display: none !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet .app-content {
+      padding-bottom: 70px;
+    }
+    .preview-demo-host.is-desktop.is-stack-tablet:not(.demo-theme-light) .app-tabbar {
+      background: #312E81;
+    }
+
+    /* Wide desktop (stack >= 1330): keep full 3-column layout. */
+    .preview-demo-host.is-desktop.is-stack-wide-desktop {
+      --desk-sidebar-left-min: 280px;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .desktop-main-grid {
+      grid-template-columns:
+        var(--desk-sidebar-left-min)
+        var(--desk-feed-width)
+        var(--desk-sidebar-right-min);
+      grid-template-rows: minmax(0, 1fr);
+      justify-content: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .desktop-top-bar-inner {
+      grid-template-columns:
+        var(--desk-sidebar-left-min)
+        var(--desk-feed-width)
+        var(--desk-sidebar-right-min);
+      justify-content: start;
+      padding-inline: max(14px, calc((100% - var(--desk-top-total-width)) / 2));
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .desktop-sidebar--left {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .desktop-sidebar--right {
+      grid-column: 3;
+      grid-row: 1;
+      display: flex !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .desktop-sidebar--left,
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .desktop-sidebar--right {
+      display: flex !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .demo-app-center {
+      grid-column: 2;
+      max-width: var(--desk-feed-width);
+      width: 100%;
+      justify-self: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Vault on wide desktop: hide widgets, span feed + former widget column (~1000px). */
+    .preview-demo-host.is-desktop.is-stack-wide-desktop.demo-market-focus .desktop-sidebar--right {
+      display: none !important;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop.demo-market-focus .demo-app-center {
+      grid-column: 2 / 4;
+      max-width: none;
+      width: 100%;
+      justify-self: stretch;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop.demo-market-focus .desktop-top-bar-inner {
+      grid-template-columns:
+        var(--desk-sidebar-left-min)
+        var(--desk-feed-width)
+        var(--desk-sidebar-right-min)
+        auto;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop.demo-market-focus .desktop-top-bar-cell--search {
+      grid-column: 2 / 4;
+      width: 100%;
+      min-width: 0;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop.demo-market-focus .desktop-top-bar-cell--actions {
+      grid-column: 4;
+      grid-row: 1;
+      justify-self: end;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop .app-tabbar {
+      display: none !important;
     }
     .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-top-bar-inner {
       grid-template-columns: minmax(112px, 1fr) minmax(220px, 420px) minmax(72px, 1fr);
@@ -6595,18 +7024,18 @@
       width: 22px;
       height: 22px;
     }
-    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-main-grid {
+    .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .desktop-main-grid {
       grid-template-columns: minmax(0, min(100%, 680px));
       justify-content: center;
       overflow-x: hidden;
       padding-inline: 12px;
     }
-    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-sidebar--left,
-    .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-sidebar--right {
+    .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .desktop-sidebar--left,
+    .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .desktop-sidebar--right {
       display: none !important;
     }
-    .preview-demo-host.is-desktop.is-compact-desktop-preview .demo-app-center,
-    .preview-demo-host.is-desktop.is-compact-desktop-preview.demo-market-focus .demo-app-center {
+    .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .demo-app-center,
+    .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop).demo-market-focus .demo-app-center {
       grid-column: 1;
       max-width: 680px;
       width: 100%;
@@ -6614,7 +7043,7 @@
       position: relative;
       overflow: visible;
     }
-    .preview-demo-host.is-desktop.is-compact-desktop-preview .app-tabbar {
+    .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .app-tabbar {
       display: grid !important;
       position: absolute;
       left: 0;
@@ -6629,27 +7058,27 @@
       border-top-color: var(--desk-border);
       background: var(--desk-card);
     }
-    /* Modal desktop preview: keep left nav, hide broken bottom tab bar when space is tight */
-    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-sidebar--left {
+    /* Modal desktop preview: legacy compact layout only when stack tiers are not active. */
+    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .desktop-sidebar--left {
       display: flex !important;
     }
-    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-sidebar--right {
+    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .desktop-sidebar--right {
       display: none !important;
     }
-    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview .app-tabbar {
+    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .app-tabbar {
       display: none !important;
     }
-    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview .desktop-main-grid {
+    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .desktop-main-grid {
       grid-template-columns: minmax(168px, 220px) minmax(0, 1fr);
       justify-content: stretch;
       padding-inline: 10px;
     }
-    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview .demo-app-center {
+    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .demo-app-center {
       grid-column: 2;
       max-width: none;
       width: 100%;
     }
-    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview .app-content {
+    .preview-shell.preview-shell--desktop-focus .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.is-stack-tablet):not(.is-stack-narrow-desktop):not(.is-stack-wide-desktop) .app-content {
       padding-bottom: 14px;
     }
     .preview-demo-host.is-desktop.is-compact-desktop-preview:not(.demo-theme-light) .app-tabbar {
@@ -6739,6 +7168,10 @@
     }
     .preview-demo-host.is-desktop.demo-market-focus .app-screen.active[data-screen="market"] .market-grid {
       grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 12px;
+    }
+    .preview-demo-host.is-desktop.is-stack-wide-desktop.demo-market-focus .app-screen.active[data-screen="market"] .market-grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 12px;
     }
     .preview-demo-host.is-desktop:not(.demo-market-focus) .app-screen.active[data-screen="market"] .market-grid {
@@ -10672,9 +11105,6 @@
     .profile-wall-hint {
       margin: 0 16px 10px !important;
     }
-    .profile-wall-post {
-      /* margin: 0 16px 10px; */
-    }
     .profile-wall-post:last-of-type {
       margin-bottom: 14px;
     }
@@ -12786,11 +13216,10 @@
       }
       .preview-demo-host.is-desktop .iphone { height: 720px; }
 
-      /* On phones the desktop-layout toggle is hidden (only mobile preview is shown);
-         the fullscreen-immersive button stays so users can expand the phone preview. */
-      .demo-toggle-field--layout { display: none !important; }
       .preview-demo-controls { gap: 14px 22px; }
     }
+
+    /* Layout toggle visibility is controlled by JS using the preview stack width. */
   </style>
 </head>
 <body>
@@ -14107,6 +14536,7 @@
           </div>
           </div>
               <aside class="desktop-sidebar desktop-sidebar--right" aria-label="Collectors and suggestions">
+                <div class="desktop-sidebar-widgets">
                 <section class="desktop-widget-card" aria-labelledby="desk-widget-collectors-heading">
                   <div class="desktop-widget-head">
                     <h3 class="desktop-widget-heading" id="desk-widget-collectors-heading">Collectors to follow</h3>
@@ -14146,6 +14576,7 @@
                     <div class="desktop-widget-body"><strong>Wolverine Brown Suit</strong><span class="desktop-widget-meta">XM Studios</span><span class="desktop-widget-price">$980</span></div>
                   </div>
                 </section>
+                </div>
               </aside>
             </div>
           <div class="discover-post-overlay" id="discoverPostOverlay" aria-hidden="true">
@@ -15922,11 +16353,18 @@
 
     function syncDesktopLeftNavRailHeight() {
       var leftRail = document.querySelector('.desktop-sidebar-left-rail');
-      var rightRail = document.querySelector('.desktop-sidebar--right');
+      var rightRail = document.querySelector('.desktop-sidebar-widgets');
       if (!previewDemoHost || !previewDemoHost.classList.contains('is-desktop') || !leftRail) return;
       leftRail.style.height = '';
       leftRail.style.minHeight = '';
       leftRail.style.maxHeight = '';
+      /* Stacked layouts: nav + widgets are vertical — do not stretch nav to widgets height. */
+      if (
+        previewDemoHost.classList.contains('is-stack-narrow-desktop') ||
+        previewDemoHost.classList.contains('is-stack-tablet')
+      ) {
+        return;
+      }
       if (previewDemoHost.classList.contains('demo-market-focus')) return;
       if (!rightRail) return;
 
@@ -17296,6 +17734,40 @@
       return listingImagePublicPath(fileName);
     }
 
+    function discoverFallbackSvgDataUrl(label) {
+      var text = String(label || 'Shelfyst').slice(0, 32);
+      var svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">' +
+        '<defs>' +
+        '<linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0" stop-color="#1e1b4b"/>' +
+        '<stop offset="0.55" stop-color="#5c3ac2"/>' +
+        '<stop offset="1" stop-color="#c9a050"/>' +
+        '</linearGradient>' +
+        '</defs>' +
+        '<rect width="900" height="900" fill="url(#g)"/>' +
+        '<circle cx="710" cy="210" r="220" fill="rgba(255,255,255,0.09)"/>' +
+        '<circle cx="220" cy="720" r="260" fill="rgba(0,0,0,0.18)"/>' +
+        '<text x="60" y="820" fill="rgba(255,255,255,0.88)" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="46" font-weight="900" letter-spacing="-0.02em">' +
+        text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+        '</text>' +
+        '</svg>';
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    function setImgSrcWithFallback(img, src, label) {
+      if (!img) return;
+      var applied = false;
+      function onError() {
+        if (applied) return;
+        applied = true;
+        img.removeEventListener('error', onError);
+        img.src = discoverFallbackSvgDataUrl(label);
+      }
+      img.addEventListener('error', onError, { once: false });
+      img.src = src;
+    }
+
     function demoListingImageUrl(listingId) {
       if (listingImageFiles[listingId]) return demoListingAssetUrl(listingImageFiles[listingId]);
       return listingImagePublicPath(listingId + DEMO_LISTING_IMAGE_EXT);
@@ -17433,19 +17905,92 @@
         previewDemoHost.classList.remove('is-compact-desktop-preview');
         return;
       }
-      var rect = previewDemoHost.getBoundingClientRect();
-      var width = rect && rect.width ? rect.width : previewDemoHost.clientWidth;
+      /* Stack-width tiers (tablet / narrow / wide) own layout — do not use legacy compact. */
+      if (
+        previewDemoHost.classList.contains('is-stack-tablet') ||
+        previewDemoHost.classList.contains('is-stack-narrow-desktop') ||
+        previewDemoHost.classList.contains('is-stack-wide-desktop')
+      ) {
+        previewDemoHost.classList.remove('is-compact-desktop-preview');
+        return;
+      }
+      var width = getPreviewBrowserStackWidth();
       var immersive = !!(previewModal && previewModal.classList.contains('preview-modal--immersive-desktop'));
       var shellDesktopFocus = !!(previewShell && previewShell.classList.contains('preview-shell--desktop-focus'));
       var threshold = immersive ? 1320 : (shellDesktopFocus ? 1280 : 1180);
       previewDemoHost.classList.toggle('is-compact-desktop-preview', width > 0 && width < threshold);
     }
 
+    function getPreviewBrowserStackWidth() {
+      if (!previewDemoHost) return 0;
+      var stack = previewDemoHost.querySelector('.preview-browser-device-stack');
+      if (!stack) return 0;
+      var r = stack.getBoundingClientRect();
+      var w = r && r.width ? r.width : stack.clientWidth;
+      return Math.floor(w);
+    }
+
+    function syncPreviewStackBreakpoints() {
+      if (!previewDemoHost) return;
+      if (!previewDemoHost.classList.contains('is-desktop')) {
+        previewDemoHost.classList.remove('is-stack-tablet');
+        previewDemoHost.classList.remove('is-stack-narrow-desktop');
+        previewDemoHost.classList.remove('is-stack-wide-desktop');
+        previewDemoHost.style.removeProperty('--preview-stack-width');
+        return;
+      }
+      var w = getPreviewBrowserStackWidth();
+      previewDemoHost.style.setProperty('--preview-stack-width', w > 0 ? w + 'px' : '');
+      syncDemoLayoutToggleAvailability(w);
+      /* If the preview device stack is too small, desktop layout doesn't fit. */
+      if (w > 0 && w < 600) {
+        setDemoDevice('mobile');
+        return;
+      }
+      /* Layout tiers from .preview-browser-device-stack width */
+      var isWideDesktop = w >= 1330;
+      /* Tablet stays active down to min desktop width (<600 forces mobile). */
+      var isTablet = w >= 600 && w < 1024;
+      var isNarrowDesktop = w >= 1024 && w < 1330;
+      previewDemoHost.classList.toggle('is-stack-wide-desktop', isWideDesktop);
+      previewDemoHost.classList.toggle('is-stack-tablet', isTablet);
+      previewDemoHost.classList.toggle('is-stack-narrow-desktop', isNarrowDesktop);
+      syncDesktopSidebarWidgetsPlacement();
+      scheduleSyncDesktopLeftNavRailHeight();
+    }
+
+    function syncDemoLayoutToggleAvailability(stackWidth) {
+      var toggleField = previewDemoHost ? previewDemoHost.querySelector('.demo-toggle-field--layout') : null;
+      if (!toggleField) return;
+      var allowDesktop = (stackWidth || 0) >= 600;
+      toggleField.style.display = allowDesktop ? '' : 'none';
+      if (demoLayoutSwitch) {
+        demoLayoutSwitch.disabled = !allowDesktop;
+        demoLayoutSwitch.setAttribute('aria-disabled', allowDesktop ? 'false' : 'true');
+      }
+    }
+
+    function syncDesktopSidebarWidgetsPlacement() {
+      if (!previewDemoHost || !previewDemoHost.classList.contains('is-desktop')) return;
+      var leftAside = previewDemoHost.querySelector('.desktop-sidebar--left');
+      var rightAside = previewDemoHost.querySelector('.desktop-sidebar--right');
+      var widgets = previewDemoHost.querySelector('.desktop-sidebar-widgets');
+      if (!leftAside || !rightAside || !widgets) return;
+      var dockInLeft = previewDemoHost.classList.contains('is-stack-narrow-desktop');
+      var targetParent = dockInLeft ? leftAside : rightAside;
+      if (widgets.parentElement !== targetParent) {
+        targetParent.appendChild(widgets);
+      }
+    }
+
     if (previewDemoHost && typeof ResizeObserver !== 'undefined') {
-      var previewHostResizeObserver = new ResizeObserver(function () {
+      var previewStackResizeObserver = new ResizeObserver(function () {
+        syncPreviewStackBreakpoints();
         syncCompactDesktopPreview();
       });
-      previewHostResizeObserver.observe(previewDemoHost);
+      var previewBrowserStackEl = previewDemoHost.querySelector('.preview-browser-device-stack');
+      if (previewBrowserStackEl) previewStackResizeObserver.observe(previewBrowserStackEl);
+      previewStackResizeObserver.observe(previewDemoHost);
     }
 
     function setDemoDevice(mode) {
@@ -17483,6 +18028,7 @@
       updateDemoMarketFocus();
       ensureInterestOverlayInDeviceView();
       requestAnimationFrame(syncCompactDesktopPreview);
+      requestAnimationFrame(syncPreviewStackBreakpoints);
       placeProfileMutualLink();
       syncMobileVaultSearchFields();
     }
@@ -17607,9 +18153,11 @@
 
     function clampDemoDeviceToViewport() {
       try {
-        if (window.matchMedia('(max-width: 900px)').matches && previewDemoHost && previewDemoHost.classList.contains('is-desktop')) setDemoDevice('mobile');
+        // Keep desktop preview from being forced by browser viewport.
+        // Breakpoints are controlled by the preview stack container width instead.
       } catch (e) { /* noop */ }
       syncCompactDesktopPreview();
+      syncPreviewStackBreakpoints();
     }
 
     const listings = {
@@ -18880,7 +19428,9 @@
         var img = document.createElement('img');
         img.className = 'demo-listing-photo';
         img.alt = '';
-        img.src = demoListingAssetUrl(fileName);
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        setImgSrcWithFallback(img, demoListingAssetUrl(fileName), lidGuess || fileName);
         btn.appendChild(img);
         if (layout === 'feat') {
           var tag = document.createElement('span');
@@ -19151,7 +19701,9 @@
         slide.setAttribute('data-discover-file', fileName);
         var img = document.createElement('img');
         img.className = 'discover-post-slide-img';
-        img.src = demoListingAssetUrl(fileName);
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        setImgSrcWithFallback(img, demoListingAssetUrl(fileName), lid || fileName);
         img.alt = post.caption.length > 88 ? post.caption.slice(0, 85) + '…' : post.caption;
         slide.appendChild(img);
         sc.appendChild(slide);
@@ -19673,7 +20225,7 @@
     scheduleSyncDesktopLeftNavRailHeight();
     window.addEventListener('resize', scheduleSyncDesktopLeftNavRailHeight);
     if (typeof ResizeObserver !== 'undefined') {
-      var desktopRightRailEl = document.querySelector('.desktop-sidebar--right');
+      var desktopRightRailEl = document.querySelector('.desktop-sidebar-widgets');
       if (desktopRightRailEl) {
         var desktopRailsResizeObserver = new ResizeObserver(scheduleSyncDesktopLeftNavRailHeight);
         desktopRailsResizeObserver.observe(desktopRightRailEl);
@@ -21716,21 +22268,7 @@
       });
     }
 
-    /* If the viewport shrinks to phone size while the desktop preview is open,
-       snap back to the mobile preview (the desktop layout doesn't fit). */
-    (function () {
-      var mq;
-      try { mq = window.matchMedia('(max-width: 900px)'); } catch (_) { return; }
-      function syncPreviewDeviceToViewport() {
-        if (!previewDemoHost) return;
-        if (mq.matches && previewDemoHost.classList.contains('is-desktop')) {
-          setDemoDevice('mobile');
-        }
-      }
-      if (mq.addEventListener) mq.addEventListener('change', syncPreviewDeviceToViewport);
-      else if (mq.addListener) mq.addListener(syncPreviewDeviceToViewport);
-      syncPreviewDeviceToViewport();
-    })();
+    /* Device-mode clamping is handled via `.preview-browser-device-stack` width. */
 
     document.addEventListener('keydown', function (e) {
       if (listingPhotoOverlayEl && listingPhotoOverlayEl.classList.contains('is-open')) {
