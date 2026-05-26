@@ -5308,7 +5308,7 @@
       background: rgba(0, 0, 0, 0);
       transition: background 0.28s ease;
     }
-    .vault-mobile-filter-root.is-active .vault-mobile-filter-backdrop {
+    .vault-mobile-filter-root.is-active.is-open .vault-mobile-filter-backdrop {
       background: rgba(0, 0, 0, 0.55);
     }
     .vault-mobile-filter-sheet {
@@ -14412,7 +14412,7 @@
       });
       var vaultMobileFilterRootEl = document.getElementById('vaultMobileFilterRoot');
       hasInnerLayer =
-        hasInnerLayer || !!(vaultMobileFilterRootEl && vaultMobileFilterRootEl.classList.contains('is-open'));
+        hasInnerLayer || !!(vaultMobileFilterRootEl && vaultMobileFilterRootEl.classList.contains('is-active'));
       previewModal.classList.toggle('has-preview-inner-layer', hasInnerLayer);
     }
 
@@ -14732,6 +14732,7 @@
     const marketGridEl = document.getElementById('marketGrid');
     const vaultMarketSearchEl = document.getElementById('vaultMarketSearch');
     const vaultMobileFilterRoot = document.getElementById('vaultMobileFilterRoot');
+    const vaultMobileFilterSheet = document.getElementById('vaultMobileFilterSheet');
     const vaultMobileFilterBackdrop = document.getElementById('vaultMobileFilterBackdrop');
     const vaultMobileFilterClose = document.getElementById('vaultMobileFilterClose');
     const vaultMobileFilterClearBtn = document.getElementById('vaultMobileFilterClearBtn');
@@ -15704,20 +15705,77 @@
       appContent.classList.toggle('app-content--vault-facet-modal-open', !!on);
     }
 
-    function closeVaultMobileFilterSheet() {
+    var vaultMobileFilterCloseTimer = null;
+
+    function finalizeVaultMobileFilterSheetClose() {
+      if (vaultMobileFilterCloseTimer) {
+        clearTimeout(vaultMobileFilterCloseTimer);
+        vaultMobileFilterCloseTimer = null;
+      }
       if (!vaultMobileFilterRoot || !vaultMobileFilterRoot.classList.contains('is-active')) return;
-      vaultMobileFilterOpenFacet = '';
-      vaultMobileFilterView = 'menu';
-      vaultMobileFilterDetailSnapshot = null;
-      vaultMobileFilterRoot.classList.remove('is-open');
       vaultMobileFilterRoot.classList.remove('is-active');
       vaultMobileFilterRoot.setAttribute('aria-hidden', 'true');
       setVaultFacetModalScrollLock(false);
       if (iphoneScreenEl) iphoneScreenEl.classList.remove('vault-mobile-filter-open');
     }
 
+    function cancelVaultMobileFilterSheetCloseAnimation() {
+      if (vaultMobileFilterCloseTimer) {
+        clearTimeout(vaultMobileFilterCloseTimer);
+        vaultMobileFilterCloseTimer = null;
+      }
+      if (vaultMobileFilterSheet) {
+        vaultMobileFilterSheet.removeEventListener('transitionend', vaultMobileFilterSheetOnTransitionEnd);
+      }
+    }
+
+    function vaultMobileFilterSheetOnTransitionEnd(ev) {
+      if (!vaultMobileFilterSheet || ev.target !== vaultMobileFilterSheet) return;
+      if (ev.propertyName !== 'transform') return;
+      vaultMobileFilterSheet.removeEventListener('transitionend', vaultMobileFilterSheetOnTransitionEnd);
+      finalizeVaultMobileFilterSheetClose();
+    }
+
+    function closeVaultMobileFilterSheet(force) {
+      if (!vaultMobileFilterRoot || !vaultMobileFilterRoot.classList.contains('is-active')) return;
+      var instant = force === true;
+      try {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) instant = true;
+      } catch (e2) {}
+
+      vaultMobileFilterOpenFacet = '';
+      vaultMobileFilterView = 'menu';
+      vaultMobileFilterDetailSnapshot = null;
+
+      if (instant) {
+        cancelVaultMobileFilterSheetCloseAnimation();
+        vaultMobileFilterRoot.classList.remove('is-open');
+        finalizeVaultMobileFilterSheetClose();
+        return;
+      }
+      if (!vaultMobileFilterRoot.classList.contains('is-open')) return;
+
+      cancelVaultMobileFilterSheetCloseAnimation();
+      vaultMobileFilterRoot.classList.remove('is-open');
+      vaultMobileFilterRoot.setAttribute('aria-hidden', 'true');
+
+      if (vaultMobileFilterSheet) {
+        vaultMobileFilterSheet.addEventListener('transitionend', vaultMobileFilterSheetOnTransitionEnd);
+        vaultMobileFilterCloseTimer = setTimeout(function () {
+          vaultMobileFilterSheet.removeEventListener('transitionend', vaultMobileFilterSheetOnTransitionEnd);
+          finalizeVaultMobileFilterSheetClose();
+        }, 420);
+      } else {
+        finalizeVaultMobileFilterSheetClose();
+      }
+    }
+
     function openVaultMobileFilterSheet(facet) {
       if (!vaultMobileFilterRoot || !previewDemoHost || previewDemoHost.classList.contains('is-desktop')) return;
+      cancelVaultMobileFilterSheetCloseAnimation();
+      if (vaultMobileFilterRoot.classList.contains('is-active') && !vaultMobileFilterRoot.classList.contains('is-open')) {
+        finalizeVaultMobileFilterSheetClose();
+      }
       if (iphoneScreenEl) iphoneScreenEl.classList.add('vault-mobile-filter-open');
       vaultMobileFilterRoot.classList.add('is-active');
       vaultMobileFilterRoot.setAttribute('aria-hidden', 'false');
@@ -16700,7 +16758,7 @@
     function setDemoDevice(mode) {
       if (!previewDemoHost) return;
       closeMobileMenu();
-      closeVaultMobileFilterSheet();
+      closeVaultMobileFilterSheet(true);
       if (mode === 'desktop') {
         closeFeedMobileExpand();
       } else {
@@ -18929,7 +18987,7 @@
 
     function switchScreen(target, rememberPrevious) {
       if (rememberPrevious === undefined) rememberPrevious = true;
-      closeVaultMobileFilterSheet();
+      closeVaultMobileFilterSheet(true);
       closeListingPhotoOverlay();
       closeListingDetailModal();
       closeFeedPostModal();
