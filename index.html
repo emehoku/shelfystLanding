@@ -3795,7 +3795,7 @@
       color: #ffffff;
     }
     .preview-demo-host.is-desktop:not(.demo-theme-light) .desktop-widget-see-all {
-      color: var(--sf-accent);
+      color: var(--sf-accent-soft);
       font-weight: 700;
     }
     .preview-demo-host.is-desktop:not(.demo-theme-light) .desktop-widget-see-all:hover {
@@ -4081,6 +4081,22 @@
       gap: 7px;
       flex-shrink: 0;
       min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+      text-align: left;
+    }
+    .desktop-top-brand:hover .desktop-top-brand-logo {
+      opacity: 0.86;
+    }
+    .desktop-top-brand:focus-visible {
+      outline: 2px solid var(--desk-accent-soft-2);
+      outline-offset: 3px;
+      border-radius: 8px;
     }
     .desktop-top-logo-mark {
       width: 36px;
@@ -11094,6 +11110,14 @@
       color: var(--gold);
       box-shadow: inset 0 0 0 1px rgba(92,58,194,0.14);
     }
+    .preview-demo-host:not(.demo-theme-light) .profile-mode-btn {
+      color: rgba(199, 210, 254, 0.78);
+    }
+    .preview-demo-host:not(.demo-theme-light) .profile-mode-btn.active {
+      color: var(--gold-light);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(196, 181, 253, 0.38);
+    }
     .profile-mode-panel {
       display: none;
       padding-bottom: 8px;
@@ -13885,7 +13909,7 @@
             <header class="desktop-top-bar" aria-label="Desktop preview">
               <div class="desktop-top-bar-inner">
                 <div class="desktop-top-bar-cell desktop-top-bar-cell--brand">
-                  <div class="desktop-top-brand">
+                  <button type="button" class="desktop-top-brand" id="desktopTopBrandHomeBtn" aria-label="Go to home feed">
                     <span class="demo-app-logo-swap" aria-hidden="true">
                       <img src="Shelfyst_logo.png" alt="" class="desktop-top-brand-logo demo-app-logo--dark" width="148" height="32" decoding="async" aria-hidden="true" />
                       <img src="Shelfyst_logo_dark.png" alt="" class="desktop-top-brand-logo demo-app-logo--light" width="148" height="32" decoding="async" aria-hidden="true" />
@@ -13893,7 +13917,7 @@
                     <div class="desktop-top-brand-text">
                       <span class="desktop-top-brand-tag">For collectors · By collectors</span>
                     </div>
-                  </div>
+                  </button>
                 </div>
                 <div class="desktop-top-bar-cell desktop-top-bar-cell--search">
                   <span class="desktop-top-search" role="searchbox" aria-label="Search">Search statues, figures, members…</span>
@@ -20251,6 +20275,13 @@
       }
     }
 
+    function goToHomeFeed() {
+      closeDiscoverPostOverlay();
+      closeListingPhotoOverlay();
+      closeListingDetailModal();
+      switchScreen('home', false);
+    }
+
     function switchScreen(target, rememberPrevious) {
       if (rememberPrevious === undefined) rememberPrevious = true;
       closeVaultMobileFilterSheet(true);
@@ -22671,6 +22702,11 @@
           showToast(following ? 'Following' : 'Unfollowed');
         });
       });
+    }
+
+    var desktopTopBrandHomeBtn = document.getElementById('desktopTopBrandHomeBtn');
+    if (desktopTopBrandHomeBtn) {
+      desktopTopBrandHomeBtn.addEventListener('click', goToHomeFeed);
     }
 
     // Tabs
