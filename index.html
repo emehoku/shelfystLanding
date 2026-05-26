@@ -1551,8 +1551,8 @@
       right: auto;
       width: auto;
       height: 38px;
-      min-width: 92px;
-      padding: 0 18px;
+      min-width: 38px;
+      padding: 0 12px;
       border-radius: 999px;
       border: 1px solid rgba(255, 255, 255, 0.28);
       background: linear-gradient(90deg, #4a2d9e, #5C3AC2);
@@ -1565,8 +1565,8 @@
       box-shadow: 0 10px 30px rgba(30, 27, 75, 0.34);
     }
     .preview-modal.preview-modal--immersive-mobile .close-preview::after {
-      content: "Close";
-      font-size: 13px;
+      content: "×";
+      font-size: 18px;
       line-height: 1;
     }
     .preview-modal.is-listing-photo-open .close-preview,
@@ -4843,6 +4843,54 @@
       cursor: pointer;
       margin: 0;
     }
+    .mf-filter-search-wrap {
+      padding: 10px 14px 0;
+    }
+    .mf-filter-search {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--desk-border, rgba(255, 255, 255, 0.12));
+      background: var(--desk-surface-2, rgba(255, 255, 255, 0.06));
+      color: var(--desk-text, #ececec);
+      font-family: inherit;
+      font-size: 13px;
+      padding: 0 11px;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .mf-filter-search::placeholder {
+      color: var(--desk-muted, #8b8b8b);
+    }
+    .mf-filter-search:focus {
+      border-color: var(--desk-accent-soft-2, rgba(255, 213, 102, 0.55));
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .mf-filter-search {
+      border-color: rgba(0, 0, 0, 0.12);
+      background: rgba(0, 0, 0, 0.04);
+      color: #1e1b4b;
+    }
+    .preview-demo-host.is-desktop.demo-theme-light .mf-filter-search::placeholder {
+      color: #6b7280;
+    }
+    .mf-accordion-option.is-hidden {
+      display: none !important;
+    }
+    .mf-filter-search-empty {
+      display: none;
+      margin: 0;
+      padding: 10px 14px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--desk-muted, rgba(255, 255, 255, 0.55));
+      text-align: center;
+    }
+    .mf-filter-search-empty.is-visible {
+      display: block;
+    }
     .preview-demo-host.is-desktop .mf-accordion-trigger {
       font-size: 14px;
       padding: 13px 14px;
@@ -5713,6 +5761,218 @@
     }
     .vault-mobile-filter-footer-btn--apply:hover {
       filter: brightness(1.05);
+    }
+
+    .vault-saved-btn {
+      position: relative;
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #f1f1f1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+    .vault-saved-btn:hover { border-color: rgba(255, 213, 102, 0.55); background: rgba(255, 213, 102, 0.12); }
+    .vault-saved-btn:active { transform: scale(0.98); }
+    .vault-saved-btn-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ffd566, var(--gold));
+      color: #070707;
+      font-size: 10px;
+      font-weight: 950;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+    }
+    .preview-demo-host.demo-theme-light .vault-saved-btn {
+      border-color: rgba(0, 0, 0, 0.12);
+      background: rgba(0, 0, 0, 0.04);
+      color: #141414;
+    }
+
+    .vault-saved-root {
+      position: absolute;
+      inset: 0;
+      z-index: 49;
+      display: none;
+      pointer-events: none;
+    }
+    .vault-saved-root.is-active {
+      display: block;
+      pointer-events: auto;
+    }
+    .vault-saved-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.28s ease;
+    }
+    .vault-saved-root.is-active.is-open .vault-saved-backdrop {
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .vault-saved-sheet {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 14%;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: #121212;
+      color: #ececec;
+      border-radius: 18px 18px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.55);
+      transform: translateY(110%);
+      transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .vault-saved-root.is-open .vault-saved-sheet { transform: translateY(0); }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .vault-saved-sheet {
+      background: #fff;
+      color: #141414;
+      border-color: rgba(0, 0, 0, 0.1);
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.18);
+    }
+    .vault-saved-sheet-handle {
+      flex-shrink: 0;
+      width: 40px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      margin: 8px auto 4px;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .vault-saved-sheet-handle {
+      background: rgba(0, 0, 0, 0.15);
+    }
+    .vault-saved-toolbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 6px 14px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .vault-saved-toolbar {
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+    .vault-saved-title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 950;
+      letter-spacing: -0.02em;
+    }
+    .vault-saved-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: inherit;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .preview-demo-host.demo-theme-light:not(.is-desktop) .vault-saved-close {
+      border-color: rgba(0, 0, 0, 0.12);
+      background: rgba(0, 0, 0, 0.04);
+    }
+    .vault-saved-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      padding: 12px 0 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .vault-saved-grid { padding: 0 14px; }
+    .vault-saved-empty {
+      margin: 0 14px 10px;
+      color: #a6a6a6;
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+    .preview-demo-host.demo-theme-light .vault-saved-empty { color: #5d5d5d; }
+
+    .vault-saved-modal-root {
+      position: absolute;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      pointer-events: none;
+    }
+    .vault-saved-modal-root.is-active { display: grid; place-items: center; pointer-events: auto; }
+    .vault-saved-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.2s ease;
+    }
+    .vault-saved-modal-root.is-active.is-open .vault-saved-modal-backdrop { background: rgba(0, 0, 0, 0.55); }
+    .vault-saved-modal {
+      position: relative;
+      width: min(860px, calc(100% - 40px));
+      max-height: min(72vh, 720px);
+      background: var(--desk-surface-2, #121212);
+      color: var(--desk-text, #ececec);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+      transform: translateY(14px) scale(0.98);
+      opacity: 0;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .vault-saved-modal-root.is-open .vault-saved-modal { transform: translateY(0) scale(1); opacity: 1; }
+    .vault-saved-modal-toolbar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .vault-saved-modal-title { margin: 0; font-size: 14px; font-weight: 950; letter-spacing: -0.02em; }
+    .vault-saved-modal-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: inherit;
+      cursor: pointer;
+      font-size: 18px;
+      display: grid;
+      place-items: center;
+    }
+    .vault-saved-modal-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      padding: 12px 0 16px;
     }
     .market-filter-pill {
       display: inline-flex;
@@ -13574,8 +13834,20 @@
             </div>
 
             <div class="app-screen" data-screen="market">
-              <div class="screen-title-row">
+              <div class="screen-title-row screen-title-row--market">
                 <div class="screen-subtitle">Buy · Sell · Trade premium pieces</div>
+                <button type="button" class="vault-saved-btn" id="vaultSavedBtn" aria-label="Saved listings">
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                      d="M7 3h10a2 2 0 0 1 2 2v16l-7-4-7 4V5a2 2 0 0 1 2-2z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span class="vault-saved-btn-badge" id="vaultSavedBadge" hidden>0</span>
+                </button>
               </div>
               <input
                 type="search"
@@ -14337,6 +14609,33 @@
               </div>
             </div>
           </div>
+          <div class="vault-saved-root" id="vaultSavedRoot" aria-hidden="true">
+            <div class="vault-saved-backdrop" id="vaultSavedBackdrop" tabindex="-1"></div>
+            <div class="vault-saved-sheet" id="vaultSavedSheet" role="dialog" aria-modal="true" aria-labelledby="vaultSavedTitle">
+              <div class="vault-saved-sheet-handle" aria-hidden="true"></div>
+              <div class="vault-saved-toolbar">
+                <h2 class="vault-saved-title" id="vaultSavedTitle">Saved</h2>
+                <button type="button" class="vault-saved-close" id="vaultSavedClose" aria-label="Close saved listings">×</button>
+              </div>
+              <div class="vault-saved-scroll" aria-label="Saved listings">
+                <p class="vault-saved-empty" id="vaultSavedEmpty" hidden>No saved listings yet. Tap “Wishlist” on a listing to pin it here.</p>
+                <div class="market-grid vault-saved-grid" id="vaultSavedGrid"></div>
+              </div>
+            </div>
+          </div>
+          <div class="vault-saved-modal-root" id="vaultSavedModalRoot" aria-hidden="true">
+            <div class="vault-saved-modal-backdrop" id="vaultSavedModalBackdrop" tabindex="-1"></div>
+            <div class="vault-saved-modal" id="vaultSavedModal" role="dialog" aria-modal="true" aria-labelledby="vaultSavedModalTitle">
+              <div class="vault-saved-modal-toolbar">
+                <h2 class="vault-saved-modal-title" id="vaultSavedModalTitle">Saved listings</h2>
+                <button type="button" class="vault-saved-modal-close" id="vaultSavedModalClose" aria-label="Close saved listings">×</button>
+              </div>
+              <div class="vault-saved-modal-scroll" aria-label="Saved listings">
+                <p class="vault-saved-empty" id="vaultSavedModalEmpty" hidden>No saved listings yet. Tap “Wishlist” on a listing to pin it here.</p>
+                <div class="market-grid vault-saved-grid" id="vaultSavedModalGrid"></div>
+              </div>
+            </div>
+          </div>
         </div>
         </div>
         </div>
@@ -14742,6 +15041,20 @@
     const vaultMobileFilterToolbar = document.getElementById('vaultMobileFilterToolbar');
     const vaultMobileFilterBack = document.getElementById('vaultMobileFilterBack');
     const vaultMobileFilterClear = document.getElementById('vaultMobileFilterClear');
+    const vaultSavedBtn = document.getElementById('vaultSavedBtn');
+    const vaultSavedBadge = document.getElementById('vaultSavedBadge');
+    const vaultSavedRoot = document.getElementById('vaultSavedRoot');
+    const vaultSavedBackdrop = document.getElementById('vaultSavedBackdrop');
+    const vaultSavedSheet = document.getElementById('vaultSavedSheet');
+    const vaultSavedClose = document.getElementById('vaultSavedClose');
+    const vaultSavedGrid = document.getElementById('vaultSavedGrid');
+    const vaultSavedEmpty = document.getElementById('vaultSavedEmpty');
+    const vaultSavedModalRoot = document.getElementById('vaultSavedModalRoot');
+    const vaultSavedModalBackdrop = document.getElementById('vaultSavedModalBackdrop');
+    const vaultSavedModal = document.getElementById('vaultSavedModal');
+    const vaultSavedModalClose = document.getElementById('vaultSavedModalClose');
+    const vaultSavedModalGrid = document.getElementById('vaultSavedModalGrid');
+    const vaultSavedModalEmpty = document.getElementById('vaultSavedModalEmpty');
     const vaultDesktopActivePillsEl = document.getElementById('vaultDesktopActivePills');
 
     var vaultFacetState = {
@@ -15454,6 +15767,61 @@
       });
     }
 
+    function filterDesktopMarketFilterOptions(facet, query) {
+      if (!desktopMarketFilters) return;
+      var checklist = desktopMarketFilters.querySelector(
+        '.mf-accordion-options.mf-checklist[data-mf-facet="' + facet + '"]'
+      );
+      if (!checklist) return;
+      var panel = checklist.closest('.mf-accordion-panel');
+      var q = String(query || '')
+        .trim()
+        .toLowerCase();
+      var visible = 0;
+      checklist.querySelectorAll('.mf-accordion-option').forEach(function (lab) {
+        var labelEl = lab.querySelector('.mf-accordion-option-label');
+        var text = labelEl ? String(labelEl.textContent || '').toLowerCase() : '';
+        var match = !q || text.indexOf(q) !== -1;
+        lab.classList.toggle('is-hidden', !match);
+        if (match) visible++;
+      });
+      var empty = panel ? panel.querySelector('.mf-filter-search-empty') : null;
+      if (empty) empty.classList.toggle('is-visible', !!q && visible === 0);
+    }
+
+    function initDesktopMarketFilterSearch() {
+      if (!desktopMarketFilters) return;
+      desktopMarketFilters.querySelectorAll('.mf-accordion-options.mf-checklist[data-mf-facet]').forEach(function (checklist) {
+        var facet = checklist.getAttribute('data-mf-facet');
+        if (!facet) return;
+        var panel = checklist.closest('.mf-accordion-panel');
+        if (!panel || panel.querySelector('.mf-filter-search')) return;
+
+        var wrap = document.createElement('div');
+        wrap.className = 'mf-filter-search-wrap';
+        var input = document.createElement('input');
+        input.type = 'search';
+        input.className = 'mf-filter-search';
+        input.id = 'mfFilterSearch-' + facet;
+        input.autocomplete = 'off';
+        input.placeholder = VAULT_MOBILE_FILTER_SEARCH_PLACEHOLDERS[facet] || 'Search…';
+        input.setAttribute('aria-label', input.placeholder);
+        input.setAttribute('data-mf-filter-search', facet);
+        wrap.appendChild(input);
+        panel.insertBefore(wrap, checklist);
+
+        var empty = document.createElement('p');
+        empty.className = 'mf-filter-search-empty';
+        empty.setAttribute('role', 'status');
+        empty.textContent = 'No options match that search.';
+        panel.appendChild(empty);
+
+        input.addEventListener('input', function () {
+          filterDesktopMarketFilterOptions(facet, input.value);
+        });
+      });
+    }
+
     function initVaultFilterAccordion() {
       var accordion = document.getElementById('mfAccordion');
       if (!accordion) return;
@@ -15705,6 +16073,291 @@
       appContent.classList.toggle('app-content--vault-facet-modal-open', !!on);
     }
 
+    var VAULT_SAVED_SS_KEY = 'cm_vault_saved_listing_ids_v1';
+    var vaultSavedListingIds = [];
+    var vaultSavedCloseTimer = null;
+    var vaultSavedModalCloseTimer = null;
+
+    function loadVaultSavedFromSession() {
+      vaultSavedListingIds = [];
+      try {
+        var raw = sessionStorage.getItem(VAULT_SAVED_SS_KEY);
+        if (!raw) return;
+        var parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return;
+        parsed.forEach(function (id) {
+          if (typeof id === 'string' && id) vaultSavedListingIds.push(id);
+        });
+      } catch (e) {}
+    }
+
+    function persistVaultSavedToSession() {
+      try {
+        sessionStorage.setItem(VAULT_SAVED_SS_KEY, JSON.stringify(vaultSavedListingIds.slice(0, 200)));
+      } catch (e) {}
+    }
+
+    function getOpenListingIdForListingSheets() {
+      try {
+        if (previewDemoHost && previewDemoHost.classList.contains('is-desktop')) {
+          return listingDetailModalOpenListingId || '';
+        }
+      } catch (e) {}
+      try {
+        return mobileListingOpenId || listingDetailModalOpenListingId || '';
+      } catch (e2) {}
+      return '';
+    }
+
+    function isVaultListingSaved(id) {
+      if (!id) return false;
+      return vaultSavedListingIds.indexOf(id) !== -1;
+    }
+
+    function setVaultListingSaved(id, on) {
+      if (!id) return;
+      var idx = vaultSavedListingIds.indexOf(id);
+      if (on) {
+        if (idx === -1) vaultSavedListingIds.unshift(id);
+      } else {
+        if (idx !== -1) vaultSavedListingIds.splice(idx, 1);
+      }
+      persistVaultSavedToSession();
+      syncVaultSavedBadge();
+      if (vaultSavedRoot && vaultSavedRoot.classList.contains('is-active')) renderVaultSavedView();
+      if (vaultSavedModalRoot && vaultSavedModalRoot.classList.contains('is-active')) renderVaultSavedModalView();
+    }
+
+    function syncVaultSavedBadge() {
+      if (!vaultSavedBadge) return;
+      var n = vaultSavedListingIds.length;
+      vaultSavedBadge.textContent = String(n);
+      vaultSavedBadge.hidden = n <= 0;
+    }
+
+    function resolveVaultListingIdFromWishlistButton(btn) {
+      if (!btn || !btn.closest) return '';
+      var host = btn.closest('[data-open-detail]');
+      if (host) return host.getAttribute('data-open-detail') || '';
+      return getOpenListingIdForListingSheets();
+    }
+
+    function cloneVaultMarketCardById(id) {
+      if (!id) return null;
+      var el =
+        (marketGridEl && marketGridEl.querySelector && marketGridEl.querySelector('.market-item[data-open-detail="' + id + '"]')) ||
+        (document.getElementById('profileVaultGrid') &&
+          document.getElementById('profileVaultGrid').querySelector('.market-item[data-open-detail="' + id + '"]')) ||
+        document.querySelector('.market-item[data-open-detail="' + id + '"]');
+      if (!el) return null;
+      var c = el.cloneNode(true);
+      c.classList.remove('market-item--filtered-out');
+      return c;
+    }
+
+    function buildVaultSavedFallbackCard(id) {
+      if (!id) return null;
+      var li = listings && listings[id] ? listings[id] : null;
+      var title = li && li.title ? li.title : 'Saved listing';
+      var meta = li && li.meta ? li.meta : '';
+      var price = li && li.price ? li.price : '';
+      var heroClass = li && li.hero ? li.hero : '';
+
+      var card = document.createElement('div');
+      card.className = 'market-item clickable';
+      card.setAttribute('data-open-detail', id);
+
+      var imgWrap = document.createElement('div');
+      imgWrap.className = 'app-img ' + heroClass;
+      var img = document.createElement('img');
+      img.className = 'demo-listing-photo';
+      img.setAttribute('data-listing-id', id);
+      img.alt = '';
+      imgWrap.appendChild(img);
+
+      var body = document.createElement('div');
+      body.className = 'app-body';
+      var t = document.createElement('div');
+      t.className = 'app-title';
+      t.textContent = title;
+      var m = document.createElement('div');
+      m.className = 'app-meta';
+      m.textContent = meta;
+      var p = document.createElement('div');
+      p.className = 'app-price';
+      p.textContent = price;
+      body.appendChild(t);
+      body.appendChild(m);
+      body.appendChild(p);
+
+      card.appendChild(imgWrap);
+      card.appendChild(body);
+      return card;
+    }
+
+    function renderVaultSavedInto(gridEl, emptyEl) {
+      if (!gridEl) return;
+      gridEl.innerHTML = '';
+      var n = vaultSavedListingIds.length;
+      if (emptyEl) emptyEl.hidden = n !== 0;
+      if (!n) return;
+
+      vaultSavedListingIds.forEach(function (id) {
+        var card = cloneVaultMarketCardById(id) || buildVaultSavedFallbackCard(id);
+        if (card) gridEl.appendChild(card);
+      });
+
+      initVaultMarketCardFlips(gridEl);
+      applyVaultListingMeta(gridEl);
+      initDemoListingPhotos(gridEl);
+    }
+
+    function renderVaultSavedView() {
+      renderVaultSavedInto(vaultSavedGrid, vaultSavedEmpty);
+    }
+    function renderVaultSavedModalView() {
+      renderVaultSavedInto(vaultSavedModalGrid, vaultSavedModalEmpty);
+    }
+
+    var vaultSavedAfterCloseAction = null;
+    var vaultSavedModalAfterCloseAction = null;
+
+    function finalizeCloseVaultSavedSheet() {
+      if (vaultSavedCloseTimer) {
+        clearTimeout(vaultSavedCloseTimer);
+        vaultSavedCloseTimer = null;
+      }
+      if (!vaultSavedRoot || !vaultSavedRoot.classList.contains('is-active')) return;
+      vaultSavedRoot.classList.remove('is-active');
+      vaultSavedRoot.setAttribute('aria-hidden', 'true');
+      setVaultFacetModalScrollLock(false);
+      if (vaultSavedAfterCloseAction) {
+        var fn = vaultSavedAfterCloseAction;
+        vaultSavedAfterCloseAction = null;
+        try { fn(); } catch (e) {}
+      }
+    }
+
+    function onVaultSavedSheetTransitionEnd(ev) {
+      if (!vaultSavedSheet || ev.target !== vaultSavedSheet) return;
+      if (ev.propertyName !== 'transform') return;
+      vaultSavedSheet.removeEventListener('transitionend', onVaultSavedSheetTransitionEnd);
+      finalizeCloseVaultSavedSheet();
+    }
+
+    function closeVaultSavedSheet(force) {
+      if (!vaultSavedRoot || !vaultSavedRoot.classList.contains('is-active')) return;
+      var instant = force === true;
+      try {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) instant = true;
+      } catch (e2) {}
+
+      if (instant) {
+        vaultSavedAfterCloseAction = null;
+        if (vaultSavedSheet) vaultSavedSheet.removeEventListener('transitionend', onVaultSavedSheetTransitionEnd);
+        vaultSavedRoot.classList.remove('is-open');
+        finalizeCloseVaultSavedSheet();
+        return;
+      }
+
+      if (vaultSavedCloseTimer) clearTimeout(vaultSavedCloseTimer);
+      if (vaultSavedSheet) vaultSavedSheet.removeEventListener('transitionend', onVaultSavedSheetTransitionEnd);
+      vaultSavedRoot.classList.remove('is-open');
+      vaultSavedRoot.setAttribute('aria-hidden', 'true');
+
+      if (vaultSavedSheet) {
+        vaultSavedSheet.addEventListener('transitionend', onVaultSavedSheetTransitionEnd);
+        vaultSavedCloseTimer = setTimeout(function () {
+          vaultSavedSheet.removeEventListener('transitionend', onVaultSavedSheetTransitionEnd);
+          finalizeCloseVaultSavedSheet();
+        }, 420);
+      } else {
+        finalizeCloseVaultSavedSheet();
+      }
+    }
+
+    function openVaultSavedSheet() {
+      if (!vaultSavedRoot || !previewDemoHost || previewDemoHost.classList.contains('is-desktop')) return;
+      closeVaultMobileFilterSheet(true);
+      if (vaultSavedCloseTimer) {
+        clearTimeout(vaultSavedCloseTimer);
+        vaultSavedCloseTimer = null;
+      }
+      if (vaultSavedSheet) vaultSavedSheet.removeEventListener('transitionend', onVaultSavedSheetTransitionEnd);
+      renderVaultSavedView();
+      vaultSavedRoot.classList.add('is-active');
+      vaultSavedRoot.setAttribute('aria-hidden', 'false');
+      setVaultFacetModalScrollLock(true);
+      window.requestAnimationFrame(function () {
+        if (vaultSavedRoot && vaultSavedRoot.classList.contains('is-active')) vaultSavedRoot.classList.add('is-open');
+      });
+    }
+
+    function finalizeCloseVaultSavedModal() {
+      if (vaultSavedModalCloseTimer) {
+        clearTimeout(vaultSavedModalCloseTimer);
+        vaultSavedModalCloseTimer = null;
+      }
+      if (!vaultSavedModalRoot || !vaultSavedModalRoot.classList.contains('is-active')) return;
+      vaultSavedModalRoot.classList.remove('is-active');
+      vaultSavedModalRoot.setAttribute('aria-hidden', 'true');
+      if (vaultSavedModalAfterCloseAction) {
+        var fn2 = vaultSavedModalAfterCloseAction;
+        vaultSavedModalAfterCloseAction = null;
+        try { fn2(); } catch (e2) {}
+      }
+    }
+
+    function closeVaultSavedModal(force) {
+      if (!vaultSavedModalRoot || !vaultSavedModalRoot.classList.contains('is-active')) return;
+      var instant = force === true;
+      try {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) instant = true;
+      } catch (e2) {}
+
+      if (vaultSavedModalCloseTimer) clearTimeout(vaultSavedModalCloseTimer);
+      vaultSavedModalRoot.classList.remove('is-open');
+      vaultSavedModalRoot.setAttribute('aria-hidden', 'true');
+      if (instant) {
+        vaultSavedModalAfterCloseAction = null;
+        finalizeCloseVaultSavedModal();
+        return;
+      }
+      vaultSavedModalCloseTimer = setTimeout(finalizeCloseVaultSavedModal, 220);
+    }
+
+    function openVaultSavedModal() {
+      if (!vaultSavedModalRoot || !previewDemoHost || !previewDemoHost.classList.contains('is-desktop')) return;
+      closeVaultMobileFilterSheet(true);
+      if (vaultSavedModalCloseTimer) {
+        clearTimeout(vaultSavedModalCloseTimer);
+        vaultSavedModalCloseTimer = null;
+      }
+      renderVaultSavedModalView();
+      vaultSavedModalRoot.classList.add('is-active');
+      vaultSavedModalRoot.setAttribute('aria-hidden', 'false');
+      window.requestAnimationFrame(function () {
+        if (vaultSavedModalRoot && vaultSavedModalRoot.classList.contains('is-active')) vaultSavedModalRoot.classList.add('is-open');
+      });
+    }
+
+    function openVaultSaved() {
+      if (!previewDemoHost) return;
+      if (previewDemoHost.classList.contains('is-desktop')) openVaultSavedModal();
+      else openVaultSavedSheet();
+    }
+
+    function openVaultSavedListing(id) {
+      if (!id) return;
+      if (previewDemoHost && previewDemoHost.classList.contains('is-desktop')) {
+        vaultSavedModalAfterCloseAction = function () { openListingDetailModal(id); };
+        closeVaultSavedModal(false);
+      } else {
+        vaultSavedAfterCloseAction = function () { openListing(id); };
+        closeVaultSavedSheet(false);
+      }
+    }
+
     var vaultMobileFilterCloseTimer = null;
 
     function finalizeVaultMobileFilterSheetClose() {
@@ -15943,6 +16596,7 @@
       initVaultPriceBounds();
       initVaultPriceRangeSlider();
       initVaultFilterAccordion();
+      initDesktopMarketFilterSearch();
       updateVaultFacetCounts();
       ensureVaultCardFlipDefaultOff();
       syncVaultCardFlipUi();
@@ -15965,6 +16619,31 @@
           applyMarketFilters();
         });
       }
+      loadVaultSavedFromSession();
+      syncVaultSavedBadge();
+      if (vaultSavedBtn) vaultSavedBtn.addEventListener('click', openVaultSaved);
+      if (vaultSavedBackdrop) vaultSavedBackdrop.addEventListener('click', closeVaultSavedSheet);
+      if (vaultSavedClose) vaultSavedClose.addEventListener('click', closeVaultSavedSheet);
+      if (vaultSavedModalBackdrop) vaultSavedModalBackdrop.addEventListener('click', closeVaultSavedModal);
+      if (vaultSavedModalClose) vaultSavedModalClose.addEventListener('click', closeVaultSavedModal);
+      if (vaultSavedGrid) {
+        vaultSavedGrid.addEventListener('click', function (ev) {
+          var card = ev.target && ev.target.closest ? ev.target.closest('.market-item[data-open-detail]') : null;
+          if (!card) return;
+          ev.preventDefault();
+          ev.stopPropagation();
+          openVaultSavedListing(card.getAttribute('data-open-detail') || '');
+        });
+      }
+      if (vaultSavedModalGrid) {
+        vaultSavedModalGrid.addEventListener('click', function (ev) {
+          var card = ev.target && ev.target.closest ? ev.target.closest('.market-item[data-open-detail]') : null;
+          if (!card) return;
+          ev.preventDefault();
+          ev.stopPropagation();
+          openVaultSavedListing(card.getAttribute('data-open-detail') || '');
+        });
+      }
       if (vaultMarketSearchEl) vaultMarketSearchEl.addEventListener('input', applyMarketFilters);
       if (mfClearAll) mfClearAll.addEventListener('click', clearAllMarketFilters);
       if (vaultMobileFilterClear) vaultMobileFilterClear.addEventListener('click', clearAllMarketFilters);
@@ -15976,6 +16655,18 @@
       }
       if (vaultMobileFilterApplyBtn) vaultMobileFilterApplyBtn.addEventListener('click', applyVaultMobileFilterSheet);
       document.addEventListener('keydown', onVaultMobileFilterKeydown);
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        if (vaultSavedModalRoot && vaultSavedModalRoot.classList.contains('is-open')) {
+          e.preventDefault();
+          closeVaultSavedModal();
+          return;
+        }
+        if (vaultSavedRoot && vaultSavedRoot.classList.contains('is-open')) {
+          e.preventDefault();
+          closeVaultSavedSheet();
+        }
+      });
       var filterBar = document.getElementById('vaultMobileFilterBar');
       if (filterBar) {
         filterBar.addEventListener('click', function (ev) {
@@ -16759,6 +17450,8 @@
       if (!previewDemoHost) return;
       closeMobileMenu();
       closeVaultMobileFilterSheet(true);
+      closeVaultSavedSheet(true);
+      closeVaultSavedModal(true);
       if (mode === 'desktop') {
         closeFeedMobileExpand();
       } else {
@@ -18988,6 +19681,8 @@
     function switchScreen(target, rememberPrevious) {
       if (rememberPrevious === undefined) rememberPrevious = true;
       closeVaultMobileFilterSheet(true);
+      closeVaultSavedSheet(true);
+      closeVaultSavedModal(true);
       closeListingPhotoOverlay();
       closeListingDetailModal();
       closeFeedPostModal();
@@ -21448,6 +22143,7 @@
     if (detailWishlist) {
       detailWishlist.addEventListener('click', function () {
         toggleActionButton(detailWishlist, 'Add to Wishlist', 'Wishlisted');
+        setVaultListingSaved(getOpenListingIdForListingSheets(), detailWishlist.classList.contains('active'));
         showToast(detailWishlist.classList.contains('active') ? 'Added to wishlist' : 'Removed from wishlist');
       });
     }
@@ -21462,6 +22158,7 @@
     if (listingModalWishlist) {
       listingModalWishlist.addEventListener('click', function () {
         toggleActionButton(listingModalWishlist, 'Add to Wishlist', 'Wishlisted');
+        setVaultListingSaved(getOpenListingIdForListingSheets(), listingModalWishlist.classList.contains('active'));
         showToast(listingModalWishlist.classList.contains('active') ? 'Added to wishlist' : 'Removed from wishlist');
       });
     }
@@ -21698,6 +22395,8 @@
         const wishlistBtn = target.closest('.wishlist-btn');
         if (wishlistBtn) {
           toggleActionButton(wishlistBtn, '＋ Wishlist', '✓ Wishlisted');
+          var wid = resolveVaultListingIdFromWishlistButton(wishlistBtn);
+          setVaultListingSaved(wid, wishlistBtn.classList.contains('active'));
           showToast(wishlistBtn.classList.contains('active') ? 'Added to wishlist' : 'Removed from wishlist');
           return;
         }
